@@ -17,7 +17,7 @@ ObjectsMap::ObjectsMap(string filename)
     }
 
     while (!ifs.eof()) {
-        Object object;
+        EditorObject object;
 
         getline(ifs, line);
         if (line == "")

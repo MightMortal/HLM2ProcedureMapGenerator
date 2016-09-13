@@ -7,7 +7,7 @@
 
 #include "../../common.h"
 
-class Object
+class EditorObject
 {
 public:
     int id;
@@ -24,7 +24,7 @@ class ObjectsMap
 public:
     ObjectsMap(string filename);
 private:
-    vector<Object> objectsMap;
+    vector<EditorObject> objectsMap;
 };
 
 
