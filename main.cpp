@@ -1,15 +1,18 @@
 #include <iostream>
 
-#include "MapEditor/AssetDescriptors/Level.h"
-#include "MapEditor/AssetDescriptors/TilesMap.h"
-#include "MapEditor/AssetDescriptors/WallMap.h"
-#include "MapEditor/AssetDescriptors/ObjectsMap.h"
+#include "MapEditor/Assets/ObjectManager.h"
 
-int main() {
-    Level lv("test_level/level.hlm");
-    TilesMap tls("test_level/level0.tls");
-    WallMap wll("test_level/level0.wll");
-    ObjectsMap obj("test_level/level0.obj");
+int main()
+{
+    ObjectManager om(objects_path, sprites_path);
+
+    for (int i = 0; i < 10; ++i) {
+        cout << om.objects[i].get()->ObjectName() << endl;
+        int key = om.objects[i].get()->Sprite();
+        if (key != -1)
+            cout << om.spriteMap[key].get()->SpritePath() << endl;
+        cout << endl;
+    }
 
     return 0;
 }
