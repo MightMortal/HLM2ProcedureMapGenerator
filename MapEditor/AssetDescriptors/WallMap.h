@@ -5,7 +5,7 @@
 #ifndef HLM_LEVEL_READER_WALLMAP_H
 #define HLM_LEVEL_READER_WALLMAP_H
 
-#include "common.h"
+#include "../../common.h"
 
 class Wall
 {

@@ -5,7 +5,7 @@
 #ifndef HLM_LEVEL_READER_OBJECTSMAP_H
 #define HLM_LEVEL_READER_OBJECTSMAP_H
 
-#include "common.h"
+#include "../../common.h"
 
 class Object
 {

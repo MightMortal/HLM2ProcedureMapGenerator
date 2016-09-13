@@ -4,7 +4,7 @@
 
 #ifndef HLM_LEVEL_READER_LEVEL_H
 #define HLM_LEVEL_READER_LEVEL_H
-#include "common.h"
+#include "../../common.h"
 
 class Level
 {
