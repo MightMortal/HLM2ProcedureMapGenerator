@@ -5,6 +5,7 @@
 #ifndef HLM2PROCEDUREMAPGENERATOR_OBJECT_H
 #define HLM2PROCEDUREMAPGENERATOR_OBJECT_H
 
+#include <ostream>
 #include "../../common.h"
 #include "Sprite.h"
 
@@ -50,6 +51,8 @@ public:
     bool isPersistent() const
     { return _Persistent; }
 
+    friend ostream &operator<<(ostream &os, const Object &object);
+
 private:
     int _Key;
     string _ObjectName;
@@ -61,6 +64,5 @@ private:
     bool _Visible;
     bool _Persistent;
 };
-
 
 #endif //HLM2PROCEDUREMAPGENERATOR_OBJECT_H

@@ -12,17 +12,10 @@ int main(int argc, char *argv[])
 {
     ObjectManager om(objects_path, sprites_path);
 
-    for (int i = 0; i < 10; ++i) {
-        cout << om.objects[i].get()->ObjectName() << endl;
-        int key = om.objects[i].get()->Sprite();
-        if (key != -1)
-            cout << om.spriteMap[key].get()->SpritePath() << endl;
-        cout << endl;
-    }
+//    QApplication a(argc, argv);
+//    MainWindow w;
+//    w.show();
 
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-
-    return a.exec();
+//    return a.exec();
+    return 0;
 }

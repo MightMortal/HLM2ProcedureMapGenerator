@@ -17,12 +17,15 @@ const string sprites_path = "MapEditor/Assets/csv/sprites.csv";
 class ObjectManager
 {
 public:
-    vector<unique_ptr<Object>> objects;
-    map<int, unique_ptr<Sprite>> spriteMap;
-
     ObjectManager(string objects_path, string sprites_path);
 
     virtual ~ObjectManager();
+
+    pair<Object *, Sprite *> get(int objKey);
+
+private:
+    map<int, Object *> _objects;
+    map<int, Sprite *> _sprites;
 };
 
 

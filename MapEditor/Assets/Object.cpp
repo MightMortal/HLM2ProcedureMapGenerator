@@ -26,3 +26,12 @@ Object::Object(int _Key,
 
 Object::~Object()
 {}
+
+ostream &operator<<(ostream &os, const Object &object)
+{
+    os << "Object{_Key: " << object._Key << " _ObjectName: " << object._ObjectName << " _Sprite: " << object._Sprite
+       << " _Depth: " << object._Depth << " _ParentObject: " << object._ParentObject << " _MaskSprite: "
+       << object._MaskSprite << " _Solid: " << object._Solid << " _Visible: " << object._Visible << " _Persistent: "
+       << object._Persistent << "}";
+    return os;
+}
