@@ -1,12 +1,12 @@
 //
-// Created by asp437 on 13.09.16.
+// Created by Aleksandr Parfenov on 18.09.16.
 //
-
-#include "ObjectMap.h"
+#include "PlayMap.h"
 
 #include <fstream>
 
-ObjectMap::ObjectMap(string filename)
+
+PlayMap::PlayMap(string filename)
 {
     ifstream ifs(filename);
     string line;
@@ -15,8 +15,13 @@ ObjectMap::ObjectMap(string filename)
         throw runtime_error("Can't open file " + filename);
     }
 
+    getline(ifs, line);
+    magic1 = stoi(line);
+    getline(ifs, line);
+    magic2 = stoi(line);
+
     while (!ifs.eof()) {
-        EditorObject object;
+        PlayObject object;
 
         getline(ifs, line);
         if (line == "")
@@ -41,11 +46,6 @@ ObjectMap::ObjectMap(string filename)
         if (line == "")
             break;
         object.angle = stod(line);
-
-        getline(ifs, line);
-        if (line == "")
-            break;
-        object.behaviorId = stoi(line);
 
         getline(ifs, line);
         if (line == "")

@@ -10,7 +10,7 @@ class Level
 {
 public:
     Level();
-    Level(string fileName);
+    Level(string filename);
 
     string _name;
 

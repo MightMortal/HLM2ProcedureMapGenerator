@@ -20,6 +20,7 @@ set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/TilesMap.cpp MapEdit
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/WallMap.cpp MapEditor/LevelDescriptors/WallMap.h)
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/ObjectMap.cpp MapEditor/LevelDescriptors/ObjectMap.h)
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/Assets/Atlas.cpp MapEditor/Assets/Atlas.h)
+set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/PlayMap.cpp MapEditor/LevelDescriptors/PlayMap.h)
 
 
 add_executable(HLM2ProcedureMapGenerator ${SOURCE_FILES})

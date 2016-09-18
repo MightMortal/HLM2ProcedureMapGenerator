@@ -13,14 +13,13 @@ Level::Level()
 
 }
 
-Level::Level(string fileName)
+Level::Level(string filename)
 {
     string line;
-    ifstream ifs(fileName);
+    ifstream ifs(filename);
     if (!ifs.is_open()) {
-        // TODO: Throw exception
-        cerr << "Can't open file" << endl;
-        return;
+        cerr << "Can't open file" << filename << endl;
+        throw runtime_error("Can't open open file " + filename);
     }
 
     getline(ifs, _name);

@@ -8,6 +8,7 @@
 #include "MapEditor/LevelDescriptors/ObjectMap.h"
 #include "MapEditor/Assets/ObjectManager.h"
 #include "MapEditor/Assets/Atlas.h"
+#include "MapEditor/LevelDescriptors/PlayMap.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,14 +16,15 @@ int main(int argc, char *argv[])
     SpritesIndex::init(".");
     SpritesIndex::check(om);
 
-    ObjectMap objectsMap("test_level/level0.obj");
+//    ObjectMap objectsMap("test_level/level0.obj");
+    PlayMap playMap("test_level/level0.play");
 
     QApplication a(argc, argv);
     MainWindow window;
 
     window.fillColor(0, 0, 1088, 768, 0xFFFFFFFF);
 
-    for (auto editorObject : objectsMap.objects) {
+    for (auto editorObject : playMap.objects) {
         Sprite *sprite = om.get(editorObject.id).second;
         if (sprite == nullptr) {
             cout << "Object <" << editorObject.id << "> doesn't have sprite" << endl;
