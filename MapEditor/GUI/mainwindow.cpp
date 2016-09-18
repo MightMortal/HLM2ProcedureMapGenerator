@@ -36,9 +36,19 @@ void MainWindow::renderSprite(std::string filename, int x, int y, int tx, int ty
 {
     QPixmap texturePixmap;
     texturePixmap.load(QString(filename.c_str()));
-    QPixmap pixmap = texturePixmap.copy(tx, ty, w, h).scaled(w * 2, h * 2);
+    QPixmap pixmap = texturePixmap.copy(tx, ty, w, h).scaled(w * SCALE, h * SCALE);
     QGraphicsPixmapItem *item = new QGraphicsPixmapItem(pixmap);
-    item->setOffset(x * 2, y * 2);
+    item->setOffset(x * SCALE, y * SCALE);
+    ui->graphicsView->scene()->addItem(item);
+}
+
+void MainWindow::fillColor(int x, int y, int w, int h, unsigned int color)
+{
+    int r = (color >> 16) & 0xFF, g = (color >> 8) & 0xFF, b = (color) & 0xFF;
+    QPixmap pixmap(w * SCALE, h * SCALE);
+    pixmap.fill(QColor(r, g, b));
+    QGraphicsPixmapItem *item = new QGraphicsPixmapItem(pixmap);
+    item->setOffset(x * SCALE, y * SCALE);
     ui->graphicsView->scene()->addItem(item);
 }
 

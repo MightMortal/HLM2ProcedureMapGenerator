@@ -1,6 +1,5 @@
 #include <iostream>
 #include <QApplication>
-#include <set>
 
 #include "MapEditor/GUI/mainwindow.h"
 #include "MapEditor/LevelDescriptors/Level.h"
@@ -20,6 +19,8 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     MainWindow window;
+
+    window.fillColor(0, 0, 1088, 768, 0xFFFFFFFF);
 
     for (auto editorObject : objectsMap.objects) {
         Sprite *sprite = om.get(editorObject.id).second;
