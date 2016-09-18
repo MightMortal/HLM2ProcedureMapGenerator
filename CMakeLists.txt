@@ -18,7 +18,7 @@ set(SOURCE_FILES ${SOURCE_FILES} MapEditor/GUI/qstringitemmodel.cpp MapEditor/GU
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/Level.cpp MapEditor/LevelDescriptors/Level.h)
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/TilesMap.cpp MapEditor/LevelDescriptors/TilesMap.h)
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/WallMap.cpp MapEditor/LevelDescriptors/WallMap.h)
-set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/ObjectsMap.cpp MapEditor/LevelDescriptors/ObjectsMap.h)
+set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/ObjectMap.cpp MapEditor/LevelDescriptors/ObjectMap.h)
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/Assets/Atlas.cpp MapEditor/Assets/Atlas.h)
 
 

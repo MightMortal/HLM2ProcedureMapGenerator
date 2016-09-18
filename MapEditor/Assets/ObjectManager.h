@@ -22,6 +22,7 @@ public:
     virtual ~ObjectManager();
 
     pair<Object *, Sprite *> get(int objKey);
+    Sprite *getSprite(int spriteKey);
 
 private:
     map<int, Object *> _objects;

@@ -19,12 +19,11 @@ public:
     int magic;
 };
 
-class ObjectsMap
+class ObjectMap
 {
 public:
-    ObjectsMap(string filename);
-private:
-    vector<EditorObject> objectsMap;
+    ObjectMap(string filename);
+    vector<EditorObject> objects;
 };
 
 

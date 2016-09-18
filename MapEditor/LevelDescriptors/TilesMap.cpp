@@ -52,7 +52,7 @@ TilesMap::TilesMap(std::string filename)
             break;
         tile.attribute = stoi(line);
 
-        map.push_back(tile);
+        tiles.push_back(tile);
     }
 
     ifs.close();

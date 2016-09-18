@@ -6,6 +6,9 @@
 
 #include <fstream>
 #include <cstring>
+#include <dirent.h>
+
+map<string, string> SpritesIndex::index;
 
 SpriteFrame::SpriteFrame(AtlasSprite &atlasSprite, ifstream &ifs)
     : atlasSprite(atlasSprite)
@@ -118,4 +121,51 @@ ostream &operator<<(ostream &os, const Atlas &atlas)
     }
     os << "}";
     return os;
+}
+
+void SpritesIndex::init(string path)
+{
+    DIR *dir;
+    dirent *ent;
+    if ((dir = opendir(path.c_str())) != nullptr) {
+        while ((ent = readdir(dir)) != nullptr) {
+            string fileName = ent->d_name;
+            if (fileName.find('.') != 0 && ent->d_type == DT_DIR)
+                init(path + "/" + fileName);
+            else if (fileName.find(".meta") != fileName.npos) {
+                Atlas atlas(path + "/" + fileName);
+                for (auto sprite:atlas.sprites) {
+                    if (index.find(sprite.first) != index.end()) {
+                        cerr << "Few atlases with sprite " << sprite.first << endl;
+                    }
+                    index[sprite.first] = path + "/" + fileName;
+                }
+            }
+        }
+        closedir(dir);
+    }
+}
+
+bool SpritesIndex::check(ObjectManager &om)
+{
+    bool result = false;
+    for (int i = 0; i < MAX_SPRITE_ID; i++) {
+        Sprite *sprite = om.getSprite(i);
+        if (sprite != nullptr) {
+            string spriteName = sprite->SpritePath().substr(sprite->SpritePath().find_last_of('/') + 1);
+            if (index.find(spriteName) == index.end()) {
+                cerr << "Can't find path for sprite " << spriteName << endl;
+                result = true;
+            }
+        }
+    }
+    return result;
+}
+
+string SpritesIndex::getSpritePath(string spriteName)
+{
+    if (index.find(spriteName) != index.end())
+        return index[spriteName];
+    else
+        return "";
 }

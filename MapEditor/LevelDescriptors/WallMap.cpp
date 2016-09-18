@@ -43,7 +43,7 @@ WallMap::WallMap(string filename)
             break;
         wall.magic = stoi(line);
 
-        wallMap.push_back(wall);
+        walls.push_back(wall);
     }
 
     ifs.close();

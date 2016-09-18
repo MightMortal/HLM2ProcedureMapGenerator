@@ -23,8 +23,7 @@ class TilesMap
 public:
     TilesMap();
     TilesMap(std::string filename);
-private:
-    std::vector<Tile> map;
+    std::vector<Tile> tiles;
 };
 
 

@@ -8,6 +8,7 @@
 #include <map>
 #include <ostream>
 
+#include "ObjectManager.h"
 #include "../../common.h"
 
 class Atlas;
@@ -104,5 +105,15 @@ private:
     unsigned int height;
 };
 
+class SpritesIndex
+{
+public:
+    static void init(string path);
+    static bool check(ObjectManager &om);
+    static string getSpritePath(string spriteName);
+private:
+    static const int MAX_SPRITE_ID = 4500;
+    static map<string, string> index;
+};
 
 #endif //HLM2PROCEDUREMAPGENERATOR_ATLAS_H

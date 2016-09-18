@@ -25,12 +25,12 @@ public:
     void setAssetDescriptors(vector<AssetDescriptor> descriptors);
     vector<AssetDescriptor> getAssetDescriptors();
     void renderLevel();
+    void renderSprite(std::string image, int x, int y, int tx, int ty, int w, int h);
+
 public slots:
     void cellChanged(int row, int column);
 
 private:
-    void renderSprite(std::string image, int x, int y, int tx, int ty, int w, int h);
-
     QStringItemModel *assetDescriporsListModel;
     Ui::MainWindow *ui;
     double renderScale;

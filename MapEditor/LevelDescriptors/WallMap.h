@@ -21,8 +21,7 @@ class WallMap
 {
 public:
     WallMap(string filename);
-private:
-    vector<Wall> wallMap;
+    vector<Wall> walls;
 };
 
 

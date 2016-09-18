@@ -120,11 +120,16 @@ pair<Object *, Sprite *> ObjectManager::get(int objKey)
     auto obj_it = _objects.find(objKey);
     if (obj_it != _objects.end()) {
         p.first = obj_it->second;
-
-        auto spr_it = _sprites.find(p.first->Sprite());
-        if (spr_it != _sprites.end())
-            p.second = spr_it->second;
+        p.second = getSprite(p.first->Sprite());
     }
 
     return p;
+}
+
+Sprite *ObjectManager::getSprite(int spriteKey)
+{
+    auto spr_it = _sprites.find(spriteKey);
+    if (spr_it != _sprites.end())
+        return spr_it->second;
+    return nullptr;
 }
