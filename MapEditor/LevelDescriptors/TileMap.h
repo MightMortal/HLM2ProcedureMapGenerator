@@ -7,7 +7,7 @@
 
 #include "../../common.h"
 
-class Tile
+class EditorTile
 {
 public:
     int id;
@@ -18,12 +18,12 @@ public:
     int attribute;
 };
 
-class TilesMap
+class TileMap
 {
 public:
-    TilesMap();
-    TilesMap(std::string filename);
-    std::vector<Tile> tiles;
+    TileMap();
+    TileMap(std::string filename);
+    std::vector<EditorTile> tiles;
 };
 
 

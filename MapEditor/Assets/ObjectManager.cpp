@@ -58,6 +58,8 @@ ObjectManager::ObjectManager(string objects_path, string sprites_path)
         );
     }
 
+    objects_ifs.close();
+
     // Parsing sprites
     ifstream sprites_ifs(sprites_path);
     if (!sprites_ifs.is_open()) {
@@ -93,8 +95,72 @@ ObjectManager::ObjectManager(string objects_path, string sprites_path)
         );
     }
 
-    objects_ifs.close();
     sprites_ifs.close();
+}
+
+ObjectManager::ObjectManager(string objects_path, string sprites_path, string tiles_path, string walls_path)
+    : ObjectManager(objects_path, sprites_path)
+{
+    // Parsing Tiles
+    ifstream tiles_ifs(tiles_path);
+    if (!tiles_ifs.is_open()) {
+        cerr << "Can't open file: " << objects_path << endl;
+        throw runtime_error("Can't open file: " + objects_path);
+    }
+
+    tiles_ifs.ignore(numeric_limits<streamsize>::max(), '\n'); // Skip first line
+
+    string line;
+    while (getline(tiles_ifs, line)) {
+        string token;
+        istringstream iss(line);
+
+        int key, property;
+        string tileName;
+
+        getline(iss, token, ',');
+        key = stoi(token);
+
+        getline(iss, token, ',');
+        property = stoi(token);
+
+        getline(iss, tileName, ',');
+
+        _tiles[key] = new Tile(key, property, tileName);
+    }
+
+    tiles_ifs.close();
+
+    // Parsing Walls
+    ifstream walls_ifs(walls_path);
+    if (!walls_ifs.is_open()) {
+        cerr << "Can't open file: " << objects_path << endl;
+        throw runtime_error("Can't open file: " + objects_path);
+    }
+
+    walls_ifs.ignore(numeric_limits<streamsize>::max(), '\n'); // Skip first line
+
+    while (getline(walls_ifs, line)) {
+        string token;
+        istringstream iss(line);
+
+        int key, property1, property2;
+        string tileName;
+
+        getline(iss, token, ',');
+        key = stoi(token);
+
+        getline(iss, token, ',');
+        property1 = stoi(token);
+
+        getline(iss, token, ',');
+        property2 = stoi(token);
+
+        getline(iss, tileName, ',');
+
+        _walls[key] = new Wall(key, property1, property2, tileName);
+    }
+    walls_ifs.close();
 }
 
 ObjectManager::~ObjectManager()
@@ -106,6 +172,14 @@ ObjectManager::~ObjectManager()
     for (map<int, Sprite *>::iterator it = _sprites.begin(); it != _sprites.end(); ++it)
         delete it->second;
     _sprites.clear();
+
+    for (auto it = _walls.begin(); it != _walls.end(); ++it)
+        delete it->second;
+    _walls.clear();
+
+    for (auto it = _tiles.begin(); it != _tiles.end(); ++it)
+        delete it->second;
+    _tiles.clear();
 }
 
 /**
@@ -131,5 +205,21 @@ Sprite *ObjectManager::getSprite(int spriteKey)
     auto spr_it = _sprites.find(spriteKey);
     if (spr_it != _sprites.end())
         return spr_it->second;
+    return nullptr;
+}
+
+Tile *ObjectManager::getTile(int tileKey)
+{
+    auto tile_it = _tiles.find(tileKey);
+    if (tile_it != _tiles.end())
+        return tile_it->second;
+    return nullptr;
+}
+
+Wall *ObjectManager::getWall(int wallKey)
+{
+    auto wall_it = _walls.find(wallKey);
+    if (wall_it != _walls.end())
+        return wall_it->second;
     return nullptr;
 }

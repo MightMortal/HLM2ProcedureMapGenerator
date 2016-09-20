@@ -7,7 +7,7 @@
 
 #include "../../common.h"
 
-class Wall
+class EditorWall
 {
 public:
     int id;
@@ -21,7 +21,7 @@ class WallMap
 {
 public:
     WallMap(string filename);
-    vector<Wall> walls;
+    vector<EditorWall> walls;
 };
 
 

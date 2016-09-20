@@ -16,7 +16,7 @@ WallMap::WallMap(string filename)
     }
 
     while (!ifs.eof()) {
-        Wall wall;
+        EditorWall wall;
 
         getline(ifs, line);
         if (line == "")

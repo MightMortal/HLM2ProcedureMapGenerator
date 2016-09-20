@@ -2,16 +2,16 @@
 // Created by asp437 on 13.09.16.
 //
 
-#include "TilesMap.h"
+#include "TileMap.h"
 
 #include <fstream>
 
-TilesMap::TilesMap()
+TileMap::TileMap()
 {
 
 }
 
-TilesMap::TilesMap(std::string filename)
+TileMap::TileMap(std::string filename)
 {
     ifstream ifs(filename);
     string line;
@@ -21,7 +21,7 @@ TilesMap::TilesMap(std::string filename)
     }
 
     while (!ifs.eof()) {
-        Tile tile;
+        EditorTile tile;
 
         getline(ifs, line);
         if (line == "")
