@@ -13,11 +13,11 @@ ID,Property,Property2,Name
 101,177,0,Sprites/Walls/sprPorchWallV
 677,1131,0,Sprites/Walls/sprWoodWallH
 675,1132,0,Sprites/Walls/sprWoodWallV
-683,1925,0,Sprites/Walls/sprWoodWindowH //TODO:check
-2413,128,0,Sprites/Walls/sprWoodWindowV //TODO:check
+683,1925,0,Sprites/Walls/sprWoodWindowH
+682,1143,0,Sprites/Walls/sprWoodWindowV
 56,1863,0,Sprites/Walls/sprRailsDownMask
 54,130,0,Sprites/Walls/sprRailsLeftMask
 55,127,0,Sprites/Walls/sprRailsDown
 1512,2657,0,Sprites/Walls/sprRailsLeft
-1511,2656,0,Sprites/Walls/ //TODO:fence
-682,1143,0,Sprites/Walls/  //TODO:fence
+1511,2656,0,Sprites/Furniture/Rat/Abandonned_Building/sprRenovationWallH
+1512,2657,0,Sprites/Furniture/Rat/Abandonned_Building/sprRenovationWallV
