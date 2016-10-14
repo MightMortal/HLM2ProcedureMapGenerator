@@ -1,56 +1,28 @@
 //
-// Created by asp437 on 13.09.16.
+// Created by Aleksandr Parfenov on 14.10.16.
 //
 
-#ifndef HLM_LEVEL_READER_LEVEL_H
-#define HLM_LEVEL_READER_LEVEL_H
+#ifndef HLM2PROCEDUREMAPGENERATOR_LEVEL_H
+#define HLM2PROCEDUREMAPGENERATOR_LEVEL_H
+
 #include "../../common.h"
+#include "ObjectMap.h"
+#include "PlayMap.h"
+#include "TileMap.h"
+#include "WallMap.h"
+#include "LevelMetaInformation.h"
 
 class Level
 {
 public:
-    Level();
-    Level(string filename);
+    Level(string levelPath);
 
-    string _name;
-
-    int _magic1; // 0
-
-    string _authorName;
-
-    int _magic2; // 0
-
-    int _sRankScore;
-    int _playerId;
-
-    int _magic3; // 1
-    int _magic4; // -1
-
-    int _musicId;
-
-    int _leftCornerX;
-    int _leftCornerY;
-    int _width;
-    int _height;
-
-    int _magic5; // 974
-    int _magic6; // 0
-
-    int hours;
-    int minutes;
-    int day;
-    int month;
-    int year;
-
-    string _cityName;
-    string _stateName;
-    string _address;
-
-    int _magic7; // 0
-    int _magic8; // 9999
-    int _magic9; // 9999
-private:
+    LevelMetaInformation metaInformation;
+    vector<ObjectMap> objectMaps;
+    vector<PlayMap> playMaps;
+    vector<TileMap> tileMaps;
+    vector<WallMap> wallMaps;
 };
 
 
-#endif //HLM_LEVEL_READER_LEVEL_H
+#endif //HLM2PROCEDUREMAPGENERATOR_LEVEL_H

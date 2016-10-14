@@ -15,7 +15,7 @@ set(SOURCE_FILES ${SOURCE_FILES} MapEditor/Assets/Sprite.cpp MapEditor/Assets/Sp
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/GUI/moc_mainwindow.cpp MapEditor/GUI/moc_qstringitemmodel.cpp)
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/GUI/mainwindow.cpp MapEditor/GUI/mainwindow.h MapEditor/GUI/ui_mainwindow.h)
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/GUI/qstringitemmodel.cpp MapEditor/GUI/qstringitemmodel.h)
-set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/Level.cpp MapEditor/LevelDescriptors/Level.h)
+set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/LevelMetaInformation.cpp MapEditor/LevelDescriptors/LevelMetaInformation.h)
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/TileMap.cpp MapEditor/LevelDescriptors/TileMap.h)
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/WallMap.cpp MapEditor/LevelDescriptors/WallMap.h)
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/ObjectMap.cpp MapEditor/LevelDescriptors/ObjectMap.h)
@@ -23,6 +23,7 @@ set(SOURCE_FILES ${SOURCE_FILES} MapEditor/Assets/Atlas.cpp MapEditor/Assets/Atl
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/PlayMap.cpp MapEditor/LevelDescriptors/PlayMap.h)
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/Assets/Wall.cpp MapEditor/Assets/Wall.h)
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/Assets/Tile.cpp MapEditor/Assets/Tile.h)
+set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/Level.cpp MapEditor/LevelDescriptors/Level.h)
 
 
 add_executable(HLM2ProcedureMapGenerator ${SOURCE_FILES})
