@@ -6,8 +6,7 @@
 #include <QModelIndex>
 #include <QVariant>
 
-class QStringItemModel: public QAbstractItemModel
-{
+class QStringItemModel : public QAbstractItemModel {
 Q_OBJECT
 public:
     explicit QStringItemModel(const QString &data, QObject *parent = 0);

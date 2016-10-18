@@ -18,8 +18,7 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-struct qt_meta_stringdata_MainWindow_t
-{
+struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[12];
     char stringdata0[200];
 };
@@ -85,27 +84,22 @@ static const uint qt_meta_data_MainWindow[] = {
     0        // eod
 };
 
-void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
-{
+void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a) {
     if (_c == QMetaObject::InvokeMetaMethod) {
         MainWindow *_t = static_cast<MainWindow *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-            case 0:
-                _t->cellChanged((*reinterpret_cast< int (*)>(_a[1])), (*reinterpret_cast< int (*)>(_a[2])));
+            case 0:_t->cellChanged((*reinterpret_cast< int (*)>(_a[1])), (*reinterpret_cast< int (*)>(_a[2])));
                 break;
-            case 1:
-                _t->on_loadButton_clicked((*reinterpret_cast< bool (*)>(_a[1])));
+            case 1:_t->on_loadButton_clicked((*reinterpret_cast< bool (*)>(_a[1])));
                 break;
-            case 2:
-                _t->on_saveButton_clicked((*reinterpret_cast< bool (*)>(_a[1])));
+            case 2:_t->on_saveButton_clicked((*reinterpret_cast< bool (*)>(_a[1])));
                 break;
             case 4:
                 _t->on_propertyEditWidget_cellChanged((*reinterpret_cast< int (*)>(_a[1])),
                                                       (*reinterpret_cast< int (*)>(_a[2])));
                 break;
-            case 5:
-                _t->on_descriptorsListView_doubleClicked((*reinterpret_cast< const QModelIndex(*)>(_a[1])));
+            case 5:_t->on_descriptorsListView_doubleClicked((*reinterpret_cast< const QModelIndex(*)>(_a[1])));
                 break;
             default:;
         }
@@ -117,22 +111,18 @@ const QMetaObject MainWindow::staticMetaObject = {
      qt_meta_data_MainWindow, qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
-
-const QMetaObject *MainWindow::metaObject() const
-{
+const QMetaObject *MainWindow::metaObject() const {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *MainWindow::qt_metacast(const char *_clname)
-{
+void *MainWindow::qt_metacast(const char *_clname) {
     if (!_clname) return Q_NULLPTR;
     if (!strcmp(_clname, qt_meta_stringdata_MainWindow.stringdata0))
         return static_cast<void *>(const_cast< MainWindow *>(this));
     return QMainWindow::qt_metacast(_clname);
 }
 
-int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
-{
+int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a) {
     _id = QMainWindow::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
@@ -140,8 +130,7 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
         _id -= 6;
-    }
-    else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 6)
             *reinterpret_cast<int *>(_a[0]) = -1;
         _id -= 6;

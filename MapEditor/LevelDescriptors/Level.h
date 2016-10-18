@@ -12,8 +12,7 @@
 #include "WallMap.h"
 #include "LevelMetaInformation.h"
 
-class Level
-{
+class Level {
 public:
     Level(string levelPath);
 
@@ -23,6 +22,5 @@ public:
     vector<TileMap> tileMaps;
     vector<WallMap> wallMaps;
 };
-
 
 #endif //HLM2PROCEDUREMAPGENERATOR_LEVEL_H

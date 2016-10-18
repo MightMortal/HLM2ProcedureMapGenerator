@@ -18,8 +18,7 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-struct qt_meta_stringdata_QStringItemModel_t
-{
+struct qt_meta_stringdata_QStringItemModel_t {
     QByteArrayData data[1];
     char stringdata0[17];
 };
@@ -55,8 +54,7 @@ static const uint qt_meta_data_QStringItemModel[] = {
     0        // eod
 };
 
-void QStringItemModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
-{
+void QStringItemModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a) {
     Q_UNUSED(_o);
     Q_UNUSED(_id);
     Q_UNUSED(_c);
@@ -68,21 +66,18 @@ const QMetaObject QStringItemModel::staticMetaObject = {
      qt_meta_data_QStringItemModel, qt_static_metacall, Q_NULLPTR, Q_NULLPTR}
 };
 
-const QMetaObject *QStringItemModel::metaObject() const
-{
+const QMetaObject *QStringItemModel::metaObject() const {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *QStringItemModel::qt_metacast(const char *_clname)
-{
+void *QStringItemModel::qt_metacast(const char *_clname) {
     if (!_clname) return Q_NULLPTR;
     if (!strcmp(_clname, qt_meta_stringdata_QStringItemModel.stringdata0))
         return static_cast<void *>(const_cast< QStringItemModel *>(this));
     return QAbstractItemModel::qt_metacast(_clname);
 }
 
-int QStringItemModel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
-{
+int QStringItemModel::qt_metacall(QMetaObject::Call _c, int _id, void **_a) {
     _id = QAbstractItemModel::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;

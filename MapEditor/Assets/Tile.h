@@ -8,19 +8,15 @@
 #include <ostream>
 #include "../../common.h"
 
-class Tile
-{
+class Tile {
 public:
     Tile(int _id, int _property, const string &_name);
 
-    int getId() const
-    { return _id; }
+    int getId() const { return _id; }
 
-    int getProperty() const
-    { return _property; }
+    int getProperty() const { return _property; }
 
-    const string &getName() const
-    { return _name; }
+    const string &getName() const { return _name; }
 
     friend ostream &operator<<(ostream &os, const Tile &tile);
 private:
@@ -28,6 +24,5 @@ private:
     int _property;
     string _name;
 };
-
 
 #endif //HLM2PROCEDUREMAPGENERATOR_TILE_H

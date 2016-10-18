@@ -7,8 +7,7 @@
 
 #include "../../common.h"
 
-class PlayObject
-{
+class PlayObject {
 public:
     int id;
     int x;
@@ -18,14 +17,12 @@ public:
     int magic;
 };
 
-class PlayMap
-{
+class PlayMap {
 public:
     PlayMap(string filename);
     vector<PlayObject> objects;
     int magic1;
     int magic2;
 };
-
 
 #endif //HLM2PROCEDUREMAPGENERATOR_PLAYMAP_H

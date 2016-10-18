@@ -14,37 +14,27 @@
 class Atlas;
 class AtlasSprite;
 
-class SpriteFrame
-{
+class SpriteFrame {
 public:
     SpriteFrame(AtlasSprite &atlasSprite, ifstream &ifs);
 
-    AtlasSprite &getAtlasSprite() const
-    { return atlasSprite; }
+    AtlasSprite &getAtlasSprite() const { return atlasSprite; }
 
-    int getOffsetX() const
-    { return offsetX; }
+    int getOffsetX() const { return offsetX; }
 
-    int getOffsetY() const
-    { return offsetY; }
+    int getOffsetY() const { return offsetY; }
 
-    int getWidth() const
-    { return width; }
+    int getWidth() const { return width; }
 
-    int getHeight() const
-    { return height; }
+    int getHeight() const { return height; }
 
-    double getUStart() const
-    { return uStart; }
+    double getUStart() const { return uStart; }
 
-    double getVStart() const
-    { return vStart; }
+    double getVStart() const { return vStart; }
 
-    double getUEnd() const
-    { return uEnd; }
+    double getUEnd() const { return uEnd; }
 
-    double getVEnd() const
-    { return vEnd; }
+    double getVEnd() const { return vEnd; }
 
     friend ostream &operator<<(ostream &os, const SpriteFrame &frame);
 private:
@@ -59,16 +49,13 @@ private:
     float vEnd;
 };
 
-class AtlasSprite
-{
+class AtlasSprite {
 public:
     AtlasSprite(Atlas &atlas, ifstream &ifs);
 
-    Atlas &getAtlas() const
-    { return atlas; }
+    Atlas &getAtlas() const { return atlas; }
 
-    const string &getName() const
-    { return name; }
+    const string &getName() const { return name; }
 
     friend ostream &operator<<(ostream &os, const AtlasSprite &sprite);
 
@@ -78,22 +65,17 @@ private:
     string name;
 };
 
-class Atlas
-{
+class Atlas {
 public:
     Atlas(string filename);
 
-    const string &getPath() const
-    { return path; }
+    const string &getPath() const { return path; }
 
-    unsigned int getWidth() const
-    { return width; }
+    unsigned int getWidth() const { return width; }
 
-    unsigned int getHeight() const
-    { return height; }
+    unsigned int getHeight() const { return height; }
 
-    unsigned int getVersion() const
-    { return version; }
+    unsigned int getVersion() const { return version; }
 
     friend ostream &operator<<(ostream &os, const Atlas &atlas);
 
@@ -105,8 +87,7 @@ private:
     unsigned int height;
 };
 
-class SpritesIndex
-{
+class SpritesIndex {
 public:
     static void init(string path);
     static bool check(ObjectManager &om);

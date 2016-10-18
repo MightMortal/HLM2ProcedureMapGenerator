@@ -21,8 +21,7 @@ const string TILES_PATH = "MapEditor/Assets/csv/tiles.csv";
 
 const string WALLS_PATH = "MapEditor/Assets/csv/walls.csv";
 
-class ObjectManager
-{
+class ObjectManager {
 public:
     ObjectManager(string objects_path, string sprites_path);
     ObjectManager(string objects_path, string sprites_path, string tiles_path, string walls_path);
@@ -39,6 +38,5 @@ private:
     map<int, Tile *> _tiles;
     map<int, Wall *> _walls;
 };
-
 
 #endif //HLM2PROCEDUREMAPGENERATOR_OBJECTMANAGER_H

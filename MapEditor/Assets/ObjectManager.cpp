@@ -7,8 +7,7 @@
 #include <limits>
 #include "ObjectManager.h"
 
-ObjectManager::ObjectManager(string objects_path, string sprites_path)
-{
+ObjectManager::ObjectManager(string objects_path, string sprites_path) {
     // Parsing objects
     ifstream objects_ifs(objects_path);
     if (!objects_ifs.is_open()) {
@@ -99,8 +98,7 @@ ObjectManager::ObjectManager(string objects_path, string sprites_path)
 }
 
 ObjectManager::ObjectManager(string objects_path, string sprites_path, string tiles_path, string walls_path)
-    : ObjectManager(objects_path, sprites_path)
-{
+    : ObjectManager(objects_path, sprites_path) {
     // Parsing Tiles
     ifstream tiles_ifs(tiles_path);
     if (!tiles_ifs.is_open()) {
@@ -163,8 +161,7 @@ ObjectManager::ObjectManager(string objects_path, string sprites_path, string ti
     walls_ifs.close();
 }
 
-ObjectManager::~ObjectManager()
-{
+ObjectManager::~ObjectManager() {
     for (map<int, Object *>::iterator it = _objects.begin(); it != _objects.end(); ++it)
         delete it->second;
     _objects.clear();
@@ -187,8 +184,7 @@ ObjectManager::~ObjectManager()
  * @param objKey - key of the object
  * @return <b>std::pair&lt;Object*, Sprite*&gt;</b> - pointers or nullptrs if not found
  */
-pair<Object *, Sprite *> ObjectManager::get(int objKey)
-{
+pair<Object *, Sprite *> ObjectManager::get(int objKey) {
     pair<Object *, Sprite *> p(nullptr, nullptr);
 
     auto obj_it = _objects.find(objKey);
@@ -200,24 +196,21 @@ pair<Object *, Sprite *> ObjectManager::get(int objKey)
     return p;
 }
 
-Sprite *ObjectManager::getSprite(int spriteKey)
-{
+Sprite *ObjectManager::getSprite(int spriteKey) {
     auto spr_it = _sprites.find(spriteKey);
     if (spr_it != _sprites.end())
         return spr_it->second;
     return nullptr;
 }
 
-Tile *ObjectManager::getTile(int tileKey)
-{
+Tile *ObjectManager::getTile(int tileKey) {
     auto tile_it = _tiles.find(tileKey);
     if (tile_it != _tiles.end())
         return tile_it->second;
     return nullptr;
 }
 
-Wall *ObjectManager::getWall(int wallKey)
-{
+Wall *ObjectManager::getWall(int wallKey) {
     auto wall_it = _walls.find(wallKey);
     if (wall_it != _walls.end())
         return wall_it->second;

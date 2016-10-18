@@ -6,8 +6,7 @@
 #define HLM_LEVEL_READER_LEVEL_H
 #include "../../common.h"
 
-class LevelMetaInformation
-{
+class LevelMetaInformation {
 public:
     LevelMetaInformation();
     LevelMetaInformation(string filename);
@@ -51,6 +50,5 @@ public:
     int _magic9; // 9999
 private:
 };
-
 
 #endif //HLM_LEVEL_READER_LEVEL_H

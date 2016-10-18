@@ -8,13 +8,11 @@
 #include <iostream>
 
 LevelMetaInformation::LevelMetaInformation()
-    : _magic8(9999), _magic9(9999)
-{
+    : _magic8(9999), _magic9(9999) {
 
 }
 
-LevelMetaInformation::LevelMetaInformation(string filename)
-{
+LevelMetaInformation::LevelMetaInformation(string filename) {
     string line;
     ifstream ifs(filename);
     if (!ifs.is_open()) {
@@ -31,7 +29,6 @@ LevelMetaInformation::LevelMetaInformation(string filename)
 
     getline(ifs, line);
     _magic2 = stoi(line);
-
 
     getline(ifs, line);
     _sRankScore = stoi(line);
@@ -55,12 +52,10 @@ LevelMetaInformation::LevelMetaInformation(string filename)
     getline(ifs, line);
     _height = stoi(line);
 
-
     getline(ifs, line);
     _magic5 = stoi(line);
     getline(ifs, line);
     _magic6 = stoi(line);
-
 
     getline(ifs, line);
     hours = stoi(line);

@@ -13,8 +13,7 @@ MainWindow::MainWindow(ObjectManager &om, QWidget *parent)
     om(om),
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    renderScale(2.0)
-{
+    renderScale(2.0) {
     ui->setupUi(this);
 
     QStringItemModel *stringItemModel = new QStringItemModel(QString("asdf"));
@@ -36,8 +35,7 @@ MainWindow::MainWindow(ObjectManager &om, QWidget *parent)
     ui->graphicsView->show();
 }
 
-void MainWindow::renderSprite(std::string filename, int x, int y, int tx, int ty, int w, int h)
-{
+void MainWindow::renderSprite(std::string filename, int x, int y, int tx, int ty, int w, int h) {
     QPixmap texturePixmap;
     texturePixmap.load(QString(filename.c_str()));
     QPixmap pixmap = texturePixmap.copy(tx, ty, w, h).scaled(w * SCALE, h * SCALE);
@@ -46,8 +44,7 @@ void MainWindow::renderSprite(std::string filename, int x, int y, int tx, int ty
     ui->graphicsView->scene()->addItem(item);
 }
 
-void MainWindow::fillColor(int x, int y, int w, int h, unsigned int color)
-{
+void MainWindow::fillColor(int x, int y, int w, int h, unsigned int color) {
     int r = (color >> 16) & 0xFF, g = (color >> 8) & 0xFF, b = (color) & 0xFF;
     QPixmap pixmap(w * SCALE, h * SCALE);
     pixmap.fill(QColor(r, g, b));
@@ -56,35 +53,29 @@ void MainWindow::fillColor(int x, int y, int w, int h, unsigned int color)
     ui->graphicsView->scene()->addItem(item);
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::setAssetDescriptors(vector<AssetDescriptor> descriptors)
-{
+void MainWindow::setAssetDescriptors(vector<AssetDescriptor *> descriptors) {
     // TODO: Implement
 }
 
-vector<AssetDescriptor> MainWindow::getAssetDescriptors()
-{
+vector<AssetDescriptor *> MainWindow::getAssetDescriptors() {
     // TODO: Implement
 }
 
-void MainWindow::renderLevel(Level &level)
-{
+void MainWindow::renderLevel(Level &level) {
     renderTiles(level.tileMaps.begin()->tiles);
     renderWalls(level.wallMaps.begin()->walls);
     renderObjects(level.objectMaps.begin()->objects);
 }
 
-void MainWindow::cellChanged(int row, int column)
-{
+void MainWindow::cellChanged(int row, int column) {
 //    printf("Cell %d/%d changed\n", row, column);
 }
 
-void MainWindow::on_loadButton_clicked(bool checked)
-{
+void MainWindow::on_loadButton_clicked(bool checked) {
     QString dir = QFileDialog::getExistingDirectory(this,
                                                     "Open level directory",
                                                     QString(),
@@ -94,24 +85,20 @@ void MainWindow::on_loadButton_clicked(bool checked)
     renderLevel(level);
 }
 
-void MainWindow::on_saveButton_clicked(bool checked)
-{
+void MainWindow::on_saveButton_clicked(bool checked) {
 
 }
 
-void MainWindow::on_propertyEditWidget_cellChanged(int row, int column)
-{
+void MainWindow::on_propertyEditWidget_cellChanged(int row, int column) {
 
 }
 
-void MainWindow::on_descriptorsListView_doubleClicked(const QModelIndex &index)
-{
+void MainWindow::on_descriptorsListView_doubleClicked(const QModelIndex &index) {
 
 }
 
 template<typename T>
-void MainWindow::renderObjects(vector<T> &objects)
-{
+void MainWindow::renderObjects(vector<T> &objects) {
     int tx, ty, w, h;
     for (auto editorObject : objects) {
         Sprite *sprite = om.get(editorObject.id).second;
@@ -133,8 +120,7 @@ void MainWindow::renderObjects(vector<T> &objects)
     }
 }
 
-void MainWindow::renderWalls(vector<EditorWall> &walls)
-{
+void MainWindow::renderWalls(vector<EditorWall> &walls) {
     int tx, ty, w, h;
     for (auto editorWall : walls) {
         Wall *wall = om.getWall(editorWall.id);
@@ -150,8 +136,7 @@ void MainWindow::renderWalls(vector<EditorWall> &walls)
     }
 }
 
-void MainWindow::renderTiles(vector<EditorTile> &tiles)
-{
+void MainWindow::renderTiles(vector<EditorTile> &tiles) {
     int tx, ty, w, h;
     for (auto editorTile : tiles) {
         Tile *tile = om.getTile(editorTile.id);

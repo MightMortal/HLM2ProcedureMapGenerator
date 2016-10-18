@@ -21,14 +21,11 @@ Object::Object(int _Key,
       _MaskSprite(_MaskSprite),
       _Solid(_Solid),
       _Visible(_Visible),
-      _Persistent(_Persistent)
-{}
+      _Persistent(_Persistent) {}
 
-Object::~Object()
-{}
+Object::~Object() {}
 
-ostream &operator<<(ostream &os, const Object &object)
-{
+ostream &operator<<(ostream &os, const Object &object) {
     os << "Object{_Key: " << object._Key << " _ObjectName: " << object._ObjectName << " _Sprite: " << object._Sprite
        << " _Depth: " << object._Depth << " _ParentObject: " << object._ParentObject << " _MaskSprite: "
        << object._MaskSprite << " _Solid: " << object._Solid << " _Visible: " << object._Visible << " _Persistent: "

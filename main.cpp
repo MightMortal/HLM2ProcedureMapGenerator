@@ -10,8 +10,7 @@
 #include "MapEditor/Assets/Atlas.h"
 #include "MapEditor/LevelDescriptors/PlayMap.h"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     ObjectManager om(OBJECTS_PATH, SPRITES_PATH, TILES_PATH, WALLS_PATH);
     SpritesIndex::init(".");
     SpritesIndex::check(om);

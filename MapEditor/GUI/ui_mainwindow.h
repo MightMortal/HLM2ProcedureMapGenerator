@@ -25,8 +25,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_MainWindow
-{
+class Ui_MainWindow {
 public:
     QWidget *centralWidget;
     QGridLayout *gridLayout_2;
@@ -38,8 +37,7 @@ public:
     QGraphicsView *graphicsView;
     QTableWidget *propertyEditWidget;
 
-    void setupUi(QMainWindow *MainWindow)
-    {
+    void setupUi(QMainWindow *MainWindow) {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(820, 501);
@@ -74,7 +72,6 @@ public:
 
         horizontalLayout->addWidget(saveButton);
 
-
         gridLayout->addLayout(horizontalLayout, 2, 1, 1, 1);
 
         graphicsView = new QGraphicsView(centralWidget);
@@ -100,7 +97,6 @@ public:
 
         gridLayout->addWidget(propertyEditWidget, 1, 1, 1, 1);
 
-
         gridLayout_2->addLayout(gridLayout, 0, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
@@ -110,8 +106,7 @@ public:
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
 
-    void retranslateUi(QMainWindow *MainWindow)
-    {
+    void retranslateUi(QMainWindow *MainWindow) {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "HLM2ProcedureMapGenerator", 0));
         loadButton->setText(QApplication::translate("MainWindow", "Load", 0));
         saveButton->setText(QApplication::translate("MainWindow", "Save", 0));
@@ -119,10 +114,8 @@ public:
 
 };
 
-namespace Ui
-{
-class MainWindow: public Ui_MainWindow
-{
+namespace Ui {
+class MainWindow : public Ui_MainWindow {
 };
 } // namespace Ui
 

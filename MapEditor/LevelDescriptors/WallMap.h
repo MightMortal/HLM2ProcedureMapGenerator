@@ -7,8 +7,7 @@
 
 #include "../../common.h"
 
-class EditorWall
-{
+class EditorWall {
 public:
     int id;
     int x;
@@ -17,12 +16,10 @@ public:
     int magic;
 };
 
-class WallMap
-{
+class WallMap {
 public:
     WallMap(string filename);
     vector<EditorWall> walls;
 };
-
 
 #endif //HLM_LEVEL_READER_WALLMAP_H

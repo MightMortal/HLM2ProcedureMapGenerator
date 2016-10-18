@@ -12,23 +12,21 @@
 #include "../Assets/ObjectManager.h"
 #include "../LevelDescriptors/Level.h"
 
-namespace Ui
-{
+namespace Ui {
 class MainWindow;
 }
 
 class AssetDescriptor;
 
-class MainWindow: public QMainWindow
-{
+class MainWindow : public QMainWindow {
 Q_OBJECT
 
 public:
     explicit MainWindow(ObjectManager &om, QWidget *parent = 0);
     ~MainWindow();
 
-    void setAssetDescriptors(std::vector<AssetDescriptor> descriptors);
-    std::vector<AssetDescriptor> getAssetDescriptors();
+    void setAssetDescriptors(std::vector<AssetDescriptor *> descriptors);
+    std::vector<AssetDescriptor *> getAssetDescriptors();
     void renderLevel(Level &level);
     void renderSprite(std::string image, int x, int y, int tx, int ty, int w, int h);
     void fillColor(int x, int y, int w, int h, unsigned int color);

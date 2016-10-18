@@ -8,22 +8,17 @@
 #include <ostream>
 #include "../../common.h"
 
-class Wall
-{
+class Wall {
 public:
     Wall(int id, int property, int property2, const string &name);
 
-    int getId() const
-    { return _id; }
+    int getId() const { return _id; }
 
-    int getProperty() const
-    { return _property; }
+    int getProperty() const { return _property; }
 
-    int getProperty2() const
-    { return _property2; }
+    int getProperty2() const { return _property2; }
 
-    const string &getName() const
-    { return _name; }
+    const string &getName() const { return _name; }
 
     friend ostream &operator<<(ostream &os, const Wall &wall);
 private:

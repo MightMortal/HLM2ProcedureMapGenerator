@@ -5,9 +5,7 @@
 
 #include <fstream>
 
-
-PlayMap::PlayMap(string filename)
-{
+PlayMap::PlayMap(string filename) {
     ifstream ifs(filename);
     string line;
     if (!ifs.is_open()) {

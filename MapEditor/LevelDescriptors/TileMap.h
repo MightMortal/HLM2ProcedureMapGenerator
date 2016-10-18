@@ -7,8 +7,7 @@
 
 #include "../../common.h"
 
-class EditorTile
-{
+class EditorTile {
 public:
     int id;
     int textureX;
@@ -18,13 +17,11 @@ public:
     int attribute;
 };
 
-class TileMap
-{
+class TileMap {
 public:
     TileMap();
     TileMap(std::string filename);
     std::vector<EditorTile> tiles;
 };
-
 
 #endif //HLM_LEVEL_READER_TILES_H

@@ -6,13 +6,11 @@
 
 #include <fstream>
 
-TileMap::TileMap()
-{
+TileMap::TileMap() {
 
 }
 
-TileMap::TileMap(std::string filename)
-{
+TileMap::TileMap(std::string filename) {
     ifstream ifs(filename);
     string line;
     if (!ifs.is_open()) {

@@ -9,8 +9,7 @@
 #include "../../common.h"
 #include "Sprite.h"
 
-class Object
-{
+class Object {
 public:
     Object(int _Key,
            const string &_ObjectName,
@@ -24,32 +23,23 @@ public:
 
     ~Object();
 
-    int Key() const
-    { return _Key; }
+    int Key() const { return _Key; }
 
-    const string &ObjectName() const
-    { return _ObjectName; }
+    const string &ObjectName() const { return _ObjectName; }
 
-    int Sprite() const
-    { return _Sprite; }
+    int Sprite() const { return _Sprite; }
 
-    int Depth() const
-    { return _Depth; }
+    int Depth() const { return _Depth; }
 
-    int ParentObject() const
-    { return _ParentObject; }
+    int ParentObject() const { return _ParentObject; }
 
-    int MaskSprite() const
-    { return _MaskSprite; }
+    int MaskSprite() const { return _MaskSprite; }
 
-    bool isSolid() const
-    { return _Solid; }
+    bool isSolid() const { return _Solid; }
 
-    bool isVisible() const
-    { return _Visible; }
+    bool isVisible() const { return _Visible; }
 
-    bool isPersistent() const
-    { return _Persistent; }
+    bool isPersistent() const { return _Persistent; }
 
     friend ostream &operator<<(ostream &os, const Object &object);
 

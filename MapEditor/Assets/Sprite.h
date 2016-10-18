@@ -8,27 +8,21 @@
 #include <ostream>
 #include "../../common.h"
 
-class Sprite
-{
+class Sprite {
 public:
     Sprite(int _Key, const string &_SpritePath, int _Width, int _Height, int _NumFrames);
 
     virtual ~Sprite();
 
-    int Key() const
-    { return _Key; }
+    int Key() const { return _Key; }
 
-    const string &SpritePath() const
-    { return _SpritePath; }
+    const string &SpritePath() const { return _SpritePath; }
 
-    int Width() const
-    { return _Width; }
+    int Width() const { return _Width; }
 
-    int Height() const
-    { return _Height; }
+    int Height() const { return _Height; }
 
-    int NumFrames() const
-    { return _NumFrames; }
+    int NumFrames() const { return _NumFrames; }
 
     friend ostream &operator<<(ostream &os, const Sprite &sprite);
 

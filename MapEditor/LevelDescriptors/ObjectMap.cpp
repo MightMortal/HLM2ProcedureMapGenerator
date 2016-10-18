@@ -6,8 +6,7 @@
 
 #include <fstream>
 
-ObjectMap::ObjectMap(string filename)
-{
+ObjectMap::ObjectMap(string filename) {
     ifstream ifs(filename);
     string line;
     if (!ifs.is_open()) {

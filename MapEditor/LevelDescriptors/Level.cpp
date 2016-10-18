@@ -6,8 +6,7 @@
 
 Level::Level(string levelPath)
     :
-    metaInformation(levelPath + "/level.hlm")
-{
+    metaInformation(levelPath + "/level.hlm") {
     for (int i = 0; i <= metaInformation._floorNumber; i++) {
         string fileName = "/level" + to_string(i);
         playMaps.push_back(PlayMap(levelPath + fileName + ".play"));

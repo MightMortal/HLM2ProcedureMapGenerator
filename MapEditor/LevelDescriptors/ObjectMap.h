@@ -7,8 +7,7 @@
 
 #include "../../common.h"
 
-class EditorObject
-{
+class EditorObject {
 public:
     int id;
     int x;
@@ -19,12 +18,10 @@ public:
     int magic;
 };
 
-class ObjectMap
-{
+class ObjectMap {
 public:
     ObjectMap(string filename);
     vector<EditorObject> objects;
 };
-
 
 #endif //HLM_LEVEL_READER_OBJECTSMAP_H
