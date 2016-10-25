@@ -28,7 +28,7 @@ public:
     void setAssetDescriptors(std::vector<AssetDescriptor *> descriptors);
     std::vector<AssetDescriptor *> getAssetDescriptors();
     void renderLevel(Level &level);
-    void renderSprite(std::string image, int x, int y, int tx, int ty, int w, int h);
+    void renderSprite(std::string image, int x, int y, int tx, int ty, int w, int h, float angle, bool shift = false);
     void fillColor(int x, int y, int w, int h, unsigned int color);
 //    void renderObjects(vector<PlayObject> &objects);
 //    void renderObjects(vector<EditorObject> &objects);

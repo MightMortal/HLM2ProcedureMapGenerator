@@ -136,8 +136,8 @@ void SpritesIndex::init(string path) {
             Atlas atlas(path + "/" + it->fileName().toStdString());
             for (auto sprite:atlas.sprites) {
                 if (index.find(sprite.first) != index.end()) {
-                    cerr << "Few atlases with sprite " << sprite.first << ", old path " << index[sprite.first]
-                         << ", new path " << path << "/" << it->fileName().toStdString() << endl;
+                    //cerr << "Few atlases with sprite " << sprite.first << ", old path " << index[sprite.first]
+                    //     << ", new path " << path << "/" << it->fileName().toStdString() << endl;
                 }
                 index[sprite.first] = path + "/" + it->fileName().toStdString();
             }

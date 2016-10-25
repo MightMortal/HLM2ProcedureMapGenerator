@@ -35,12 +35,31 @@ MainWindow::MainWindow(ObjectManager &om, QWidget *parent)
     ui->graphicsView->show();
 }
 
-void MainWindow::renderSprite(std::string filename, int x, int y, int tx, int ty, int w, int h) {
+void MainWindow::renderSprite(std::string filename,
+                              int x,
+                              int y,
+                              int tx,
+                              int ty,
+                              int w,
+                              int h,
+                              float angle,
+                              bool shift) {
     QPixmap texturePixmap;
     texturePixmap.load(QString(filename.c_str()));
-    QPixmap pixmap = texturePixmap.copy(tx, ty, w, h).scaled(w * SCALE, h * SCALE);
+    QPixmap pixmap;
+    if (shift) {
+        QTransform transform;
+        transform.rotate(-angle);
+        pixmap = texturePixmap.copy(tx, ty, w, h).transformed(transform);
+    } else
+        pixmap = texturePixmap.copy(tx, ty, w, h);
+
     QGraphicsPixmapItem *item = new QGraphicsPixmapItem(pixmap);
-    item->setOffset(x * SCALE, y * SCALE);
+    if (shift)
+        item->setOffset(x - pixmap.width() / 2.0, y - pixmap.height() / 2.0);
+    else
+        item->setOffset(x, y);
+    item->setScale(SCALE);
     ui->graphicsView->scene()->addItem(item);
 }
 
@@ -111,11 +130,12 @@ void MainWindow::renderObjects(vector<T> &objects) {
             string atlasPath = SpritesIndex::getSpritePath(spriteName);
             string spritePath = atlasPath.substr(0, atlasPath.size() - 5);
             Atlas atlas(atlasPath);
+            AtlasSprite *as = atlas.sprites[spriteName];
             tx = atlas.sprites[spriteName]->frames.at(0)->getOffsetX();
             ty = atlas.sprites[spriteName]->frames.at(0)->getOffsetY();
             w = atlas.sprites[spriteName]->frames.at(0)->getWidth();
             h = atlas.sprites[spriteName]->frames.at(0)->getHeight();
-            renderSprite(spritePath + ".png", editorObject.x, editorObject.y, tx, ty, w, h);
+            renderSprite(spritePath + ".png", editorObject.x, editorObject.y, tx, ty, w, h, editorObject.angle, true);
         }
     }
 }
@@ -132,7 +152,7 @@ void MainWindow::renderWalls(vector<EditorWall> &walls) {
         ty = atlas.sprites[spriteName]->frames.at(0)->getOffsetY();
         w = atlas.sprites[spriteName]->frames.at(0)->getWidth();
         h = atlas.sprites[spriteName]->frames.at(0)->getHeight();
-        renderSprite(spritePath + ".png", editorWall.x, editorWall.y, tx, ty, w, h);
+        renderSprite(spritePath + ".png", editorWall.x, editorWall.y, tx, ty, w, h, 0);
     }
 }
 
@@ -149,6 +169,6 @@ void MainWindow::renderTiles(vector<EditorTile> &tiles) {
             w = h = 8;
         else
             w = h = 16;
-        renderSprite(spritePath + ".png", editorTile.x, editorTile.y, tx, ty, w, h);
+        renderSprite(spritePath + ".png", editorTile.x, editorTile.y, tx, ty, w, h, 0);
     }
 }
