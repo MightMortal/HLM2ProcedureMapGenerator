@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <utility>
+#include <cmath>
 
 using namespace std;
 

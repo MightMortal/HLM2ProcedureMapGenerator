@@ -24,6 +24,10 @@ set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/PlayMap.cpp MapEdito
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/Assets/Wall.cpp MapEditor/Assets/Wall.h)
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/Assets/Tile.cpp MapEditor/Assets/Tile.h)
 set(SOURCE_FILES ${SOURCE_FILES} MapEditor/LevelDescriptors/Level.cpp MapEditor/LevelDescriptors/Level.h)
+set(SOURCE_FILES ${SOURCE_FILES} Generator/Geometry/Geometry.cpp Generator/Geometry/Geometry.h)
+set(SOURCE_FILES ${SOURCE_FILES} Generator/BSP/BSP.cpp Generator/BSP/BSP.h)
+set(SOURCE_FILES ${SOURCE_FILES} Generator/Interior/Room.cpp Generator/Interior/Room.h)
+set(SOURCE_FILES ${SOURCE_FILES} Generator/Interior/Building.cpp Generator/Interior/Building.h)
 
 
 add_executable(HLM2ProcedureMapGenerator ${SOURCE_FILES})

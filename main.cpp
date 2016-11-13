@@ -1,5 +1,6 @@
 #include <iostream>
 #include <QApplication>
+#include <ctime>
 
 #include "MapEditor/GUI/mainwindow.h"
 #include "MapEditor/LevelDescriptors/LevelMetaInformation.h"
@@ -9,8 +10,27 @@
 #include "MapEditor/Assets/ObjectManager.h"
 #include "MapEditor/Assets/Atlas.h"
 #include "MapEditor/LevelDescriptors/PlayMap.h"
+#include "Generator/Interior/Building.h"
+
+const int LEVEL_MAX_WIDTH = 1088;
+const int LEVEL_MAX_HEIGHT = 768;
+
+void bsp_test() {
+    srand(time(0));
+    Building building(Rectangle(Point(0, 0), Point(LEVEL_MAX_WIDTH, LEVEL_MAX_HEIGHT)));
+    for (auto it = building.rooms->begin(); it != building.rooms->end(); ++it) {
+        cout << "Type: " << it->type << endl;
+        cout << "LeftUpper: (" << it->rect.first.x << ", " << it->rect.first.y << "), RightBottom: ("
+             << it->rect.second.x << ", " << it->rect.second.y << ")" << endl;
+    }
+    for (auto it = building.walls.begin(); it != building.walls.end(); ++it) {
+        cout << "Wall from (" << it->first.x << ", " << it->first.y << ") to ("
+             << it->second.x << ", " << it->second.y << ")" << endl;
+    }
+}
 
 int main(int argc, char *argv[]) {
+    bsp_test();
     ObjectManager om(OBJECTS_PATH, SPRITES_PATH, TILES_PATH, WALLS_PATH);
     SpritesIndex::init(".");
     SpritesIndex::check(om);
