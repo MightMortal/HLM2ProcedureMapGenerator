@@ -19,6 +19,9 @@ public:
 class WallMap {
 public:
     WallMap(string filename);
+    WallMap(vector<EditorWall> walls) : walls(walls) {}
+    void save(string filename);
+
     vector<EditorWall> walls;
 };
 

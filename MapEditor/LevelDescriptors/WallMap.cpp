@@ -46,3 +46,22 @@ WallMap::WallMap(string filename) {
 
     ifs.close();
 }
+
+void WallMap::save(string filename) {
+    ofstream ofs(filename);
+    if (!ofs.is_open()) {
+        cerr << "Can't open file" << filename << endl;
+        throw runtime_error("Can't open file " + filename);
+    }
+
+    for (auto it = walls.begin(); it != walls.end(); ++it) {
+        ofs << it->id << endl;
+        ofs << it->x << endl;
+        ofs << it->y << endl;
+        ofs << it->attribute << endl;
+        ofs << it->magic << endl;
+    }
+
+    ofs.flush();
+    ofs.close();
+}

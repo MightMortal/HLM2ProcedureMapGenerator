@@ -8,8 +8,8 @@
 
 #include "../bsp/BSP.h"
 
-const int minRoomArea = 50000;
-const int maxTreeDepth = 5;
+const int minRoomArea = 15000;
+const int maxTreeDepth = 9;
 const double minRoomAreaMultiplyFactor = 2 / 3;
 
 Building::Building(Rectangle rect) {
@@ -49,4 +49,32 @@ Building::Building(Rectangle rect) {
 
 Building::~Building() {
     delete rooms;
+}
+
+WallMap Building::generateWallMap() {
+    vector<EditorWall> editorWalls;
+    for (auto it = walls.begin(); it != walls.end(); ++it) {
+        if (it->first.x != it->second.x) { // Horizontal
+            for (int x = it->first.x; x < it->second.x - 16; x += 32) {
+                EditorWall editorWall;
+                editorWall.magic = 0;
+                editorWall.attribute = 99;
+                editorWall.id = 32;
+                editorWall.x = x;
+                editorWall.y = it->first.y;
+                editorWalls.push_back(editorWall);
+            }
+        } else { // Vertical
+            for (int y = it->first.y; y < it->second.y - 16; y += 32) {
+                EditorWall editorWall;
+                editorWall.magic = 0;
+                editorWall.attribute = 100;
+                editorWall.id = 31;
+                editorWall.x = it->first.x;
+                editorWall.y = y;
+                editorWalls.push_back(editorWall);
+            }
+        }
+    }
+    return WallMap(editorWalls);
 }

@@ -47,7 +47,7 @@ public slots:
 
 private:
     ObjectManager &om;
-    const int SCALE = 2;
+    const int SCALE = 1;
     const int LEVEL_VIEW_WIDTH = 1088;
     const int LEVEL_VIEW_HEIGHT = 768;
 

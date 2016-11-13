@@ -4,7 +4,7 @@
 
 #include "BSP.h"
 
-const double CONTINUITY_PROBABILITY_DECREASE_FACTOR = 0.2;
+const double CONTINUITY_PROBABILITY_DECREASE_FACTOR = 0.1;
 
 int alignValue(int value, int step) {
     int valueAlignOffset = value % step;

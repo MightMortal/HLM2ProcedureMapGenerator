@@ -7,7 +7,7 @@
 
 #include "../Interior/Room.h"
 
-const int WALL_ALIGN_FACTOR = 16;
+const int WALL_ALIGN_FACTOR = 32;
 
 vector<Room> *bsp(Rectangle rect,
                   int minRoomArea,

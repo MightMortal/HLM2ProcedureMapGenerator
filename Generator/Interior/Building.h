@@ -7,11 +7,14 @@
 
 #include "../../common.h"
 #include "Room.h"
+#include "../../MapEditor/LevelDescriptors/WallMap.h"
 
 class Building {
 public:
     Building(Rectangle rect);
     ~Building();
+
+    WallMap generateWallMap();
 //private:
     vector<Room> *rooms;
     vector<Line> walls;
