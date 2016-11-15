@@ -25,6 +25,9 @@ public:
     vector<Room> *rooms;
     vector<Line> walls;
     Rectangle rect;
+    vector<Line> doorways;
+
+    void generateDoors();
 };
 
 #endif //HLM2PROCEDUREMAPGENERATOR_BUILDING_H

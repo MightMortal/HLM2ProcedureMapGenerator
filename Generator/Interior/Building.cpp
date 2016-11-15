@@ -65,7 +65,18 @@ WallMap Building::generateWallMap() {
         if (it->first.x != it->second.x) { // Horizontal
             if (it->first.y == rect.first.y || it->first.y == rect.second.y)
                 continue;
+
             for (int x = it->first.x; x <= it->second.x - WALL_ALIGN_FACTOR / 2; x += WALL_ALIGN_FACTOR) {
+                // If met doorway, don't place wall segment
+                bool skip = false;
+                for (auto doorway = doorways.begin(); doorway != doorways.end(); ++doorway) {
+                    if (doorway->first.x == x && doorway->first.y == it->first.y) {
+                        skip = true;
+                    }
+                }
+                if (skip)
+                    continue;
+
                 EditorWall editorWall;
                 editorWall.magic = 0;
                 editorWall.attribute = 99;
@@ -78,6 +89,16 @@ WallMap Building::generateWallMap() {
             if (it->first.x == rect.first.x || it->first.x == rect.second.x)
                 continue;
             for (int y = it->first.y; y <= it->second.y - WALL_ALIGN_FACTOR / 2; y += WALL_ALIGN_FACTOR) {
+                // If met doorway, don't place wall segment
+                bool skip = false;
+                for (auto doorway = doorways.begin(); doorway != doorways.end(); ++doorway) {
+                    if (doorway->first.y == y && doorway->first.x == it->first.x) {
+                        skip = true;
+                    }
+                }
+                if (skip)
+                    continue;
+
                 EditorWall editorWall;
                 editorWall.magic = 0;
                 editorWall.attribute = 100;
@@ -86,6 +107,27 @@ WallMap Building::generateWallMap() {
                 editorWall.y = y;
                 editorWalls.push_back(editorWall);
             }
+        }
+    }
+    for (auto doorway = doorways.begin(); doorway != doorways.end(); ++doorway) {
+        if (doorway->first.x == doorway->second.x) {
+            // Vertical
+            EditorWall editorWall;
+            editorWall.magic = 0;
+            editorWall.attribute = 177;
+            editorWall.id = 101;
+            editorWall.x = doorway->first.x;
+            editorWall.y = doorway->first.y;
+            editorWalls.push_back(editorWall);
+        } else {
+            // Horizontal
+            EditorWall editorWall;
+            editorWall.magic = 0;
+            editorWall.attribute = 176;
+            editorWall.id = 102;
+            editorWall.x = doorway->first.x;
+            editorWall.y = doorway->first.y;
+            editorWalls.push_back(editorWall);
         }
     }
     for (int x = rect.first.x; x < rect.second.x; x += WALL_ALIGN_FACTOR) {
@@ -135,4 +177,51 @@ TileMap Building::generateTileMap() {
     TileMap tileMap;
     tileMap.tiles = editorTiles;
     return tileMap;
+}
+
+void Building::generateDoors() {
+    for (auto room = rooms->begin(); room != rooms->end(); ++room) {
+        // Do not handle corridors
+        if (room->type == Room::CORRIDOR)
+            continue;
+        vector<Line> walls = room->rect.getWalls();
+        for (auto roomWall = walls.begin(); roomWall != walls.end(); ++roomWall) {
+            // Iterate over another rooms to check if room has common wall
+            for (auto currentCorridor = rooms->begin(); currentCorridor != rooms->end(); ++currentCorridor) {
+                // If checking the same room
+                if (&(*room) == &(*currentCorridor))
+                    continue;
+                // Do not handle default rooms
+                if (currentCorridor->type != Room::CORRIDOR)
+                    continue;
+                vector<Line> currentCorridorWalls = currentCorridor->rect.getWalls();
+                for (auto currentCorridorWall = currentCorridorWalls.begin();
+                     currentCorridorWall != currentCorridorWalls.end(); ++currentCorridorWall) {
+                    // If room and corridor share common wall make a doorway
+                    if (isLinePartiallyOverlapped(*roomWall, *currentCorridorWall)) {
+                        // Place doorway in the middle of the wall
+                        if (roomWall->first.x == roomWall->second.x) {
+                            // Wall is vertical
+                            int length = roomWall->second.y - roomWall->first.y;
+                            int middlePoint = alignValue(roomWall->first.y + length / 2, DOORWAY_LENGTH);
+                            middlePoint = clamp(middlePoint, roomWall->first.y, roomWall->second.y);
+                            Point p0(roomWall->first.x, middlePoint);
+                            Point p1(roomWall->first.x, middlePoint + DOORWAY_LENGTH);
+                            doorways.push_back(Line(p0, p1));
+                            room->connectedWithCorridor = true;
+                        } else {
+                            // Wall is horizontal
+                            int length = roomWall->second.x - roomWall->first.x;
+                            int middlePoint = alignValue(roomWall->first.x + length / 2, DOORWAY_LENGTH);
+                            middlePoint = clamp(middlePoint, roomWall->first.x, roomWall->second.x);
+                            Point p0(middlePoint, roomWall->first.y);
+                            Point p1(middlePoint + DOORWAY_LENGTH, roomWall->first.y);
+                            doorways.push_back(Line(p0, p1));
+                            room->connectedWithCorridor = true;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

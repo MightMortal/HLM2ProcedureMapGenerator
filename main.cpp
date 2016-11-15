@@ -17,6 +17,7 @@ Level bsp_test() {
     int width = (int) (LEVEL_MAX_WIDTH * (2.5 / 3.0));
     int height = (int) (LEVEL_MAX_HEIGHT * (2.5 / 3.0));
     Building building(Rectangle(Point(0, 0), Point(width, height)));
+    building.generateDoors();
     for (auto it = building.rooms->begin(); it != building.rooms->end(); ++it) {
         cout << "Type: " << it->type << endl;
         cout << "LeftUpper: (" << it->rect.first.x << ", " << it->rect.first.y << "), RightBottom: ("

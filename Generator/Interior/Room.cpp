@@ -22,7 +22,7 @@ const vector<RoomFloorAssetConfiguration> RoomFloor::floorTypeConfigurations = {
     RoomFloorAssetConfiguration(10, -99, 40, 32), // Corners
 };
 
-Room::Room(Rectangle rect, Room::RoomType type) : rect(rect), type(type) {
+Room::Room(Rectangle rect, Room::RoomType type) : rect(rect), type(type), connectedWithCorridor(type != CORRIDOR) {
     if (type == CORRIDOR && corridorFloorConfigured) {
         floor = corridorFloor;
     } else {

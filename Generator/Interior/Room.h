@@ -9,6 +9,7 @@
 
 const int WALL_ALIGN_FACTOR = 32;
 const int TILE_ALIGN_FACTOR = 16;
+const int DOORWAY_LENGTH = 32;
 
 struct RoomFloorAssetConfiguration {
     int id;
@@ -62,6 +63,7 @@ public:
     Rectangle rect;
     RoomType type;
     RoomFloor floor;
+    bool connectedWithCorridor;
 };
 
 #endif //HLM2PROCEDUREMAPGENERATOR_ROOM_H
