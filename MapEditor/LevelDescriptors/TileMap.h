@@ -21,6 +21,8 @@ class TileMap {
 public:
     TileMap();
     TileMap(std::string filename);
+    void save(string filename);
+
     std::vector<EditorTile> tiles;
 };
 

@@ -15,6 +15,7 @@
 class Level {
 public:
     Level(string levelPath);
+    Level() {}
 
     LevelMetaInformation metaInformation;
     vector<ObjectMap> objectMaps;

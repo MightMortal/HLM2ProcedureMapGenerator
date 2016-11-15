@@ -7,12 +7,17 @@
 
 #include "../Interior/Room.h"
 
-const int WALL_ALIGN_FACTOR = 32;
+const int DIVISION_DIRECTION_HORIZONTAL = 0;
+const int DIVISION_DIRECTION_VERTICAL = 1;
+const int CORRIDOR_WIDTH = 64;
 
 vector<Room> *bsp(Rectangle rect,
                   int minRoomArea,
                   double minRoomAreaMultiplyFactor,
                   double continuityProbability,
-                  int maxTreeDepth);
+                  int maxTreeDepth,
+                  int generateCorridor = 2,
+                  int divisionDirection = 2);
+int alignValue(int value, int step);
 
 #endif //HLM2PROCEDUREMAPGENERATOR_BSP_H

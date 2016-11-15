@@ -7,7 +7,12 @@
 
 #include "../../common.h"
 #include "Room.h"
+#include "../BSP/BSP.h"
 #include "../../MapEditor/LevelDescriptors/WallMap.h"
+#include "../../MapEditor/LevelDescriptors/TileMap.h"
+
+const int LEVEL_MAX_WIDTH = 1088;
+const int LEVEL_MAX_HEIGHT = 768;
 
 class Building {
 public:
@@ -15,9 +20,11 @@ public:
     ~Building();
 
     WallMap generateWallMap();
+    TileMap generateTileMap();
 //private:
     vector<Room> *rooms;
     vector<Line> walls;
+    Rectangle rect;
 };
 
 #endif //HLM2PROCEDUREMAPGENERATOR_BUILDING_H

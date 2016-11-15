@@ -25,6 +25,7 @@ public:
         return abs(this->first.x - this->second.x) * abs(this->first.y - this->second.y);
     }
     Rectangle(Point p1, Point p2) : pair(p1, p2) {}
+    Rectangle() : pair(Point(0, 0), Point(0, 0)) {}
 
     vector<Line> getWalls();
 };

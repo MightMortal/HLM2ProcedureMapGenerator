@@ -12,12 +12,11 @@
 #include "MapEditor/LevelDescriptors/PlayMap.h"
 #include "Generator/Interior/Building.h"
 
-const int LEVEL_MAX_WIDTH = 1088;
-const int LEVEL_MAX_HEIGHT = 768;
-
-WallMap bsp_test() {
+Level bsp_test() {
     srand(time(0));
-    Building building(Rectangle(Point(0, 0), Point(LEVEL_MAX_WIDTH * (2.0 / 3.0), LEVEL_MAX_HEIGHT * (2.0 / 3.0))));
+    int width = (int) (LEVEL_MAX_WIDTH * (2.0 / 3.0));
+    int height = (int) (LEVEL_MAX_HEIGHT * (2.0 / 3.0));
+    Building building(Rectangle(Point(0, 0), Point(width, height)));
     for (auto it = building.rooms->begin(); it != building.rooms->end(); ++it) {
         cout << "Type: " << it->type << endl;
         cout << "LeftUpper: (" << it->rect.first.x << ", " << it->rect.first.y << "), RightBottom: ("
@@ -27,12 +26,16 @@ WallMap bsp_test() {
         cout << "Wall from (" << it->first.x << ", " << it->first.y << ") to ("
              << it->second.x << ", " << it->second.y << ")" << endl;
     }
-    return building.generateWallMap();
+    Level level;
+    level.wallMaps.push_back(building.generateWallMap());
+    level.tileMaps.push_back(building.generateTileMap());
+    return level;
 }
 
 int main(int argc, char *argv[]) {
-    WallMap wallMap = bsp_test();
-    wallMap.save("test.wll");
+    Level level = bsp_test();
+    level.wallMaps[0].save("level0.wll");
+    level.tileMaps[0].save("level0.tls");
     ObjectManager om(OBJECTS_PATH, SPRITES_PATH, TILES_PATH, WALLS_PATH);
     SpritesIndex::init(".");
     SpritesIndex::check(om);
@@ -46,7 +49,8 @@ int main(int argc, char *argv[]) {
 
     // window.renderLevel(level);
 //    window.renderLevel(Level())
-    window.renderWalls(wallMap.walls);
+    window.renderTiles(level.tileMaps[0].tiles);
+    window.renderWalls(level.wallMaps[0].walls);
 
     window.show();
 
