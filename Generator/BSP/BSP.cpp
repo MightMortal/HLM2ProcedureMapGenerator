@@ -6,15 +6,6 @@
 
 const double CONTINUITY_PROBABILITY_DECREASE_FACTOR = 0.1;
 
-int alignValue(int value, int step) {
-    int valueAlignOffset = value % step;
-    if (valueAlignOffset < step / 2)
-        value -= valueAlignOffset;
-    else
-        value += step - valueAlignOffset;
-    return value;
-}
-
 vector<Room> *bsp(Rectangle rect,
                   int minRoomArea,
                   double minRoomAreaMultiplyFactor,

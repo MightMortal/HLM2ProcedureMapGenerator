@@ -52,4 +52,6 @@ bool isLinePartiallyOverlapped(Line &a, Line &b);
 
 Line combineLines(Line a, Line b);
 
+int alignValue(int value, int step);
+
 #endif //HLM2PROCEDUREMAPGENERATOR_POINT_H

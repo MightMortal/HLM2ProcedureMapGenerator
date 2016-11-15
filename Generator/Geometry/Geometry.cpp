@@ -56,3 +56,12 @@ Line combineLines(Line a, Line b) {
             return Line(Point(b.first.x, b.first.y), Point(a.second.x, a.second.y));
     }
 }
+
+int alignValue(int value, int step) {
+    int valueAlignOffset = value % step;
+    if (valueAlignOffset < step / 2)
+        value -= valueAlignOffset;
+    else
+        value += step - valueAlignOffset;
+    return value;
+}

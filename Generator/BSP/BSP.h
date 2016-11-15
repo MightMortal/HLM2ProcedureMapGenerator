@@ -18,6 +18,5 @@ vector<Room> *bsp(Rectangle rect,
                   int maxTreeDepth,
                   int generateCorridor = 2,
                   int divisionDirection = 2);
-int alignValue(int value, int step);
 
 #endif //HLM2PROCEDUREMAPGENERATOR_BSP_H

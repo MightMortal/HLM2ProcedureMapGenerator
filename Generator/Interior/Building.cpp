@@ -116,12 +116,13 @@ WallMap Building::generateWallMap() {
 
 TileMap Building::generateTileMap() {
     vector<EditorTile> editorTiles;
+    Room::generateCorridorFloor();
     for (auto room = rooms->begin(); room != rooms->end(); ++room) {
         RoomFloor floor = room->floor;
         for (int x = room->rect.first.x; x < room->rect.second.x; x += TILE_ALIGN_FACTOR) {
             for (int y = room->rect.first.y; y < room->rect.second.y; y += TILE_ALIGN_FACTOR) {
                 EditorTile tile;
-                tile.id = floor.type;
+                tile.id = RoomFloor::floorTypeConfigurations[floor.type].id;
                 tile.x = x;
                 tile.y = y;
                 tile.textureX = floor.tx;
