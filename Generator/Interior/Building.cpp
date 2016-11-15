@@ -18,6 +18,7 @@ Building::Building(Rectangle rect) {
     rect.second.x = alignValue(rect.second.x, WALL_ALIGN_FACTOR);
     rect.second.y = alignValue(rect.second.y, WALL_ALIGN_FACTOR);
     this->rect = rect;
+    Room::generateCorridorFloor();
     rooms = bsp(rect, minRoomArea, minRoomAreaMultiplyFactor, 1.0, maxTreeDepth);
     sort(rooms->begin(), rooms->end(), [](Room a, Room b) {
         return a.rect.area() > b.rect.area();
@@ -116,7 +117,6 @@ WallMap Building::generateWallMap() {
 
 TileMap Building::generateTileMap() {
     vector<EditorTile> editorTiles;
-    Room::generateCorridorFloor();
     for (auto room = rooms->begin(); room != rooms->end(); ++room) {
         RoomFloor floor = room->floor;
         for (int x = room->rect.first.x; x < room->rect.second.x; x += TILE_ALIGN_FACTOR) {

@@ -6,7 +6,7 @@
 
 bool Room::corridorFloorConfigured = false;
 RoomFloor Room::corridorFloor;
-const int ROOM_FLOOR_TYPES = 4; // Use only first 4 types
+const int ROOM_FLOOR_TYPES = 4; // Use only first 4 typesx
 
 const vector<RoomFloorAssetConfiguration> RoomFloor::floorTypeConfigurations = {
     RoomFloorAssetConfiguration(2, 1001, 192, 208), // Default
@@ -29,6 +29,8 @@ Room::Room(Rectangle rect, Room::RoomType type) : rect(rect), type(type) {
         floor.type = (RoomFloor::ROOM_FLOOR_TYPE) (rand() % ROOM_FLOOR_TYPES);
         floor.tx = alignValue((rand() % RoomFloor::floorTypeConfigurations[floor.type].width), TILE_ALIGN_FACTOR);
         floor.ty = alignValue((rand() % RoomFloor::floorTypeConfigurations[floor.type].height), TILE_ALIGN_FACTOR);
+        floor.tx = clamp(floor.tx, 0, RoomFloor::floorTypeConfigurations[floor.type].width - TILE_ALIGN_FACTOR);
+        floor.ty = clamp(floor.ty, 0, RoomFloor::floorTypeConfigurations[floor.type].height - TILE_ALIGN_FACTOR);
         floor.attribute = RoomFloor::floorTypeConfigurations[floor.type].attribute;
     }
 }
@@ -38,6 +40,8 @@ void Room::generateCorridorFloor() {
     floor.type = (RoomFloor::ROOM_FLOOR_TYPE) (rand() % ROOM_FLOOR_TYPES);
     floor.tx = alignValue((rand() % RoomFloor::floorTypeConfigurations[floor.type].width), TILE_ALIGN_FACTOR);
     floor.ty = alignValue((rand() % RoomFloor::floorTypeConfigurations[floor.type].height), TILE_ALIGN_FACTOR);
+    floor.tx = clamp(floor.tx, 0, RoomFloor::floorTypeConfigurations[floor.type].width - TILE_ALIGN_FACTOR);
+    floor.ty = clamp(floor.ty, 0, RoomFloor::floorTypeConfigurations[floor.type].height - TILE_ALIGN_FACTOR);
     floor.attribute = RoomFloor::floorTypeConfigurations[floor.type].attribute;
     corridorFloor = floor;
     corridorFloorConfigured = true;

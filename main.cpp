@@ -14,8 +14,8 @@
 
 Level bsp_test() {
     srand(time(0));
-    int width = (int) (LEVEL_MAX_WIDTH * (2.0 / 3.0));
-    int height = (int) (LEVEL_MAX_HEIGHT * (2.0 / 3.0));
+    int width = (int) (LEVEL_MAX_WIDTH * (2.5 / 3.0));
+    int height = (int) (LEVEL_MAX_HEIGHT * (2.5 / 3.0));
     Building building(Rectangle(Point(0, 0), Point(width, height)));
     for (auto it = building.rooms->begin(); it != building.rooms->end(); ++it) {
         cout << "Type: " << it->type << endl;
