@@ -224,4 +224,75 @@ void Building::generateDoors() {
             }
         }
     }
+
+    // Make doorways in rooms that are not connected with corridors
+    for (auto room = rooms->begin(); room != rooms->end(); ++room) {
+        if (room->type == Room::CORRIDOR || room->connectedWithCorridor)
+            continue;
+
+        vector<Line> walls = room->rect.getWalls();
+        for (auto roomWall = walls.begin(); roomWall != walls.end(); ++roomWall) {
+
+            for (auto currentRoom = rooms->begin(); currentRoom != rooms->end(); ++currentRoom) {
+                if (&(*room) == &(*currentRoom))
+                    continue;
+
+                vector<Line> currentRoomWalls = currentRoom->rect.getWalls();
+                for (auto currentRoomWall = currentRoomWalls.begin(); currentRoomWall != currentRoomWalls.end();
+                     ++currentRoomWall) {
+                    if (isLinePartiallyOverlapped(*roomWall, *currentRoomWall)) {
+
+                        if (roomWall->first.x == roomWall->second.x) {
+                            // Wall is vertical
+
+                            int roomWallLength = roomWall->second.y - roomWall->first.y;
+                            int currentRoomWallLength = currentRoomWall->second.y - currentRoomWall->first.y;
+
+                            // Compare walls and pick the smallest
+                            if (roomWallLength <= currentRoomWallLength) {
+                                int middlePoint = alignValue(roomWall->first.y + roomWallLength / 2, DOORWAY_LENGTH);
+                                middlePoint = clamp(middlePoint, roomWall->first.y, roomWall->second.y);
+                                Point p0(roomWall->first.x, middlePoint);
+                                Point p1(roomWall->first.x, middlePoint + DOORWAY_LENGTH);
+                                doorways.push_back(Line(p0, p1));
+                                room->connectedWithCorridor = true;
+                            } else {
+                                int middlePoint =
+                                    alignValue(currentRoomWall->first.y + currentRoomWallLength / 2, DOORWAY_LENGTH);
+                                middlePoint = clamp(middlePoint, currentRoomWall->first.y, currentRoomWall->second.y);
+                                Point p0(currentRoomWall->first.x, middlePoint);
+                                Point p1(currentRoomWall->first.x, middlePoint + DOORWAY_LENGTH);
+                                doorways.push_back(Line(p0, p1));
+                                room->connectedWithCorridor = true;
+                            }
+
+                        } else {
+                            // Wall is horizontal
+
+                            int roomWallLength = roomWall->second.x - roomWall->first.x;
+                            int currentRoomWallLength = currentRoomWall->second.x - currentRoomWall->first.x;
+
+                            // Compare walls and pick the smallest
+                            if (roomWallLength <= currentRoomWallLength) {
+                                int middlePoint = alignValue(roomWall->first.x + roomWallLength / 2, DOORWAY_LENGTH);
+                                middlePoint = clamp(middlePoint, roomWall->first.x, roomWall->second.x);
+                                Point p0(middlePoint, roomWall->first.y);
+                                Point p1(middlePoint + DOORWAY_LENGTH, roomWall->first.y);
+                                doorways.push_back(Line(p0, p1));
+                                room->connectedWithCorridor = true;
+                            } else {
+                                int middlePoint =
+                                    alignValue(currentRoomWall->first.x + currentRoomWallLength / 2, DOORWAY_LENGTH);
+                                middlePoint = clamp(middlePoint, currentRoomWall->first.x, currentRoomWall->second.x);
+                                Point p0(middlePoint, currentRoomWall->first.y);
+                                Point p1(middlePoint + DOORWAY_LENGTH, currentRoomWall->first.y);
+                                doorways.push_back(Line(p0, p1));
+                                room->connectedWithCorridor = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
