@@ -52,14 +52,21 @@ public:
  */
 struct ObjectAssetConfiguration {
     int id;
+    int editorId;
     int width;
     int height;
     int spriteId;
     int behaviorId;
     int magic;
 
-    ObjectAssetConfiguration(int id, int width, int height, int spriteId, int behaviorId, int magic)
-        : id(id), width(width), height(height), spriteId(spriteId), behaviorId(behaviorId), magic(magic) {}
+    ObjectAssetConfiguration(int id, int editorId, int width, int height, int spriteId, int behaviorId, int magic)
+        : id(id),
+          editorId(editorId),
+          width(width),
+          height(height),
+          spriteId(spriteId),
+          behaviorId(behaviorId),
+          magic(magic) {}
 };
 
 /**
@@ -84,21 +91,35 @@ public:
 };
 
 /**
- * Describes a weapon do place on the map
+ * Describes a weapon to place on the map
  */
 class WeaponObject {
 
 public:
     enum WEAPON_TYPE {
-
+        objDoubleBarrel,
+        objKnife,
+        objChain,
+        objShotgun,
+        objUzi,
+        obj9mm,
+        objKalashnikov,
+        objM16,
+        objSilencer,
+        objMP5,
+        objChainsaw,
+        objAxe,
+        objDrill,
+        objPotFull, // SUPER COOL
+        objSilencedUzi,
     };
 
     static const vector<ObjectAssetConfiguration> weaponObjectConfigurations;
 
     WEAPON_TYPE type;
+
     int x;
     int y;
-
 };
 
 #endif //HLM2PROCEDUREMAPGENERATOR_ASSETCONFIGURATIONS_H

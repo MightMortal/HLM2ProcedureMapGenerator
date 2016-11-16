@@ -19,10 +19,27 @@ const vector<RoomFloorAssetConfiguration> RoomFloor::floorTypeConfigurations = {
 };
 
 const vector<ObjectAssetConfiguration> DoorObject::doorObjectConfigurations = {
-    ObjectAssetConfiguration(25, 6, 33, 91, 0, 0),
-    ObjectAssetConfiguration(26, 32, 4, 92, 0, 0),
-    ObjectAssetConfiguration(2255, 6, 33, 3903, 0, 0),
-    ObjectAssetConfiguration(2254, 32, 4, 3902, 0, 0)
+    ObjectAssetConfiguration(25, 25, 6, 33, 91, 0, 0),
+    ObjectAssetConfiguration(26, 26, 32, 4, 92, 0, 0),
+    ObjectAssetConfiguration(2255, 2255, 6, 33, 3903, 0, 0),
+    ObjectAssetConfiguration(2254, 2254, 32, 4, 3902, 0, 0)
 };
 
-const vector<ObjectAssetConfiguration> WeaponObject::weaponObjectConfigurations;
+const vector<ObjectAssetConfiguration> WeaponObject::weaponObjectConfigurations = {
+    ObjectAssetConfiguration(150, 2401, -1, -1, 266, 150, 0),       // objDoubleBarrel
+    ObjectAssetConfiguration(173, 2401, -1, -1, 307, 173, 0),       // objKnife
+    ObjectAssetConfiguration(174, 2401, -1, -1, 308, 174, 0),       // objChain
+    ObjectAssetConfiguration(177, 2401, -1, -1, 304, 177, 0),       // objShotgun
+    ObjectAssetConfiguration(178, 2401, -1, -1, 303, 178, 0),       // objUzi
+    ObjectAssetConfiguration(179, 2401, -1, -1, 302, 179, 0),       // obj9mm
+    ObjectAssetConfiguration(723, 2401, -1, -1, 1197, 723, 0),      // objKalashnikov
+    ObjectAssetConfiguration(724, 2401, -1, -1, 1194, 724, 0),      // objM16
+    ObjectAssetConfiguration(880, 2401, -1, -1, 1458, 880, 0),      // objSilencer
+    ObjectAssetConfiguration(882, 2401, -1, -1, 1459, 882, 0),      // objMP5
+    ObjectAssetConfiguration(1055, 2401, -1, -1, 1754, 1055, 0),    // objChainsaw
+    ObjectAssetConfiguration(1818, 2401, -1, -1, 3173, 1818, 0),    // objAxe
+    ObjectAssetConfiguration(2337, 2401, -1, -1, 4149, 2337, 0),    // objDrill
+    ObjectAssetConfiguration(2338, 2401, -1, -1, 4151, 2338, 0),    // objPotFull
+    ObjectAssetConfiguration(2343, 2401, -1, -1, 4157, 2343, 0),    // objSilencedUzi
+};
+
