@@ -10,6 +10,8 @@
 #include "../BSP/BSP.h"
 #include "../../MapEditor/LevelDescriptors/WallMap.h"
 #include "../../MapEditor/LevelDescriptors/TileMap.h"
+#include "../../MapEditor/LevelDescriptors/PlayMap.h"
+#include "../../MapEditor/LevelDescriptors/ObjectMap.h"
 
 const int LEVEL_MAX_WIDTH = 1088;
 const int LEVEL_MAX_HEIGHT = 768;
@@ -21,6 +23,8 @@ public:
 
     WallMap generateWallMap();
     TileMap generateTileMap();
+    PlayMap generatePlayMap();
+    ObjectMap generateObjectMap();
 //private:
     vector<Room> *rooms;
     vector<Line> walls;

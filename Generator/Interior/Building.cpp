@@ -110,27 +110,7 @@ WallMap Building::generateWallMap() {
             }
         }
     }
-    for (auto doorway = doorways.begin(); doorway != doorways.end(); ++doorway) {
-        if (doorway->first.x == doorway->second.x) {
-            // Vertical
-            EditorWall editorWall;
-            editorWall.magic = 0;
-            editorWall.attribute = 177;
-            editorWall.id = 101;
-            editorWall.x = doorway->first.x;
-            editorWall.y = doorway->first.y;
-            editorWalls.push_back(editorWall);
-        } else {
-            // Horizontal
-            EditorWall editorWall;
-            editorWall.magic = 0;
-            editorWall.attribute = 176;
-            editorWall.id = 102;
-            editorWall.x = doorway->first.x;
-            editorWall.y = doorway->first.y;
-            editorWalls.push_back(editorWall);
-        }
-    }
+
     for (int x = rect.first.x; x < rect.second.x; x += WALL_ALIGN_FACTOR) {
         EditorWall editorWall;
         editorWall.magic = 0;
@@ -283,4 +263,58 @@ void Building::reduceNumberOfDoors() {
             i = -1; // Restart the loop
         }
     }
+}
+
+PlayMap Building::generatePlayMap() {
+    vector<PlayObject> objects;
+    for (auto door = doorways.begin(); door != doorways.end(); ++door) {
+        PlayObject object;
+        object.x = door->first.x;
+        object.y = door->first.y;
+        object.angle = 0;
+        if (door->first.x == door->second.x) {
+            // Wall is vertical
+            object.id = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorV].id;
+            object.spriteId = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorV].spriteId;
+            object.magic = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorV].magic;
+        } else {
+            // Wall is horizontal
+            object.id = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorH].id;
+            object.spriteId = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorH].spriteId;
+            object.magic = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorH].magic;
+        }
+        objects.push_back(object);
+    }
+    PlayMap result;
+    result.magic1 = 0;
+    result.magic2 = -1;
+    result.objects = objects;
+    return result;
+}
+
+ObjectMap Building::generateObjectMap() {
+    vector<EditorObject> objects;
+    for (auto door = doorways.begin(); door != doorways.end(); ++door) {
+        EditorObject object;
+        object.x = door->first.x;
+        object.y = door->first.y;
+        object.angle = 0;
+        if (door->first.x == door->second.x) {
+            // Wall is vertical
+            object.id = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorV].id;
+            object.spriteId = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorV].spriteId;
+            object.magic = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorV].magic;
+            object.behaviorId = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorV].behaviorId;
+        } else {
+            // Wall is horizontal
+            object.id = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorH].id;
+            object.spriteId = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorH].spriteId;
+            object.magic = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorH].magic;
+            object.behaviorId = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorH].behaviorId;
+        }
+        objects.push_back(object);
+    }
+    ObjectMap result;
+    result.objects = objects;
+    return result;
 }

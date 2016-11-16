@@ -30,6 +30,8 @@ Level bsp_test() {
     Level level;
     level.wallMaps.push_back(building.generateWallMap());
     level.tileMaps.push_back(building.generateTileMap());
+    level.objectMaps.push_back(building.generateObjectMap());
+    level.playMaps.push_back(building.generatePlayMap());
     return level;
 }
 
@@ -37,6 +39,8 @@ int main(int argc, char *argv[]) {
     Level level = bsp_test();
     level.wallMaps[0].save("level0.wll");
     level.tileMaps[0].save("level0.tls");
+    level.objectMaps[0].save("level0.obj");
+    level.playMaps[0].save("level0.play");
     ObjectManager om(OBJECTS_PATH, SPRITES_PATH, TILES_PATH, WALLS_PATH);
     SpritesIndex::init(".");
     SpritesIndex::check(om);

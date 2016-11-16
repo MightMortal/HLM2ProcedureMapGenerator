@@ -56,3 +56,23 @@ ObjectMap::ObjectMap(string filename) {
 
     ifs.close();
 }
+
+void ObjectMap::save(string filename) {
+    ofstream ofs(filename);
+    if (!ofs.is_open()) {
+        cerr << "Can't open file" << filename << endl;
+        throw runtime_error("Can't open file " + filename);
+    }
+    for (auto it = objects.begin(); it != objects.end(); ++it) {
+        ofs << it->id << endl;
+        ofs << it->x << endl;
+        ofs << it->y << endl;
+        ofs << it->spriteId << endl;
+        ofs << it->angle << endl;
+        ofs << it->behaviorId << endl;
+        ofs << it->magic << endl;
+    }
+
+    ofs.flush();
+    ofs.close();
+}

@@ -21,6 +21,9 @@ public:
 class ObjectMap {
 public:
     ObjectMap(string filename);
+    ObjectMap() {}
+    void save(string filename);
+
     vector<EditorObject> objects;
 };
 

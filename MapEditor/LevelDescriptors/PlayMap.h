@@ -20,6 +20,9 @@ public:
 class PlayMap {
 public:
     PlayMap(string filename);
+    PlayMap() {}
+    void save(string filename);
+
     vector<PlayObject> objects;
     int magic1;
     int magic2;
