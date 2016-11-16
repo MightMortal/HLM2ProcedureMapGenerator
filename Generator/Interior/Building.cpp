@@ -8,9 +8,10 @@
 
 #include "../bsp/BSP.h"
 
-const int minRoomArea = 15000;
+const int minRoomArea = 20000;
 const int maxTreeDepth = 9;
 const double minRoomAreaMultiplyFactor = 2 / 3;
+const double doorsThresholdFactor = 35; // In percents
 
 Building::Building(Rectangle rect) {
     rect.first.x = alignValue(rect.first.x, WALL_ALIGN_FACTOR);
@@ -191,9 +192,6 @@ void Building::generateDoors() {
                 // If checking the same room
                 if (&(*room) == &(*currentCorridor))
                     continue;
-                // Do not handle default rooms
-                if (currentCorridor->type != Room::CORRIDOR)
-                    continue;
                 vector<Line> currentCorridorWalls = currentCorridor->rect.getWalls();
                 for (auto currentCorridorWall = currentCorridorWalls.begin();
                      currentCorridorWall != currentCorridorWalls.end(); ++currentCorridorWall) {
@@ -209,6 +207,7 @@ void Building::generateDoors() {
                             Point p1(roomWall->first.x, middlePoint + DOORWAY_LENGTH);
                             doorways.push_back(Line(p0, p1));
                             room->connectedWithCorridor = true;
+
                         } else {
                             // Wall is horizontal
                             int length = roomWall->second.x - roomWall->first.x;
@@ -224,75 +223,64 @@ void Building::generateDoors() {
             }
         }
     }
+    reduceNumberOfDoors();
+}
 
-    // Make doorways in rooms that are not connected with corridors
-    for (auto room = rooms->begin(); room != rooms->end(); ++room) {
-        if (room->type == Room::CORRIDOR || room->connectedWithCorridor)
+bool Building::checkConnectivity() {
+    vector<bool> isConnected(rooms->size(), false);
+    for (int roomIndex = 0; roomIndex < rooms->size(); roomIndex++) {
+        if (isConnected[roomIndex])
             continue;
-
-        vector<Line> walls = room->rect.getWalls();
+        Room room = rooms->at(roomIndex);
+        // Do not handle corridors
+        if (room.type == Room::CORRIDOR) {
+            isConnected[roomIndex] = true;
+            roomIndex = -1; // Restart main loop
+            continue;
+        }
+        vector<Line> walls = room.rect.getWalls();
         for (auto roomWall = walls.begin(); roomWall != walls.end(); ++roomWall) {
-
-            for (auto currentRoom = rooms->begin(); currentRoom != rooms->end(); ++currentRoom) {
-                if (&(*room) == &(*currentRoom))
-                    continue;
-
-                vector<Line> currentRoomWalls = currentRoom->rect.getWalls();
+            for (unsigned int currentRoomIndex = 0; currentRoomIndex < rooms->size(); currentRoomIndex++) {
+                Room currentRoom = rooms->at(currentRoomIndex);
+                vector<Line> currentRoomWalls = currentRoom.rect.getWalls();
                 for (auto currentRoomWall = currentRoomWalls.begin(); currentRoomWall != currentRoomWalls.end();
                      ++currentRoomWall) {
-                    if (isLinePartiallyOverlapped(*roomWall, *currentRoomWall)) {
-
-                        if (roomWall->first.x == roomWall->second.x) {
-                            // Wall is vertical
-
-                            int roomWallLength = roomWall->second.y - roomWall->first.y;
-                            int currentRoomWallLength = currentRoomWall->second.y - currentRoomWall->first.y;
-
-                            // Compare walls and pick the smallest
-                            if (roomWallLength <= currentRoomWallLength) {
-                                int middlePoint = alignValue(roomWall->first.y + roomWallLength / 2, DOORWAY_LENGTH);
-                                middlePoint = clamp(middlePoint, roomWall->first.y, roomWall->second.y);
-                                Point p0(roomWall->first.x, middlePoint);
-                                Point p1(roomWall->first.x, middlePoint + DOORWAY_LENGTH);
-                                doorways.push_back(Line(p0, p1));
-                                room->connectedWithCorridor = true;
-                            } else {
-                                int middlePoint =
-                                    alignValue(currentRoomWall->first.y + currentRoomWallLength / 2, DOORWAY_LENGTH);
-                                middlePoint = clamp(middlePoint, currentRoomWall->first.y, currentRoomWall->second.y);
-                                Point p0(currentRoomWall->first.x, middlePoint);
-                                Point p1(currentRoomWall->first.x, middlePoint + DOORWAY_LENGTH);
-                                doorways.push_back(Line(p0, p1));
-                                room->connectedWithCorridor = true;
-                            }
-
-                        } else {
-                            // Wall is horizontal
-
-                            int roomWallLength = roomWall->second.x - roomWall->first.x;
-                            int currentRoomWallLength = currentRoomWall->second.x - currentRoomWall->first.x;
-
-                            // Compare walls and pick the smallest
-                            if (roomWallLength <= currentRoomWallLength) {
-                                int middlePoint = alignValue(roomWall->first.x + roomWallLength / 2, DOORWAY_LENGTH);
-                                middlePoint = clamp(middlePoint, roomWall->first.x, roomWall->second.x);
-                                Point p0(middlePoint, roomWall->first.y);
-                                Point p1(middlePoint + DOORWAY_LENGTH, roomWall->first.y);
-                                doorways.push_back(Line(p0, p1));
-                                room->connectedWithCorridor = true;
-                            } else {
-                                int middlePoint =
-                                    alignValue(currentRoomWall->first.x + currentRoomWallLength / 2, DOORWAY_LENGTH);
-                                middlePoint = clamp(middlePoint, currentRoomWall->first.x, currentRoomWall->second.x);
-                                Point p0(middlePoint, currentRoomWall->first.y);
-                                Point p1(middlePoint + DOORWAY_LENGTH, currentRoomWall->first.y);
-                                doorways.push_back(Line(p0, p1));
-                                room->connectedWithCorridor = true;
+                    if (isLinePartiallyOverlapped(*roomWall, *currentRoomWall) && isConnected[currentRoomIndex]) {
+                        for (auto doorway = doorways.begin(); doorway != doorways.end(); ++doorway) {
+                            if (isLineFullyOverlapped(*doorway, *roomWall)
+                                && isLineFullyOverlapped(*doorway, *currentRoomWall)) {
+                                isConnected[roomIndex] = true;
+                                // Stop all internal loops
+                                currentRoomIndex = rooms->size() - 1;
+                                currentRoomWall = currentRoomWalls.end() - 1;
+                                roomWall = walls.end() - 1;
+                                roomIndex = -1; // Restart main loop
+                                break;
                             }
                         }
                     }
                 }
             }
+        }
+    }
+    bool result = true;
+    for (auto it = isConnected.begin(); it != isConnected.end(); ++it) {
+        if (!(*it))
+            result = false;
+    }
+    return result;
+}
+
+void Building::reduceNumberOfDoors() {
+    int initialNumberOfDoors = doorways.size();
+    int targetNumberOfDoors = (int) (initialNumberOfDoors * doorsThresholdFactor / 100.0);
+    for (int i = 0; i < doorways.size() && doorways.size() > targetNumberOfDoors; i++) { // For testing only
+        Line doorway = doorways[i];
+        doorways.erase(doorways.begin() + i);
+        if (!checkConnectivity()) {
+            doorways.push_back(doorway);
+        } else {
+            i = -1; // Restart the loop
         }
     }
 }

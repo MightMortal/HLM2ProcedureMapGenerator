@@ -9,7 +9,7 @@
 
 const int DIVISION_DIRECTION_HORIZONTAL = 0;
 const int DIVISION_DIRECTION_VERTICAL = 1;
-const int CORRIDOR_WIDTH = 64;
+const int CORRIDOR_WIDTH = WALL_ALIGN_FACTOR * 3;
 
 vector<Room> *bsp(Rectangle rect,
                   int minRoomArea,

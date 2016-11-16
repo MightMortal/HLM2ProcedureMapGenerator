@@ -28,6 +28,8 @@ public:
     vector<Line> doorways;
 
     void generateDoors();
+    bool checkConnectivity();
+    void reduceNumberOfDoors();
 };
 
 #endif //HLM2PROCEDUREMAPGENERATOR_BUILDING_H
