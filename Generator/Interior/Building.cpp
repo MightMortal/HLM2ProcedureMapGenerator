@@ -204,6 +204,7 @@ void Building::generateDoors() {
         }
     }
     reduceNumberOfDoors();
+    generateDoorObjects();
 }
 
 bool Building::checkConnectivity() {
@@ -266,55 +267,90 @@ void Building::reduceNumberOfDoors() {
 }
 
 PlayMap Building::generatePlayMap() {
-    vector<PlayObject> objects;
-    for (auto door = doorways.begin(); door != doorways.end(); ++door) {
-        PlayObject object;
-        object.x = door->first.x;
-        object.y = door->first.y;
-        object.angle = 0;
-        if (door->first.x == door->second.x) {
-            // Wall is vertical
-            object.id = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorV].id;
-            object.spriteId = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorV].spriteId;
-            object.magic = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorV].magic;
-        } else {
-            // Wall is horizontal
-            object.id = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorH].id;
-            object.spriteId = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorH].spriteId;
-            object.magic = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorH].magic;
-        }
-        objects.push_back(object);
-    }
     PlayMap result;
     result.magic1 = 0;
     result.magic2 = -1;
-    result.objects = objects;
+    for (auto object = objects.begin(); object != objects.end(); ++object) {
+        PlayObject playObject;
+        playObject.id = object->configuration.id;
+        playObject.x = object->x;
+        playObject.y = object->y;
+        playObject.spriteId = object->configuration.spriteId;
+        playObject.angle = object->angle;
+        playObject.magic = object->configuration.magic;
+        result.objects.push_back(playObject);
+    }
     return result;
 }
 
 ObjectMap Building::generateObjectMap() {
-    vector<EditorObject> objects;
+    ObjectMap result;
+    for (auto object = objects.begin(); object != objects.end(); ++object) {
+        EditorObject editorObject;
+        editorObject.id = object->configuration.editorId;
+        editorObject.x = object->x;
+        editorObject.y = object->y;
+        editorObject.spriteId = object->configuration.spriteId;
+        editorObject.angle = object->angle;
+        editorObject.behaviorId = object->configuration.behaviorId;
+        editorObject.magic = object->configuration.magic;
+        result.objects.push_back(editorObject);
+    }
+    return result;
+}
+
+void Building::generateDoorObjects() {
     for (auto door = doorways.begin(); door != doorways.end(); ++door) {
-        EditorObject object;
-        object.x = door->first.x;
-        object.y = door->first.y;
-        object.angle = 0;
+        DoorObject doorObject;
+        doorObject.x = door->first.x;
+        doorObject.y = door->first.y;
+        doorObject.angle = 0;
         if (door->first.x == door->second.x) {
             // Wall is vertical
-            object.id = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorV].id;
-            object.spriteId = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorV].spriteId;
-            object.magic = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorV].magic;
-            object.behaviorId = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorV].behaviorId;
+            doorObject.configuration = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorV];
         } else {
             // Wall is horizontal
-            object.id = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorH].id;
-            object.spriteId = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorH].spriteId;
-            object.magic = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorH].magic;
-            object.behaviorId = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorH].behaviorId;
+            doorObject.configuration = DoorObject::doorObjectConfigurations[DoorObject::objEditorDoorH];
         }
-        objects.push_back(object);
+        objects.push_back(doorObject);
     }
-    ObjectMap result;
-    result.objects = objects;
-    return result;
+}
+
+bool Building::isPlaceEmpty(int x, int y, int w, int h) {
+    // AABB Collision checking
+    // Read more: http://gdlinks.hut.ru/cdfaq/aabb.shtml
+    int xCenter = x + w / 2;
+    int yCenter = y + y / 2;
+    for (auto object = objects.begin(); object != objects.end(); ++object) {
+        int objectXCenter = object->x + object->configuration.width / 2;
+        int objectYCenter = object->y + object->configuration.height / 2;
+        int widthSum = w + object->configuration.width;
+        int heightSum = h + object->configuration.height;
+        if (abs(objectXCenter - xCenter) <= widthSum && abs(objectYCenter - yCenter) <= heightSum)
+            return false;
+    }
+    return true;
+}
+
+void Building::placeWeapon() {
+    for (auto weaponConfiguration = WeaponObject::weaponObjectConfigurations.begin();
+         weaponConfiguration != WeaponObject::weaponObjectConfigurations.end(); ++weaponConfiguration) {
+        if (rand() % 2) {
+            // Place weapon with probability 50%
+            int roomIndex = rand() % rooms->size();
+            Room room = rooms->at(roomIndex);
+            int weaponX = room.rect.first.x + (room.rect.second.x - room.rect.first.x) / 2;
+            int weaponY = room.rect.first.y + (room.rect.second.y - room.rect.first.y) / 2;
+            if (isPlaceEmpty(weaponX, weaponY, weaponConfiguration->width, weaponConfiguration->height)) {
+                WeaponObject weaponObject;
+                weaponObject.angle = 0;
+                weaponObject.x = weaponX;
+                weaponObject.y = weaponY;
+                weaponObject.configuration = *weaponConfiguration;
+                weaponObject.type = (WeaponObject::WEAPON_TYPE) (weaponConfiguration
+                    - WeaponObject::weaponObjectConfigurations.begin());
+                objects.push_back(weaponObject);
+            }
+        }
+    }
 }

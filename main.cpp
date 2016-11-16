@@ -18,6 +18,7 @@ Level bsp_test() {
     int height = (int) (LEVEL_MAX_HEIGHT * (2.5 / 3.0));
     Building building(Rectangle(Point(0, 0), Point(width, height)));
     building.generateDoors();
+    building.placeWeapon();
     for (auto it = building.rooms->begin(); it != building.rooms->end(); ++it) {
         cout << "Type: " << it->type << endl;
         cout << "LeftUpper: (" << it->rect.first.x << ", " << it->rect.first.y << "), RightBottom: ("
@@ -56,6 +57,7 @@ int main(int argc, char *argv[]) {
 //    window.renderLevel(Level())
     window.renderTiles(level.tileMaps[0].tiles);
     window.renderWalls(level.wallMaps[0].walls);
+    window.renderObjects(level.objectMaps[0].objects);
 
     window.show();
 

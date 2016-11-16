@@ -26,20 +26,20 @@ const vector<ObjectAssetConfiguration> DoorObject::doorObjectConfigurations = {
 };
 
 const vector<ObjectAssetConfiguration> WeaponObject::weaponObjectConfigurations = {
-    ObjectAssetConfiguration(150, 2401, -1, -1, 266, 150, 0),       // objDoubleBarrel
-    ObjectAssetConfiguration(173, 2401, -1, -1, 307, 173, 0),       // objKnife
-    ObjectAssetConfiguration(174, 2401, -1, -1, 308, 174, 0),       // objChain
-    ObjectAssetConfiguration(177, 2401, -1, -1, 304, 177, 0),       // objShotgun
-    ObjectAssetConfiguration(178, 2401, -1, -1, 303, 178, 0),       // objUzi
-    ObjectAssetConfiguration(179, 2401, -1, -1, 302, 179, 0),       // obj9mm
-    ObjectAssetConfiguration(723, 2401, -1, -1, 1197, 723, 0),      // objKalashnikov
-    ObjectAssetConfiguration(724, 2401, -1, -1, 1194, 724, 0),      // objM16
-    ObjectAssetConfiguration(880, 2401, -1, -1, 1458, 880, 0),      // objSilencer
-    ObjectAssetConfiguration(882, 2401, -1, -1, 1459, 882, 0),      // objMP5
-    ObjectAssetConfiguration(1055, 2401, -1, -1, 1754, 1055, 0),    // objChainsaw
-    ObjectAssetConfiguration(1818, 2401, -1, -1, 3173, 1818, 0),    // objAxe
-    ObjectAssetConfiguration(2337, 2401, -1, -1, 4149, 2337, 0),    // objDrill
-    ObjectAssetConfiguration(2338, 2401, -1, -1, 4151, 2338, 0),    // objPotFull
-    ObjectAssetConfiguration(2343, 2401, -1, -1, 4157, 2343, 0),    // objSilencedUzi
+    ObjectAssetConfiguration(150, 2401, 28, 7, 266, 150, 0),       // objDoubleBarrel
+    ObjectAssetConfiguration(173, 2401, 12, 3, 307, 173, 0),       // objKnife
+    ObjectAssetConfiguration(174, 2401, 16, 10, 308, 174, 0),      // objChain
+    ObjectAssetConfiguration(177, 2401, 27, 9, 304, 177, 0),       // objShotgun
+    ObjectAssetConfiguration(178, 2401, 14, 12, 303, 178, 0),      // objUzi
+    ObjectAssetConfiguration(179, 2401, 11, 6, 302, 179, 0),       // obj9mm
+    ObjectAssetConfiguration(723, 2401, 31, 10, 1197, 723, 0),     // objKalashnikov
+    ObjectAssetConfiguration(724, 2401, 31, 13, 1194, 724, 0),     // objM16
+    ObjectAssetConfiguration(880, 2401, 13, 6, 1458, 880, 0),      // objSilencer
+    ObjectAssetConfiguration(882, 2401, 21, 12, 1459, 882, 0),     // objMP5
+    ObjectAssetConfiguration(1055, 2401, 19, 7, 1754, 1055, 0),    // objChainsaw
+    ObjectAssetConfiguration(1818, 2401, 30, 17, 3173, 1818, 0),   // objAxe
+    ObjectAssetConfiguration(2337, 2401, 14, 8, 4149, 2337, 0),    // objDrill
+    ObjectAssetConfiguration(2338, 2401, 14, 8, 4151, 2338, 0),    // objPotFull
+    ObjectAssetConfiguration(2343, 2401, 19, 12, 4157, 2343, 0),   // objSilencedUzi
 };
 

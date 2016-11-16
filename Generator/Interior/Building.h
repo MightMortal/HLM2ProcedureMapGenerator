@@ -12,6 +12,7 @@
 #include "../../MapEditor/LevelDescriptors/TileMap.h"
 #include "../../MapEditor/LevelDescriptors/PlayMap.h"
 #include "../../MapEditor/LevelDescriptors/ObjectMap.h"
+#include "../AssetConfigurations/AssetConfigurations.h"
 
 const int LEVEL_MAX_WIDTH = 1088;
 const int LEVEL_MAX_HEIGHT = 768;
@@ -30,10 +31,14 @@ public:
     vector<Line> walls;
     Rectangle rect;
     vector<Line> doorways;
+    vector<GameObject> objects;
 
     void generateDoors();
     bool checkConnectivity();
     void reduceNumberOfDoors();
+    void generateDoorObjects();
+    bool isPlaceEmpty(int x, int y, int w, int h);
+    void placeWeapon();
 };
 
 #endif //HLM2PROCEDUREMAPGENERATOR_BUILDING_H

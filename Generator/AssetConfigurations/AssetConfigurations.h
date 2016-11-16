@@ -70,10 +70,21 @@ struct ObjectAssetConfiguration {
 };
 
 /**
+ * Describes a object placed on the map
+ */
+class GameObject {
+public:
+    GameObject() : configuration(0, 0, 0, 0, 0, 0, 0) {}
+    int x;
+    int y;
+    double angle;
+    ObjectAssetConfiguration configuration;
+};
+
+/**
  * Describes a door to place on the map
  */
-class DoorObject {
-
+class DoorObject : public GameObject {
 public:
     enum DOOR_TYPE {
         objEditorDoorV = 0,
@@ -81,20 +92,17 @@ public:
         objEditorDoorV2,
         objEditorDoorH2
     };
+    DoorObject() {}
 
     static const vector<ObjectAssetConfiguration> doorObjectConfigurations;
 
     DOOR_TYPE type;
-    int x;
-    int y;
-
 };
 
 /**
  * Describes a weapon to place on the map
  */
-class WeaponObject {
-
+class WeaponObject : public GameObject {
 public:
     enum WEAPON_TYPE {
         objDoubleBarrel,
@@ -117,9 +125,6 @@ public:
     static const vector<ObjectAssetConfiguration> weaponObjectConfigurations;
 
     WEAPON_TYPE type;
-
-    int x;
-    int y;
 };
 
 #endif //HLM2PROCEDUREMAPGENERATOR_ASSETCONFIGURATIONS_H
