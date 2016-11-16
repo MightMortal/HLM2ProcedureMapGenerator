@@ -7,6 +7,7 @@
 
 #include "../../common.h"
 
+
 /**
  * Describes a separate floor tile configuration
  */
@@ -117,6 +118,46 @@ public:
     static const vector<ObjectAssetConfiguration> weaponObjectConfigurations;
 
     WEAPON_TYPE type;
+
+    int x;
+    int y;
+};
+
+class EnemyObject {
+
+public:
+    enum ENEMY_TYPE {
+        // GANG
+            objEGangMeleeRandom,
+        objEGangRandom,
+        objEGangPatrol,
+        objEGangStatic,
+        objEGangIdlePipe,
+        objEGangIdleKnife,
+        objEGangIdleSmoke,
+        // SOLDIER
+            objSoldierMeleeRandom,
+        objSoldierRandom,
+        objSoldierPatrol,
+        objSoldierStatic,
+        objSoldierFatKnife,
+        objSoldierFatGun,
+        objSoldierIdlePonchoSmoke,
+        objPoncho,
+        objSoldierIdleRain,
+        objSoldierBurn,
+    };
+
+    enum ENEMY_GROUP {
+        GANG,
+        SOLDIER,
+
+    };
+
+    static const vector<ObjectAssetConfiguration> enemyObjectConfigurations;
+
+    ENEMY_TYPE type;
+    ENEMY_GROUP group;
 
     int x;
     int y;

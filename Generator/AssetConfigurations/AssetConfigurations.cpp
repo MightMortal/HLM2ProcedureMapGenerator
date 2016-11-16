@@ -5,17 +5,17 @@
 #include "AssetConfigurations.h"
 
 const vector<RoomFloorAssetConfiguration> RoomFloor::floorTypeConfigurations = {
-    RoomFloorAssetConfiguration(2, 1001, 192, 208),     // Default
-    RoomFloorAssetConfiguration(5, 1001, 160, 128),     // Bathroom
-    RoomFloorAssetConfiguration(6, 1001, 192, 176),     // Rugs
-    RoomFloorAssetConfiguration(7, 1001, 112, 176),     // Tile
-    RoomFloorAssetConfiguration(47, 1001, 128, 128),    // Train
-    RoomFloorAssetConfiguration(8, 1001, 128, 128),     // Stairs
-    RoomFloorAssetConfiguration(3, 1001, 112, 64),      // Asphalt
-    RoomFloorAssetConfiguration(17, 1001, 192, 64),     // Sand
-    RoomFloorAssetConfiguration(4, 1001, 160, 224),     // Dirt Blood
-    RoomFloorAssetConfiguration(9, 1000, 192, 224),     // Edges
-    RoomFloorAssetConfiguration(10, -99, 40, 32),       // Corners
+    RoomFloorAssetConfiguration(2, 1001, 192, 208),                 // Default
+    RoomFloorAssetConfiguration(5, 1001, 160, 128),                 // Bathroom
+    RoomFloorAssetConfiguration(6, 1001, 192, 176),                 // Rugs
+    RoomFloorAssetConfiguration(7, 1001, 112, 176),                 // Tile
+    RoomFloorAssetConfiguration(47, 1001, 128, 128),                // Train
+    RoomFloorAssetConfiguration(8, 1001, 128, 128),                 // Stairs
+    RoomFloorAssetConfiguration(3, 1001, 112, 64),                  // Asphalt
+    RoomFloorAssetConfiguration(17, 1001, 192, 64),                 // Sand
+    RoomFloorAssetConfiguration(4, 1001, 160, 224),                 // Dirt Blood
+    RoomFloorAssetConfiguration(9, 1000, 192, 224),                 // Edges
+    RoomFloorAssetConfiguration(10, -99, 40, 32),                   // Corners
 };
 
 const vector<ObjectAssetConfiguration> DoorObject::doorObjectConfigurations = {
@@ -43,3 +43,25 @@ const vector<ObjectAssetConfiguration> WeaponObject::weaponObjectConfigurations 
     ObjectAssetConfiguration(2343, 2401, -1, -1, 4157, 2343, 0),    // objSilencedUzi
 };
 
+const vector<ObjectAssetConfiguration> EnemyObject::enemyObjectConfigurations = {
+    // GANG
+    ObjectAssetConfiguration(170, 10, -1, -1, 205, 170, 0),         // objEGangMeleeRandom
+    ObjectAssetConfiguration(193, 10, -1, -1, 201, 193, 0),         // objEGangRandom
+    ObjectAssetConfiguration(184, 10, -1, -1, 201, 184, 0),         // objEGangPatrol
+    ObjectAssetConfiguration(186, 10, -1, -1, 208, 186, 0),         // objEGangStatic
+    ObjectAssetConfiguration(229, 10, -1, -1, 195, 229, 0),         // objEGangIdlePipe
+    ObjectAssetConfiguration(230, 10, -1, -1, 211, 230, 0),         // objEGangIdleKnife
+    ObjectAssetConfiguration(231, 10, -1, -1, 210, 231, 0),         // objEGangIdleSmoke
+    // SOLDIER
+    ObjectAssetConfiguration(672, 10, -1, -1, 1118, 672, 0),        // objSoldierMeleeRandom
+    ObjectAssetConfiguration(674, 10, -1, -1, 1117, 674, 0),        // objSoldierRandom
+    ObjectAssetConfiguration(696, 10, -1, -1, 1117, 696, 0),        // objSoldierPatrol
+    ObjectAssetConfiguration(697, 10, -1, -1, 1117, 697, 0),        // objSoldierStatic
+    ObjectAssetConfiguration(698, 10, -1, -1, 1163, 698, 0),        // objSoldierFatKnife
+    ObjectAssetConfiguration(704, 10, -1, -1, 1161, 704, 0),        // objSoldierFatGun
+    ObjectAssetConfiguration(706, 10, -1, -1, 1178, 706, 0),        // objSoldierIdlePonchoSmoke
+    ObjectAssetConfiguration(707, 10, -1, -1, 1177, 707, 0),        // objPoncho
+    ObjectAssetConfiguration(708, 10, -1, -1, 1179, 708, 0),        // objSoldierIdleRain
+    ObjectAssetConfiguration(773, 10, -1, -1, 1279, 773, 0),        // objSoldierBurn
+
+};
