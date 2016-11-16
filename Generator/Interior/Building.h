@@ -39,6 +39,7 @@ public:
     void generateDoorObjects();
     bool isPlaceEmpty(int x, int y, int w, int h);
     void placeWeapon();
+    void placeEnemy();
 };
 
 #endif //HLM2PROCEDUREMAPGENERATOR_BUILDING_H

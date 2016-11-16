@@ -19,6 +19,7 @@ Level bsp_test() {
     Building building(Rectangle(Point(0, 0), Point(width, height)));
     building.generateDoors();
     building.placeWeapon();
+    building.placeEnemy();
     for (auto it = building.rooms->begin(); it != building.rooms->end(); ++it) {
         cout << "Type: " << it->type << endl;
         cout << "LeftUpper: (" << it->rect.first.x << ", " << it->rect.first.y << "), RightBottom: ("

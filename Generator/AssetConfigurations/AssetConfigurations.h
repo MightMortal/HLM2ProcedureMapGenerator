@@ -128,7 +128,7 @@ public:
     WEAPON_TYPE type;
 };
 
-class EnemyObject {
+class EnemyObject : public GameObject {
 
 public:
     enum ENEMY_TYPE {
@@ -146,11 +146,7 @@ public:
         objSoldierPatrol,
         objSoldierStatic,
         objSoldierFatKnife,
-        objSoldierFatGun,
-        objSoldierIdlePonchoSmoke,
-        objPoncho,
-        objSoldierIdleRain,
-        objSoldierBurn,
+        objSoldierFatGun
     };
 
     enum ENEMY_GROUP {
@@ -163,9 +159,6 @@ public:
 
     ENEMY_TYPE type;
     ENEMY_GROUP group;
-
-    int x;
-    int y;
 };
 
 #endif //HLM2PROCEDUREMAPGENERATOR_ASSETCONFIGURATIONS_H

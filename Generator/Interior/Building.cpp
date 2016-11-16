@@ -354,3 +354,23 @@ void Building::placeWeapon() {
         }
     }
 }
+
+void Building::placeEnemy() {
+    for (auto room = rooms->begin(); room != rooms->end(); ++room) {
+        for (int i = rand() % 3; i > 0; i--) {
+            int roomWidth = room->rect.second.x - room->rect.first.x;
+            int roomHeight = room->rect.second.y - room->rect.first.y;
+            int x = rand() % roomWidth;
+            int y = rand() % roomHeight;
+            x = clamp(x, TILE_ALIGN_FACTOR, roomWidth - TILE_ALIGN_FACTOR);
+            y = clamp(y, TILE_ALIGN_FACTOR, roomHeight - TILE_ALIGN_FACTOR);
+            EnemyObject enemyObject;
+            enemyObject.x = x + room->rect.first.x;
+            enemyObject.y = y + room->rect.first.y;
+            enemyObject.angle = 0;
+            enemyObject.configuration =
+                EnemyObject::enemyObjectConfigurations[rand() % EnemyObject::enemyObjectConfigurations.size()];
+            objects.push_back(enemyObject);
+        }
+    }
+}

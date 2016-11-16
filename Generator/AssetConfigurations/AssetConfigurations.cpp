@@ -46,7 +46,7 @@ const vector<ObjectAssetConfiguration> WeaponObject::weaponObjectConfigurations 
 const vector<ObjectAssetConfiguration> EnemyObject::enemyObjectConfigurations = {
     // GANG
     ObjectAssetConfiguration(170, 10, -1, -1, 205, 170, 0),         // objEGangMeleeRandom
-    ObjectAssetConfiguration(193, 10, -1, -1, 201, 193, 0),         // objEGangRandom
+    ObjectAssetConfiguration(183, 10, -1, -1, 201, 183, 0),         // objEGangRandom
     ObjectAssetConfiguration(184, 10, -1, -1, 201, 184, 0),         // objEGangPatrol
     ObjectAssetConfiguration(186, 10, -1, -1, 208, 186, 0),         // objEGangStatic
     ObjectAssetConfiguration(229, 10, -1, -1, 195, 229, 0),         // objEGangIdlePipe
@@ -58,10 +58,5 @@ const vector<ObjectAssetConfiguration> EnemyObject::enemyObjectConfigurations = 
     ObjectAssetConfiguration(696, 10, -1, -1, 1117, 696, 0),        // objSoldierPatrol
     ObjectAssetConfiguration(697, 10, -1, -1, 1117, 697, 0),        // objSoldierStatic
     ObjectAssetConfiguration(698, 10, -1, -1, 1163, 698, 0),        // objSoldierFatKnife
-    ObjectAssetConfiguration(704, 10, -1, -1, 1161, 704, 0),        // objSoldierFatGun
-    ObjectAssetConfiguration(706, 10, -1, -1, 1178, 706, 0),        // objSoldierIdlePonchoSmoke
-    ObjectAssetConfiguration(707, 10, -1, -1, 1177, 707, 0),        // objPoncho
-    ObjectAssetConfiguration(708, 10, -1, -1, 1179, 708, 0),        // objSoldierIdleRain
-    ObjectAssetConfiguration(773, 10, -1, -1, 1279, 773, 0),        // objSoldierBurn
-
+    ObjectAssetConfiguration(704, 10, -1, -1, 1161, 704, 0)        // objSoldierFatGun
 };
