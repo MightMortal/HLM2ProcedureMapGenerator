@@ -370,6 +370,7 @@ void Building::placeEnemy() {
             enemyObject.angle = 0;
             enemyObject.configuration =
                 EnemyObject::enemyObjectConfigurations[rand() % EnemyObject::enemyObjectConfigurations.size()];
+//            enemyObject.configuration = EnemyObject::enemyObjectConfigurations[EnemyObject::objColombianHiding];
             objects.push_back(enemyObject);
         }
     }

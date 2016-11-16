@@ -139,6 +139,9 @@ public:
         objEGangIdlePipe,
         objEGangIdleKnife,
         objEGangIdleSmoke,
+        objEGangMeleePatrol,
+        objEGangFat,
+        objGangDodger,
         // SOLDIER
             objSoldierMeleeRandom,
         objSoldierRandom,
@@ -146,12 +149,6 @@ public:
         objSoldierStatic,
         objSoldierFatKnife,
         objSoldierFatGun,
-        objSoldierIdlePonchoSmoke,
-        objPoncho,
-        objSoldierIdleRain,
-        objSoldierBurn,
-        objSoldierHiding,
-        objSoldierBurnt,
         objSoldierDodger,
         objSoldierMeleePatrol,
         // MAFIA
@@ -159,10 +156,8 @@ public:
         objEMafiaRandom,
         objEMafiaStatic,
         objEMafiaPatrol,
-        objEMafiaIdlePhoneSilencer,
         objEMafiaMeleePatrol,
         objEMafiaFat,
-        objFatMafiaLSD,
         objEMafiaIdleSmoke,
         objEMafiaIdlePipe,
         // POLICE
@@ -182,13 +177,11 @@ public:
         objColombianStatic,
         objColombianPatrol,
         objColombianIdlePipe,
-        objColombianHiding,
         objColombianDodger,
         // GUARD
         // PRISONER
         // MISC
-            objEnemyCrawl,
-
+            ENEMY_TYPE_LENGTH
     };
 
     enum ENEMY_GROUP {
@@ -197,8 +190,7 @@ public:
         MAFIA,
         POLICE,
         DOG,
-        COLOMBIAN,
-        MISC,
+        COLOMBIAN
     };
 
     static const vector<ObjectAssetConfiguration> enemyObjectConfigurations;
