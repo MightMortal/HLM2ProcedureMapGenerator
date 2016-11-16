@@ -7,7 +7,6 @@
 
 #include "../../common.h"
 
-
 /**
  * Describes a separate floor tile configuration
  */
@@ -140,6 +139,10 @@ public:
         objEGangIdlePipe,
         objEGangIdleKnife,
         objEGangIdleSmoke,
+        objEGangMeleePatrol,
+        objEGangIdleMoney,
+        objEGangFat,
+        objGangDodger,
         // SOLDIER
             objSoldierMeleeRandom,
         objSoldierRandom,
@@ -151,12 +154,55 @@ public:
         objPoncho,
         objSoldierIdleRain,
         objSoldierBurn,
+        objSoldierHiding,
+        objSoldierBurnt,
+        objSoldierDodger,
+        objSoldierMeleePatrol,
+        // MAFIA
+            bjEMafiaMeleeRandom,
+        objEMafiaRandom,
+        objEMafiaStatic,
+        objEMafiaPatrol,
+        objEMafiaIdlePhoneSilencer,
+        objEMafiaMeleePatrol,
+        objEMafiaFat,
+        objFatMafiaLSD,
+        objEMafiaIdleSmoke,
+        objEMafiaIdlePipe,
+        // POLICE
+            objEPoliceMeleeRandom,
+        objEPoliceRandom,
+        objEPolicePatrol,
+        objEPoliceStatic,
+        objFatPolice,
+        objEPoliceMeleePatrol,
+        objPoliceIdleTalk,
+        // DOG
+            objDogPatrol,
+        // COLOMBIAN
+            objColombianMeleeRandom,
+        objColombianMeleePatrol,
+        objColombianRandom,
+        objColombianStatic,
+        objColombianPatrol,
+        objColombianIdlePipe,
+        objColombianHiding,
+        objColombianDodger,
+        // GUARD
+        // PRISONER
+        // MISC
+            objEnemyCrawl,
+
     };
 
     enum ENEMY_GROUP {
         GANG,
         SOLDIER,
-
+        MAFIA,
+        POLICE,
+        DOG,
+        COLOMBIAN,
+        MISC,
     };
 
     static const vector<ObjectAssetConfiguration> enemyObjectConfigurations;
