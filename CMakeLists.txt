@@ -28,7 +28,7 @@ set(SOURCE_FILES ${SOURCE_FILES} Generator/Geometry/Geometry.cpp Generator/Geome
 set(SOURCE_FILES ${SOURCE_FILES} Generator/BSP/BSP.cpp Generator/BSP/BSP.h)
 set(SOURCE_FILES ${SOURCE_FILES} Generator/Interior/Room.cpp Generator/Interior/Room.h)
 set(SOURCE_FILES ${SOURCE_FILES} Generator/Interior/Building.cpp Generator/Interior/Building.h)
-
+set(SOURCE_FILES ${SOURCE_FILES} Generator/AssetConfigurations/AssetConfigurations.h)
 
 add_executable(HLM2ProcedureMapGenerator ${SOURCE_FILES})
 
