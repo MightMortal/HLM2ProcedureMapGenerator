@@ -207,15 +207,15 @@ public:
 
 //    static const vector<ObjectAssetConfiguration> enemyObjectConfigurations;
 
-    static constexpr double MELEE_RANDOM_PROBABILITY = 0.7;
-    static constexpr double RANDOM_PROBABILITY = 0.6;
-    static constexpr double PATROL_PROBABILITY = 0.5;
-    static constexpr double STATIC_PROBABILITY = 0.6;
-    static constexpr double MELEE_PATROL_PROBABILITY = 0.7;
-    static constexpr double FAT_PROBABILITY = 0.4;
-    static constexpr double DODGER_PROBABILITY = 0.3;
-    static constexpr double IDLE_PROBABILITY = 0.5;
-    static constexpr double DOG_PROBABILITY = 0.5;
+    static const double MELEE_RANDOM_PROBABILITY;
+    static const double RANDOM_PROBABILITY;
+    static const double PATROL_PROBABILITY;
+    static const double STATIC_PROBABILITY;
+    static const double MELEE_PATROL_PROBABILITY;
+    static const double FAT_PROBABILITY;
+    static const double DODGER_PROBABILITY;
+    static const double IDLE_PROBABILITY;
+    static const double DOG_PROBABILITY;
     static const int ENEMY_SIZE = 48;
 
     static const vector<pair<double, vector<ObjectAssetConfiguration>>> enemyObjectConfigurations2;

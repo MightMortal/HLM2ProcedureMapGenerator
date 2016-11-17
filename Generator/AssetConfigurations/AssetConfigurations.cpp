@@ -4,6 +4,16 @@
 
 #include "AssetConfigurations.h"
 
+const double EnemyObject::MELEE_RANDOM_PROBABILITY = 0.7;
+const double EnemyObject::RANDOM_PROBABILITY = 0.6;
+const double EnemyObject::PATROL_PROBABILITY = 0.5;
+const double EnemyObject::STATIC_PROBABILITY = 0.6;
+const double EnemyObject::MELEE_PATROL_PROBABILITY = 0.7;
+const double EnemyObject::FAT_PROBABILITY = 0.4;
+const double EnemyObject::DODGER_PROBABILITY = 0.3;
+const double EnemyObject::IDLE_PROBABILITY = 0.5;
+const double EnemyObject::DOG_PROBABILITY = 0.5;
+
 const vector<RoomFloorAssetConfiguration> RoomFloor::floorTypeConfigurations = {
     RoomFloorAssetConfiguration(2, 1001, 192, 208),                 // Default
     RoomFloorAssetConfiguration(5, 1001, 160, 128),                 // Bathroom
@@ -48,234 +58,72 @@ const vector<ObjectAssetConfiguration> WeaponObject::weaponObjectConfigurations 
  */
 const vector<pair<double, vector<ObjectAssetConfiguration>>> EnemyObject::enemyObjectConfigurations2 = {
     make_pair(EnemyObject::MELEE_RANDOM_PROBABILITY, vector<ObjectAssetConfiguration>({
-                                                                                          ObjectAssetConfiguration(170,
-                                                                                                                   10,
-                                                                                                                   ENEMY_SIZE,
-                                                                                                                   ENEMY_SIZE,
-                                                                                                                   205,
-                                                                                                                   170,
-                                                                                                                   0),             // objEGangMeleeRandom
+          ObjectAssetConfiguration(170, 10, ENEMY_SIZE, ENEMY_SIZE, 205, 170, 0),             // objEGangMeleeRandom
 //        ObjectAssetConfiguration(672, 10, ENEMY_SIZE, ENEMY_SIZE, 1118, 672, 0),            // objSoldierMeleeRandom
-                                                                                          ObjectAssetConfiguration(875,
-                                                                                                                   10,
-                                                                                                                   ENEMY_SIZE,
-                                                                                                                   ENEMY_SIZE,
-                                                                                                                   66,
-                                                                                                                   875,
-                                                                                                                   0),              // objEMafiaMeleeRandom
+          ObjectAssetConfiguration(875, 10, ENEMY_SIZE, ENEMY_SIZE, 66, 875, 0),              // objEMafiaMeleeRandom
 //        ObjectAssetConfiguration(931, 10, ENEMY_SIZE, ENEMY_SIZE, 1553, 931, 0),            // objEPoliceMeleeRandom
-                                                                                          ObjectAssetConfiguration(1354,
-                                                                                                                   10,
-                                                                                                                   ENEMY_SIZE,
-                                                                                                                   ENEMY_SIZE,
-                                                                                                                   2292,
-                                                                                                                   1354,
-                                                                                                                   0)           // objColombianMeleeRandom
-                                                                                      })),
+          ObjectAssetConfiguration(1354, 10, ENEMY_SIZE, ENEMY_SIZE, 2292, 1354, 0)           // objColombianMeleeRandom
+    })),
 
     make_pair(EnemyObject::RANDOM_PROBABILITY, vector<ObjectAssetConfiguration>({
-                                                                                    ObjectAssetConfiguration(183,
-                                                                                                             10,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             201,
-                                                                                                             183,
-                                                                                                             0),             // objEGangRandom
+          ObjectAssetConfiguration(183, 10, ENEMY_SIZE, ENEMY_SIZE, 201, 183, 0),             // objEGangRandom
 //        ObjectAssetConfiguration(674, 10, ENEMY_SIZE, ENEMY_SIZE, 1117, 674, 0),            // objSoldierRandom
-                                                                                    ObjectAssetConfiguration(876,
-                                                                                                             10,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             70,
-                                                                                                             876,
-                                                                                                             0),              // objEMafiaRandom
+          ObjectAssetConfiguration(876, 10, ENEMY_SIZE, ENEMY_SIZE, 70, 876, 0),              // objEMafiaRandom
 //        ObjectAssetConfiguration(932, 10, ENEMY_SIZE, ENEMY_SIZE, 1551, 932, 0),            // objEPoliceRandom
-                                                                                    ObjectAssetConfiguration(1356,
-                                                                                                             10,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             2291,
-                                                                                                             1356,
-                                                                                                             0)           // objColombianRandom
-                                                                                })),
+          ObjectAssetConfiguration(1356, 10, ENEMY_SIZE, ENEMY_SIZE, 2291, 1356, 0)           // objColombianRandom
+    })),
 
     make_pair(EnemyObject::PATROL_PROBABILITY, vector<ObjectAssetConfiguration>({
-                                                                                    ObjectAssetConfiguration(184,
-                                                                                                             10,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             201,
-                                                                                                             184,
-                                                                                                             0),             // objEGangPatrol
+          ObjectAssetConfiguration(184, 10, ENEMY_SIZE, ENEMY_SIZE, 201, 184, 0),             // objEGangPatrol
 //        ObjectAssetConfiguration(696, 10, ENEMY_SIZE, ENEMY_SIZE, 1117, 696, 0),            // objSoldierPatrol
-                                                                                    ObjectAssetConfiguration(878,
-                                                                                                             10,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             70,
-                                                                                                             878,
-                                                                                                             0),              // objEMafiaPatrol
+          ObjectAssetConfiguration(878, 10, ENEMY_SIZE, ENEMY_SIZE, 70, 878, 0),              // objEMafiaPatrol
 //        ObjectAssetConfiguration(933, 10, ENEMY_SIZE, ENEMY_SIZE, 1558, 933, 0),            // objEPolicePatrol
-                                                                                    ObjectAssetConfiguration(1358,
-                                                                                                             10,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             2291,
-                                                                                                             1358,
-                                                                                                             0)           // objColombianPatrol
-                                                                                })),
+          ObjectAssetConfiguration(1358, 10, ENEMY_SIZE, ENEMY_SIZE, 2291, 1358, 0)           // objColombianPatrol
+    })),
 
     make_pair(EnemyObject::STATIC_PROBABILITY, vector<ObjectAssetConfiguration>({
-                                                                                    ObjectAssetConfiguration(186,
-                                                                                                             10,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             208,
-                                                                                                             186,
-                                                                                                             0),             // objEGangStatic
+          ObjectAssetConfiguration(186, 10, ENEMY_SIZE, ENEMY_SIZE, 208, 186, 0),             // objEGangStatic
 //        ObjectAssetConfiguration(697, 10, ENEMY_SIZE, ENEMY_SIZE, 1117, 697, 0),            // objSoldierStatic
-                                                                                    ObjectAssetConfiguration(877,
-                                                                                                             10,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             70,
-                                                                                                             877,
-                                                                                                             0),              // objEMafiaStatic
+          ObjectAssetConfiguration(877, 10, ENEMY_SIZE, ENEMY_SIZE, 70, 877, 0),              // objEMafiaStatic
 //        ObjectAssetConfiguration(934, 10, ENEMY_SIZE, ENEMY_SIZE, 1558, 934, 0),            // objEPoliceStatic
-                                                                                    ObjectAssetConfiguration(1357,
-                                                                                                             10,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             2291,
-                                                                                                             1357,
-                                                                                                             0)           // objColombianStatic
-                                                                                })),
+          ObjectAssetConfiguration(1357, 10, ENEMY_SIZE, ENEMY_SIZE, 2291, 1357, 0)           // objColombianStatic
+    })),
 
     make_pair(EnemyObject::MELEE_PATROL_PROBABILITY, vector<ObjectAssetConfiguration>({
-                                                                                          ObjectAssetConfiguration(941,
-                                                                                                                   10,
-                                                                                                                   ENEMY_SIZE,
-                                                                                                                   ENEMY_SIZE,
-                                                                                                                   202,
-                                                                                                                   941,
-                                                                                                                   0),             // objEGangMeleePatrol
+          ObjectAssetConfiguration(941, 10, ENEMY_SIZE, ENEMY_SIZE, 202, 941, 0),             // objEGangMeleePatrol
 //        ObjectAssetConfiguration(2396, 10, ENEMY_SIZE, ENEMY_SIZE, 1118, 2396, 0),          // objSoldierMeleePatrol
-                                                                                          ObjectAssetConfiguration(938,
-                                                                                                                   10,
-                                                                                                                   ENEMY_SIZE,
-                                                                                                                   ENEMY_SIZE,
-                                                                                                                   66,
-                                                                                                                   938,
-                                                                                                                   0),              // objEMafiaMeleePatrol
+          ObjectAssetConfiguration(938, 10, ENEMY_SIZE, ENEMY_SIZE, 66, 938, 0),              // objEMafiaMeleePatrol
 //        ObjectAssetConfiguration(939, 10, ENEMY_SIZE, ENEMY_SIZE, 1553, 939, 0),            // objEPoliceMeleePatrol
-                                                                                          ObjectAssetConfiguration(1355,
-                                                                                                                   10,
-                                                                                                                   ENEMY_SIZE,
-                                                                                                                   ENEMY_SIZE,
-                                                                                                                   2290,
-                                                                                                                   1355,
-                                                                                                                   0)           // objColombianMeleePatrol
-                                                                                      })),
+          ObjectAssetConfiguration(1355, 10, ENEMY_SIZE, ENEMY_SIZE, 2290, 1355, 0)           // objColombianMeleePatrol
+    })),
 
     make_pair(EnemyObject::FAT_PROBABILITY, vector<ObjectAssetConfiguration>({
-                                                                                 ObjectAssetConfiguration(1289,
-                                                                                                          10,
-                                                                                                          ENEMY_SIZE,
-                                                                                                          ENEMY_SIZE,
-                                                                                                          2194,
-                                                                                                          1289,
-                                                                                                          0),          // objEGangFat
+          ObjectAssetConfiguration(1289, 10, ENEMY_SIZE, ENEMY_SIZE, 2194, 1289, 0),          // objEGangFat
 //        ObjectAssetConfiguration(698, 10, ENEMY_SIZE, ENEMY_SIZE, 1163, 698, 0),            // objSoldierFatKnife
 //        ObjectAssetConfiguration(704, 10, ENEMY_SIZE, ENEMY_SIZE, 1161, 704, 0),            // objSoldierFatGun
-                                                                                 ObjectAssetConfiguration(1464,
-                                                                                                          10,
-                                                                                                          ENEMY_SIZE,
-                                                                                                          ENEMY_SIZE,
-                                                                                                          2596,
-                                                                                                          1464,
-                                                                                                          0),          // objEMafiaFat
-                                                                                 ObjectAssetConfiguration(937,
-                                                                                                          10,
-                                                                                                          ENEMY_SIZE,
-                                                                                                          ENEMY_SIZE,
-                                                                                                          1570,
-                                                                                                          937,
-                                                                                                          0)             // objFatPolice
-                                                                             })),
+          ObjectAssetConfiguration(1464, 10, ENEMY_SIZE, ENEMY_SIZE, 2596, 1464, 0),          // objEMafiaFat
+          ObjectAssetConfiguration(937, 10, ENEMY_SIZE, ENEMY_SIZE, 1570, 937, 0)             // objFatPolice
+    })),
 
     make_pair(EnemyObject::DODGER_PROBABILITY, vector<ObjectAssetConfiguration>({
-                                                                                    ObjectAssetConfiguration(2286,
-                                                                                                             10,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             3973,
-                                                                                                             2286,
-                                                                                                             0),          // objGangDodger
+          ObjectAssetConfiguration(2286, 10, ENEMY_SIZE, ENEMY_SIZE, 3973, 2286, 0),          // objGangDodger
 //        ObjectAssetConfiguration(2287, 10, ENEMY_SIZE, ENEMY_SIZE, 3977, 2287, 0),          // objSoldierDodger
-                                                                                    ObjectAssetConfiguration(1886,
-                                                                                                             10,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             ENEMY_SIZE,
-                                                                                                             3287,
-                                                                                                             1886,
-                                                                                                             0)           // objColombianDodger
-                                                                                })),
+          ObjectAssetConfiguration(1886, 10, ENEMY_SIZE, ENEMY_SIZE, 3287, 1886, 0)           // objColombianDodger
+    })),
 
     make_pair(EnemyObject::IDLE_PROBABILITY, vector<ObjectAssetConfiguration>({
-                                                                                  ObjectAssetConfiguration(229,
-                                                                                                           10,
-                                                                                                           ENEMY_SIZE,
-                                                                                                           ENEMY_SIZE,
-                                                                                                           195,
-                                                                                                           229,
-                                                                                                           0),         // objEGangIdlePipe
-                                                                                  ObjectAssetConfiguration(230,
-                                                                                                           10,
-                                                                                                           ENEMY_SIZE,
-                                                                                                           ENEMY_SIZE,
-                                                                                                           211,
-                                                                                                           230,
-                                                                                                           0),         // objEGangIdleKnife
-                                                                                  ObjectAssetConfiguration(231,
-                                                                                                           10,
-                                                                                                           ENEMY_SIZE,
-                                                                                                           ENEMY_SIZE,
-                                                                                                           210,
-                                                                                                           231,
-                                                                                                           0),         // objEGangIdleSmoke
-                                                                                  ObjectAssetConfiguration(2407,
-                                                                                                           10,
-                                                                                                           ENEMY_SIZE,
-                                                                                                           ENEMY_SIZE,
-                                                                                                           2077,
-                                                                                                           2407,
-                                                                                                           0),      // objEMafiaIdleSmoke
-                                                                                  ObjectAssetConfiguration(2408,
-                                                                                                           10,
-                                                                                                           ENEMY_SIZE,
-                                                                                                           ENEMY_SIZE,
-                                                                                                           2078,
-                                                                                                           2408,
-                                                                                                           0),      // objEMafiaIdlePipe
+          ObjectAssetConfiguration(229, 10, ENEMY_SIZE, ENEMY_SIZE, 195, 229, 0),         // objEGangIdlePipe
+          ObjectAssetConfiguration(230, 10, ENEMY_SIZE, ENEMY_SIZE, 211, 230, 0),         // objEGangIdleKnife
+          ObjectAssetConfiguration(231, 10, ENEMY_SIZE, ENEMY_SIZE, 210, 231, 0),         // objEGangIdleSmoke
+          ObjectAssetConfiguration(2407, 10, ENEMY_SIZE, ENEMY_SIZE, 2077, 2407, 0),      // objEMafiaIdleSmoke
+          ObjectAssetConfiguration(2408, 10, ENEMY_SIZE, ENEMY_SIZE, 2078, 2408, 0),      // objEMafiaIdlePipe
 //        ObjectAssetConfiguration(2409, 10, ENEMY_SIZE, ENEMY_SIZE, 1336, 2409, 0),      // objPoliceIdleTalk
-                                                                                  ObjectAssetConfiguration(1359,
-                                                                                                           10,
-                                                                                                           ENEMY_SIZE,
-                                                                                                           ENEMY_SIZE,
-                                                                                                           2324,
-                                                                                                           1359,
-                                                                                                           0)       // objColombianIdlePipe
-                                                                              })),
+          ObjectAssetConfiguration(1359, 10, ENEMY_SIZE, ENEMY_SIZE, 2324, 1359, 0)       // objColombianIdlePipe
+    })),
 
     make_pair(EnemyObject::DOG_PROBABILITY, vector<ObjectAssetConfiguration>({
-                                                                                 ObjectAssetConfiguration(1064,
-                                                                                                          10,
-                                                                                                          ENEMY_SIZE,
-                                                                                                          ENEMY_SIZE,
-                                                                                                          1766,
-                                                                                                          1064,
-                                                                                                          0),      // objDogPatrol
-                                                                             }))
+          ObjectAssetConfiguration(1064, 10, ENEMY_SIZE, ENEMY_SIZE, 1766, 1064, 0),      // objDogPatrol
+    }))
 };
 
 
