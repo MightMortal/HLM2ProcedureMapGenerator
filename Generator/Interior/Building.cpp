@@ -55,6 +55,8 @@ Building::Building(Rectangle rect) {
             walls.insert(walls.end(), newWalls.begin(), newWalls.end());
         }
     }
+
+    generateWindows();
 }
 
 Building::~Building() {
@@ -135,6 +137,31 @@ WallMap Building::generateWallMap() {
         editorWall.x = rect.second.x;
         editorWall.y = y;
         editorWalls.push_back(editorWall);
+    }
+    for (auto windowLine = windows.begin(); windowLine != windows.end(); ++windowLine) {
+        if (windowLine->first.y == windowLine->second.y) {
+            // Horizontal
+            if (windowLine->first.y == rect.first.y || windowLine->first.y == rect.second.y)
+                continue;
+            EditorWall window;
+            window.magic = WallObject::horizontalWalls[WallObject::WOOD_WINDOW].magic;
+            window.attribute = WallObject::horizontalWalls[WallObject::WOOD_WINDOW].attribute;
+            window.id = WallObject::horizontalWalls[WallObject::WOOD_WINDOW].id;
+            window.x = windowLine->first.x;
+            window.y = windowLine->first.y;
+            editorWalls.push_back(window);
+        } else {
+            // Vertical
+            if (windowLine->first.x == rect.first.x || windowLine->first.x == rect.second.x)
+                continue;
+            EditorWall window;
+            window.magic = WallObject::verticalWalls[WallObject::WOOD_WINDOW].magic;
+            window.attribute = WallObject::verticalWalls[WallObject::WOOD_WINDOW].attribute;
+            window.id = WallObject::verticalWalls[WallObject::WOOD_WINDOW].id;
+            window.x = windowLine->first.x;
+            window.y = windowLine->first.y;
+            editorWalls.push_back(window);
+        }
     }
     return WallMap(editorWalls);
 }
@@ -388,4 +415,72 @@ void Building::placeEnemy() {
             objects.push_back(enemyObject);
         }
     }
+}
+
+void Building::generateWindows() {
+    for (auto room = rooms->begin(); room != rooms->end(); ++room) {
+        // Don't handle corridors
+        if (room->type == Room::CORRIDOR)
+            continue;
+        vector<Line> walls = room->rect.getWalls();
+        for (auto roomWall = walls.begin(); roomWall != walls.end(); ++roomWall) {
+            if (rand() * 1.0 / RAND_MAX <= WINDOW_APPEAR_PROBABILITY) {
+                // Pick number of windows to place
+                int windowNumber = rand() % MAX_WINDOW_IN_PLACE + 1;
+
+                if (roomWall->first.x == roomWall->second.x) {
+                    // Wall is vertical
+                    int currentWallLength = roomWall->second.y = roomWall->first.y;
+                    if (currentWallLength == 0)
+                        continue;
+                    int startPoint = rand() % currentWallLength;
+                    startPoint = alignValue(startPoint, WINDOW_LENGTH);
+                    startPoint = clamp(startPoint, roomWall->first.y, roomWall->second.y);
+
+                    for (int i = 0; i < windowNumber; ++i) {
+                        Point p0(roomWall->first.x, startPoint);
+                        Point p1(roomWall->first.x, startPoint + WINDOW_LENGTH);
+                        Line window(p0, p1);
+                        if (isWallFree(window) && window.second.y <= roomWall->second.y) {
+                            windows.push_back(window);
+                        }
+                        startPoint += WINDOW_LENGTH + 1;
+                    }
+
+                } else {
+                    // Wall is horizontal
+                    int currentWallLength = roomWall->second.x = roomWall->first.x;
+                    if (currentWallLength == 0)
+                        continue;
+                    int startPoint = rand() % currentWallLength;
+                    startPoint = alignValue(startPoint, WINDOW_LENGTH);
+                    startPoint = clamp(startPoint, roomWall->first.x, roomWall->second.x);
+
+                    for (int i = 0; i < windowNumber; ++i) {
+                        Point p0(roomWall->first.y, startPoint);
+                        Point p1(roomWall->first.y, startPoint + WINDOW_LENGTH);
+                        Line window(p0, p1);
+                        if (isWallFree(window) && window.second.x <= roomWall->second.x) {
+                            windows.push_back(window);
+                        }
+                        startPoint += WINDOW_LENGTH + 1;
+                    }
+                }
+            }
+        }
+    }
+}
+
+bool Building::isWallFree(Line line) {
+    for (auto doorway = doorways.begin(); doorway != doorways.end(); ++doorway) {
+        if (isLinePartiallyOverlapped(*doorway, line)) {
+            return false;
+        }
+    }
+    for (auto window = windows.begin(); window != windows.end(); ++window) {
+        if (isLinePartiallyOverlapped(*window, line)) {
+            return false;
+        }
+    }
+    return true;
 }

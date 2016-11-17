@@ -32,6 +32,7 @@ public:
     Rectangle rect;
     vector<Line> doorways;
     vector<GameObject> objects;
+    vector<Line> windows;
 
     void generateDoors();
     bool checkConnectivity();
@@ -40,6 +41,8 @@ public:
     bool isPlaceEmpty(int x, int y, int w, int h);
     void placeWeapon();
     void placeEnemy();
+    void generateWindows();
+    bool isWallFree(Line line);
 };
 
 #endif //HLM2PROCEDUREMAPGENERATOR_BUILDING_H
