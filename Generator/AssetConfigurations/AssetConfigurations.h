@@ -129,7 +129,7 @@ public:
 class WeaponObject : public GameObject {
 public:
     enum WEAPON_TYPE {
-        objDoubleBarrel,
+        objDoubleBarrel = 0,
         objKnife,
         objChain,
         objShotgun,
@@ -151,85 +151,12 @@ public:
     WEAPON_TYPE type;
 };
 
+/**
+ * Describes different enemies
+ */
 class EnemyObject : public GameObject {
 
 public:
-//    enum ENEMY_TYPE {
-//        // GANG
-//            objEGangMeleeRandom,
-//        objEGangRandom,
-//        objEGangPatrol,
-//        objEGangStatic,
-//        objEGangIdlePipe,
-//        objEGangIdleKnife,
-//        objEGangIdleSmoke,
-//        objEGangMeleePatrol,
-//        objEGangFat,
-//        objGangDodger,
-//        // SOLDIER
-//            objSoldierMeleeRandom,
-//        objSoldierRandom,
-//        objSoldierPatrol,
-//        objSoldierStatic,
-//        objSoldierFatKnife,
-//        objSoldierFatGun,
-//        objSoldierDodger,
-//        objSoldierMeleePatrol,
-//        // MAFIA
-//            bjEMafiaMeleeRandom,
-//        objEMafiaRandom,
-//        objEMafiaStatic,
-//        objEMafiaPatrol,
-//        objEMafiaMeleePatrol,
-//        objEMafiaFat,
-//        objEMafiaIdleSmoke,
-//        objEMafiaIdlePipe,
-//        // POLICE
-//            objEPoliceMeleeRandom,
-//        objEPoliceRandom,
-//        objEPolicePatrol,
-//        objEPoliceStatic,
-//        objFatPolice,
-//        objEPoliceMeleePatrol,
-//        objPoliceIdleTalk,
-//        // DOG
-//            objDogPatrol,
-//        // COLOMBIAN
-//            objColombianMeleeRandom,
-//        objColombianMeleePatrol,
-//        objColombianRandom,
-//        objColombianStatic,
-//        objColombianPatrol,
-//        objColombianIdlePipe,
-//        objColombianDodger,
-//        // GUARD
-//        // PRISONER
-//        // MISC
-//            ENEMY_TYPE_LENGTH
-//    };
-
-//    enum ENEMY_GROUP {
-//        GANG,
-//        SOLDIER,
-//        MAFIA,
-//        POLICE,
-//        DOG,
-//        COLOMBIAN
-//    };
-
-//    enum ENEMY_KIND {
-//        MELEE_RANDOM,
-//        RANDOM,
-//        PATROL,
-//        STATIC,
-//        MELEE_PATROL,
-//        FAT,
-//        DODGER,
-//        IDLE,
-//        DOG
-//    };
-
-//    static const vector<ObjectAssetConfiguration> enemyObjectConfigurations;
 
     static const double MELEE_RANDOM_PROBABILITY;
     static const double RANDOM_PROBABILITY;
@@ -242,10 +169,9 @@ public:
     static const double DOG_PROBABILITY;
     static const int ENEMY_SIZE = 48;
 
-    static const vector<pair<double, vector<ObjectAssetConfiguration>>> enemyObjectConfigurations2;
+    static const vector<pair<double, vector<ObjectAssetConfiguration>>> enemyObjectConfigurations;
 
-//    ENEMY_TYPE type;
-//    ENEMY_GROUP group;
 };
+
 
 #endif //HLM2PROCEDUREMAPGENERATOR_ASSETCONFIGURATIONS_H

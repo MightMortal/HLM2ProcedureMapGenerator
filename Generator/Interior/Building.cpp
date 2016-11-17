@@ -357,7 +357,7 @@ void Building::placeWeapon() {
 }
 
 void Building::placeEnemy() {
-    auto configurationPair = EnemyObject::enemyObjectConfigurations2.begin();
+    auto configurationPair = EnemyObject::enemyObjectConfigurations.begin();
     for (auto room = rooms->begin(); room != rooms->end(); ++room) {
         int numberOfEnemies = (int) (sqrt(room->rect.area()) / enemyPlacingFactor);
         for (int i = numberOfEnemies; i > 0; i--) {
@@ -376,8 +376,8 @@ void Building::placeEnemy() {
 
             enemyObject.angle = 0;
             for (;; ++configurationPair) {
-                if (configurationPair == EnemyObject::enemyObjectConfigurations2.end())
-                    configurationPair = EnemyObject::enemyObjectConfigurations2.begin();
+                if (configurationPair == EnemyObject::enemyObjectConfigurations.end())
+                    configurationPair = EnemyObject::enemyObjectConfigurations.begin();
                 double p = rand() * 1.0 / RAND_MAX;
                 if (p < configurationPair->first) {
                     enemyObject.configuration = configurationPair->second.at(rand() % configurationPair->second.size());
