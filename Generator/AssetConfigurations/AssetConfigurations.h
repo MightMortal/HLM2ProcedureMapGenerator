@@ -7,6 +7,30 @@
 
 #include "../../common.h"
 
+struct WallAssetConfiguration {
+    int id;
+    int attribute;
+    int magic;
+    WallAssetConfiguration(int id, int attribute, int magic) : id(id), attribute(attribute), magic(magic) {}
+};
+
+class WallObject {
+public:
+    enum WALL_TYPE {
+        SUBWAY_WALL = 0,
+        WALL,
+        BRICK_WALL,
+        SOFT_WALL,
+        SEWER_WALL,
+        PORCH_WALL,
+        WOOD_WALL,
+        WOOD_WINDOW,
+        RENOVATION_WALL
+    };
+    static const vector<WallAssetConfiguration> horizontalWalls;
+    static const vector<WallAssetConfiguration> verticalWalls;
+};
+
 /**
  * Describes a separate floor tile configuration
  */

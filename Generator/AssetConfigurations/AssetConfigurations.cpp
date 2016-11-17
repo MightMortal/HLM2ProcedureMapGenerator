@@ -14,6 +14,30 @@ const double EnemyObject::DODGER_PROBABILITY = 0.3;
 const double EnemyObject::IDLE_PROBABILITY = 0.5;
 const double EnemyObject::DOG_PROBABILITY = 0.5;
 
+const vector<WallAssetConfiguration> WallObject::horizontalWalls = {
+    WallAssetConfiguration(986, 1649, 0),  // SUBWAY_WALL
+    WallAssetConfiguration(7, 62, 0),      // WALL
+    WallAssetConfiguration(32, 99, 0),    // BRICK_WALL
+    WallAssetConfiguration(34, 98, 0),     // SOFT_WALL
+    WallAssetConfiguration(1272, 2148, 0), // SEWER_WALL
+    WallAssetConfiguration(102, 176, 0),   // PORCH_WALL
+    WallAssetConfiguration(677, 1131, 0),  // WOOD_WALL
+    WallAssetConfiguration(683, 1925, 0),  // WOOD_WINDOW
+    WallAssetConfiguration(1511, 2656, 0), // RENOVATION_WALL
+};
+
+const vector<WallAssetConfiguration> WallObject::verticalWalls = {
+    WallAssetConfiguration(1742, 2996, 0),  // SUBWAY_WALL
+    WallAssetConfiguration(8, 63, 0),      // WALL
+    WallAssetConfiguration(31, 100, 0),    // BRICK_WALL
+    WallAssetConfiguration(33, 97, 0),     // SOFT_WALL
+    WallAssetConfiguration(1271, 2149, 0), // SEWER_WALL
+    WallAssetConfiguration(101, 177, 0),   // PORCH_WALL
+    WallAssetConfiguration(675, 1132, 0),  // WOOD_WALL
+    WallAssetConfiguration(682, 1143, 0),  // WOOD_WINDOW
+    WallAssetConfiguration(1512, 2657, 0), // RENOVATION_WALL
+};
+
 const vector<RoomFloorAssetConfiguration> RoomFloor::floorTypeConfigurations = {
     RoomFloorAssetConfiguration(2, 1001, 192, 208),                 // Default
     RoomFloorAssetConfiguration(5, 1001, 160, 128),                 // Bathroom

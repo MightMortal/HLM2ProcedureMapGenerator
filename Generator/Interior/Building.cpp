@@ -8,7 +8,7 @@
 
 #include "../bsp/BSP.h"
 
-const int minRoomArea = 15000;
+const int minRoomArea = 12000;
 const int maxTreeDepth = 9;
 const double minRoomAreaMultiplyFactor = 2 / 3;
 const double doorsThresholdFactor = 35; // In percents
@@ -357,9 +357,9 @@ void Building::placeWeapon() {
 }
 
 void Building::placeEnemy() {
+    auto configurationPair = EnemyObject::enemyObjectConfigurations2.begin();
     for (auto room = rooms->begin(); room != rooms->end(); ++room) {
         int numberOfEnemies = (int) (sqrt(room->rect.area()) / enemyPlacingFactor);
-        auto configurationPair = EnemyObject::enemyObjectConfigurations2.begin();
         for (int i = numberOfEnemies; i > 0; i--) {
             int roomWidth = room->rect.second.x - room->rect.first.x;
             int roomHeight = room->rect.second.y - room->rect.first.y;
