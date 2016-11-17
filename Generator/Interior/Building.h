@@ -43,6 +43,10 @@ public:
     void placeEnemy();
     void generateWindows();
     bool isWallFree(Line line);
+    void placeWallIntoVector(vector<EditorWall> &editorWalls,
+                             int x,
+                             int y,
+                             WallAssetConfiguration configuration);
 };
 
 #endif //HLM2PROCEDUREMAPGENERATOR_BUILDING_H

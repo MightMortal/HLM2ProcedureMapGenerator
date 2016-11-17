@@ -72,6 +72,7 @@ WallMap Building::generateWallMap() {
 
             for (int x = it->first.x; x <= it->second.x - WALL_ALIGN_FACTOR / 2; x += WALL_ALIGN_FACTOR) {
                 // If met doorway, don't place wall segment
+                WallAssetConfiguration configuration = WallObject::horizontalWalls[WallObject::BRICK_WALL];
                 bool skip = false;
                 for (auto doorway = doorways.begin(); doorway != doorways.end(); ++doorway) {
                     if (doorway->first.x == x && doorway->first.y == it->first.y) {
@@ -81,19 +82,20 @@ WallMap Building::generateWallMap() {
                 if (skip)
                     continue;
 
-                EditorWall editorWall;
-                editorWall.magic = 0;
-                editorWall.attribute = 99;
-                editorWall.id = 32;
-                editorWall.x = x;
-                editorWall.y = it->first.y;
-                editorWalls.push_back(editorWall);
+                for (auto windowLine = windows.begin(); windowLine != windows.end(); ++windowLine) {
+                    if (windowLine->first.x == x && windowLine->first.y == it->first.y) {
+                        configuration = WallObject::horizontalWalls[WallObject::WOOD_WINDOW];
+                        break;
+                    }
+                }
+                placeWallIntoVector(editorWalls, x, it->first.y, configuration);
             }
         } else { // Vertical
             if (it->first.x == rect.first.x || it->first.x == rect.second.x)
                 continue;
             for (int y = it->first.y; y <= it->second.y - WALL_ALIGN_FACTOR / 2; y += WALL_ALIGN_FACTOR) {
                 // If met doorway, don't place wall segment
+                WallAssetConfiguration configuration = WallObject::verticalWalls[WallObject::BRICK_WALL];
                 bool skip = false;
                 for (auto doorway = doorways.begin(); doorway != doorways.end(); ++doorway) {
                     if (doorway->first.y == y && doorway->first.x == it->first.x) {
@@ -103,67 +105,75 @@ WallMap Building::generateWallMap() {
                 if (skip)
                     continue;
 
-                EditorWall editorWall;
-                editorWall.magic = 0;
-                editorWall.attribute = 100;
-                editorWall.id = 31;
-                editorWall.x = it->first.x;
-                editorWall.y = y;
-                editorWalls.push_back(editorWall);
+                for (auto windowLine = windows.begin(); windowLine != windows.end(); ++windowLine) {
+                    if (windowLine->first.y == y && windowLine->first.x == it->first.x) {
+                        configuration = WallObject::verticalWalls[WallObject::WOOD_WINDOW];
+                        break;
+                    }
+                }
+                placeWallIntoVector(editorWalls, it->first.x, y, configuration);
             }
         }
     }
 
     for (int x = rect.first.x; x < rect.second.x; x += WALL_ALIGN_FACTOR) {
-        EditorWall editorWall;
-        editorWall.magic = 0;
-        editorWall.attribute = 99;
-        editorWall.id = 32;
-        editorWall.x = x;
-        editorWall.y = rect.first.y;
-        editorWalls.push_back(editorWall);
-        editorWall.x = x;
-        editorWall.y = rect.second.y;
-        editorWalls.push_back(editorWall);
+        WallAssetConfiguration configuration = WallObject::horizontalWalls[WallObject::BRICK_WALL];
+        for (auto windowLine = windows.begin(); windowLine != windows.end(); ++windowLine) {
+            if (windowLine->first.y != windowLine->second.y) {
+                if (windowLine->first.x == x && windowLine->first.y == rect.first.y) {
+                    configuration = WallObject::horizontalWalls[WallObject::WOOD_WINDOW];
+                    break;
+                }
+            }
+        }
+        placeWallIntoVector(editorWalls, x, rect.first.y, configuration);
+        configuration = WallObject::horizontalWalls[WallObject::BRICK_WALL];
+        for (auto windowLine = windows.begin(); windowLine != windows.end(); ++windowLine) {
+            if (windowLine->first.y != windowLine->second.y) {
+                if (windowLine->first.x == x && windowLine->first.y == rect.second.y) {
+                    configuration = WallObject::horizontalWalls[WallObject::WOOD_WINDOW];
+                    break;
+                }
+            }
+        }
+        placeWallIntoVector(editorWalls, x, rect.second.y, configuration);
     }
     for (int y = rect.first.y; y < rect.second.y; y += WALL_ALIGN_FACTOR) {
-        EditorWall editorWall;
-        editorWall.magic = 0;
-        editorWall.attribute = 100;
-        editorWall.id = 31;
-        editorWall.x = rect.first.x;
-        editorWall.y = y;
-        editorWalls.push_back(editorWall);
-        editorWall.x = rect.second.x;
-        editorWall.y = y;
-        editorWalls.push_back(editorWall);
-    }
-    for (auto windowLine = windows.begin(); windowLine != windows.end(); ++windowLine) {
-        if (windowLine->first.y == windowLine->second.y) {
-            // Horizontal
-            if (windowLine->first.y == rect.first.y || windowLine->first.y == rect.second.y)
-                continue;
-            EditorWall window;
-            window.magic = WallObject::horizontalWalls[WallObject::WOOD_WINDOW].magic;
-            window.attribute = WallObject::horizontalWalls[WallObject::WOOD_WINDOW].attribute;
-            window.id = WallObject::horizontalWalls[WallObject::WOOD_WINDOW].id;
-            window.x = windowLine->first.x;
-            window.y = windowLine->first.y;
-            editorWalls.push_back(window);
-        } else {
-            // Vertical
-            if (windowLine->first.x == rect.first.x || windowLine->first.x == rect.second.x)
-                continue;
-            EditorWall window;
-            window.magic = WallObject::verticalWalls[WallObject::WOOD_WINDOW].magic;
-            window.attribute = WallObject::verticalWalls[WallObject::WOOD_WINDOW].attribute;
-            window.id = WallObject::verticalWalls[WallObject::WOOD_WINDOW].id;
-            window.x = windowLine->first.x;
-            window.y = windowLine->first.y;
-            editorWalls.push_back(window);
+        WallAssetConfiguration configuration = WallObject::verticalWalls[WallObject::BRICK_WALL];
+        for (auto windowLine = windows.begin(); windowLine != windows.end(); ++windowLine) {
+            if (windowLine->first.y == windowLine->second.y) {
+                if (windowLine->first.y == y && windowLine->first.x == rect.first.x) {
+                    configuration = WallObject::verticalWalls[WallObject::WOOD_WINDOW];
+                    break;
+                }
+            }
         }
+        placeWallIntoVector(editorWalls, rect.first.x, y, configuration);
+        configuration = WallObject::verticalWalls[WallObject::BRICK_WALL];
+        for (auto windowLine = windows.begin(); windowLine != windows.end(); ++windowLine) {
+            if (windowLine->first.y == windowLine->second.y) {
+                if (windowLine->first.y == y && windowLine->first.x == rect.second.x) {
+                    configuration = WallObject::verticalWalls[WallObject::WOOD_WINDOW];
+                    break;
+                }
+            }
+        }
+        placeWallIntoVector(editorWalls, rect.second.x, y, configuration);
     }
     return WallMap(editorWalls);
+}
+
+void Building::placeWallIntoVector(vector<EditorWall> &editorWalls,
+                                   int x,
+                                   int y,
+                                   WallAssetConfiguration configuration) {
+    EditorWall editorWall;
+    editorWall.magic = configuration.magic;
+    editorWall.attribute = configuration.attribute;
+    editorWall.id = configuration.id;
+    editorWall.x = x;
+    editorWall.y = y;
+    editorWalls.push_back(editorWall);
 }
 
 TileMap Building::generateTileMap() {
@@ -424,16 +434,16 @@ void Building::generateWindows() {
             continue;
         vector<Line> walls = room->rect.getWalls();
         for (auto roomWall = walls.begin(); roomWall != walls.end(); ++roomWall) {
-            if (rand() * 1.0 / RAND_MAX <= WINDOW_APPEAR_PROBABILITY) {
+            if ((rand() * 1.0 / RAND_MAX) <= WINDOW_APPEAR_PROBABILITY) {
                 // Pick number of windows to place
                 int windowNumber = rand() % MAX_WINDOW_IN_PLACE + 1;
 
                 if (roomWall->first.x == roomWall->second.x) {
                     // Wall is vertical
-                    int currentWallLength = roomWall->second.y = roomWall->first.y;
+                    int currentWallLength = roomWall->second.y - roomWall->first.y;
                     if (currentWallLength == 0)
                         continue;
-                    int startPoint = rand() % currentWallLength;
+                    int startPoint = rand() % currentWallLength + roomWall->first.y;
                     startPoint = alignValue(startPoint, WINDOW_LENGTH);
                     startPoint = clamp(startPoint, roomWall->first.y, roomWall->second.y);
 
@@ -441,29 +451,29 @@ void Building::generateWindows() {
                         Point p0(roomWall->first.x, startPoint);
                         Point p1(roomWall->first.x, startPoint + WINDOW_LENGTH);
                         Line window(p0, p1);
-                        if (isWallFree(window) && window.second.y <= roomWall->second.y) {
+                        if (isWallFree(window) && window.second.y < roomWall->second.y) {
                             windows.push_back(window);
                         }
-                        startPoint += WINDOW_LENGTH + 1;
+                        startPoint += WINDOW_LENGTH;
                     }
 
                 } else {
                     // Wall is horizontal
-                    int currentWallLength = roomWall->second.x = roomWall->first.x;
+                    int currentWallLength = roomWall->second.x - roomWall->first.x;
                     if (currentWallLength == 0)
                         continue;
-                    int startPoint = rand() % currentWallLength;
+                    int startPoint = rand() % currentWallLength + roomWall->first.x;
                     startPoint = alignValue(startPoint, WINDOW_LENGTH);
                     startPoint = clamp(startPoint, roomWall->first.x, roomWall->second.x);
 
                     for (int i = 0; i < windowNumber; ++i) {
-                        Point p0(roomWall->first.y, startPoint);
-                        Point p1(roomWall->first.y, startPoint + WINDOW_LENGTH);
+                        Point p0(startPoint, roomWall->first.y);
+                        Point p1(startPoint + WINDOW_LENGTH, roomWall->first.y);
                         Line window(p0, p1);
-                        if (isWallFree(window) && window.second.x <= roomWall->second.x) {
+                        if (isWallFree(window) && window.second.x < roomWall->second.x) {
                             windows.push_back(window);
                         }
-                        startPoint += WINDOW_LENGTH + 1;
+                        startPoint += WINDOW_LENGTH;
                     }
                 }
             }

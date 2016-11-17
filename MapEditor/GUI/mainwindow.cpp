@@ -18,15 +18,15 @@ Level generateLevel() {
     building.generateDoors();
     building.placeWeapon();
     building.placeEnemy();
-    for (auto it = building.rooms->begin(); it != building.rooms->end(); ++it) {
-        cout << "Type: " << it->type << endl;
-        cout << "LeftUpper: (" << it->rect.first.x << ", " << it->rect.first.y << "), RightBottom: ("
-             << it->rect.second.x << ", " << it->rect.second.y << ")" << endl;
-    }
-    for (auto it = building.walls.begin(); it != building.walls.end(); ++it) {
-        cout << "Wall from (" << it->first.x << ", " << it->first.y << ") to ("
-             << it->second.x << ", " << it->second.y << ")" << endl;
-    }
+//    for (auto it = building.rooms->begin(); it != building.rooms->end(); ++it) {
+//        cout << "Type: " << it->type << endl;
+//        cout << "LeftUpper: (" << it->rect.first.x << ", " << it->rect.first.y << "), RightBottom: ("
+//             << it->rect.second.x << ", " << it->rect.second.y << ")" << endl;
+//    }
+//    for (auto it = building.walls.begin(); it != building.walls.end(); ++it) {
+//        cout << "Wall from (" << it->first.x << ", " << it->first.y << ") to ("
+//             << it->second.x << ", " << it->second.y << ")" << endl;
+//    }
     Level level;
     level.wallMaps.push_back(building.generateWallMap());
     level.tileMaps.push_back(building.generateTileMap());
@@ -144,7 +144,7 @@ void MainWindow::renderObjects(vector<T> &objects) {
     for (auto editorObject : objects) {
         Sprite *sprite = om.get(editorObject.id).second;
         if (sprite == nullptr) {
-            cout << "Object <" << editorObject.id << "> doesn't have sprite" << endl;
+//            cout << "Object <" << editorObject.id << "> doesn't have sprite" << endl;
             sprite = om.getSprite(editorObject.spriteId);
         }
         if (sprite != nullptr) {

@@ -13,7 +13,7 @@ const int TILE_ALIGN_FACTOR = 16;
 const int DOORWAY_LENGTH = 32;
 const int WINDOW_LENGTH = 32; // TODO: check
 const int MAX_WINDOW_IN_PLACE = 3; // TODO: check
-const double WINDOW_APPEAR_PROBABILITY = 0.2; // TODO: check
+const double WINDOW_APPEAR_PROBABILITY = 0.4; // TODO: check
 
 
 
