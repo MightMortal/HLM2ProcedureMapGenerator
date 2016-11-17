@@ -16,7 +16,8 @@ vector<Room> *bsp(Rectangle rect,
                   double minRoomAreaMultiplyFactor,
                   double continuityProbability,
                   int maxTreeDepth,
-                  int generateCorridor = 3,
+                  int generateCorridor = 4,
+                  int corridorWidth = CORRIDOR_WIDTH,
                   int divisionDirection = 2);
 
 #endif //HLM2PROCEDUREMAPGENERATOR_BSP_H

@@ -8,10 +8,11 @@
 
 #include "../bsp/BSP.h"
 
-const int minRoomArea = 20000;
+const int minRoomArea = 15000;
 const int maxTreeDepth = 9;
 const double minRoomAreaMultiplyFactor = 2 / 3;
 const double doorsThresholdFactor = 35; // In percents
+const int enemyPlacingFactor = 96;
 
 Building::Building(Rectangle rect) {
     rect.first.x = alignValue(rect.first.x, WALL_ALIGN_FACTOR);
@@ -357,29 +358,33 @@ void Building::placeWeapon() {
 
 void Building::placeEnemy() {
     for (auto room = rooms->begin(); room != rooms->end(); ++room) {
-        for (int i = rand() % 5; i > 0; i--) {
+        int numberOfEnemies = (int) (sqrt(room->rect.area()) / enemyPlacingFactor);
+        auto configurationPair = EnemyObject::enemyObjectConfigurations2.begin();
+        for (int i = numberOfEnemies; i > 0; i--) {
             int roomWidth = room->rect.second.x - room->rect.first.x;
             int roomHeight = room->rect.second.y - room->rect.first.y;
             int x = rand() % roomWidth;
             int y = rand() % roomHeight;
-            x = clamp(x,
-                      EnemyObject::enemyObjectConfigurations[0].width,
-                      roomWidth - EnemyObject::enemyObjectConfigurations[0].width);
-            y = clamp(y,
-                      EnemyObject::enemyObjectConfigurations[0].height,
-                      roomHeight - EnemyObject::enemyObjectConfigurations[0].height);
+            x = clamp(x, EnemyObject::ENEMY_SIZE, roomWidth - EnemyObject::ENEMY_SIZE);
+            y = clamp(y, EnemyObject::ENEMY_SIZE, roomHeight - EnemyObject::ENEMY_SIZE);
             EnemyObject enemyObject;
             enemyObject.x = x + room->rect.first.x;
             enemyObject.y = y + room->rect.first.y;
+            // Check is the place for the enemy is empty
+            if (!isPlaceEmpty(enemyObject.x, enemyObject.y, EnemyObject::ENEMY_SIZE, EnemyObject::ENEMY_SIZE))
+                continue;
 
             enemyObject.angle = 0;
-            enemyObject.configuration =
-                EnemyObject::enemyObjectConfigurations[rand() % EnemyObject::enemyObjectConfigurations.size()];
-            if (!isPlaceEmpty(enemyObject.x,
-                              enemyObject.y,
-                              enemyObject.configuration.width,
-                              enemyObject.configuration.height)
-                continue;
+            for (;; ++configurationPair) {
+                if (configurationPair == EnemyObject::enemyObjectConfigurations2.end())
+                    configurationPair = EnemyObject::enemyObjectConfigurations2.begin();
+                double p = rand() * 1.0 / RAND_MAX;
+                if (p < configurationPair->first) {
+                    enemyObject.configuration = configurationPair->second.at(rand() % configurationPair->second.size());
+                    // Stop loop over configurationPairs
+                    break;
+                }
+            }
             objects.push_back(enemyObject);
         }
     }

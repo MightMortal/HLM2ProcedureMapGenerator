@@ -12,6 +12,7 @@ vector<Room> *bsp(Rectangle rect,
                   double continuityProbability,
                   int maxTreeDepth,
                   int generateCorridor,
+                  int corridorWidth,
                   int divisionDirection) {
     vector<Room> *result = new vector<Room>;
     if (maxTreeDepth <= 0 || rand() / RAND_MAX > continuityProbability) {
@@ -43,13 +44,13 @@ vector<Room> *bsp(Rectangle rect,
         Rectangle rectTop(rect.first, Point(rect.second.x, divisionLine + rect.first.y));
         Rectangle rectBottom(Point(0, 0), Point(0, 0));
         if (generateCorridor > 0)
-            rectBottom = Rectangle(Point(rect.first.x, divisionLine + rect.first.y + CORRIDOR_WIDTH), rect.second);
+            rectBottom = Rectangle(Point(rect.first.x, divisionLine + rect.first.y + corridorWidth), rect.second);
         else
             rectBottom = Rectangle(Point(rect.first.x, divisionLine + rect.first.y), rect.second);
 
         if (generateCorridor > 0)
             result->push_back(Room(Rectangle(Point(rect.first.x, rect.first.y + divisionLine),
-                                             Point(rect.second.x, rect.first.y + divisionLine + CORRIDOR_WIDTH)),
+                                             Point(rect.second.x, rect.first.y + divisionLine + corridorWidth)),
                                    Room::CORRIDOR));
 
         if (rectTop.area() < minRoomArea || rectBottom.area() < minRoomArea) {
@@ -68,6 +69,7 @@ vector<Room> *bsp(Rectangle rect,
                 continuityProbabilityTop,
                 maxTreeDepth - 1,
                 generateCorridor - 1,
+                CORRIDOR_WIDTH - WALL_ALIGN_FACTOR,
                 DIVISION_DIRECTION_VERTICAL);
         result->insert(result->end(), resultTop->begin(), resultTop->end());
         delete resultTop;
@@ -82,6 +84,7 @@ vector<Room> *bsp(Rectangle rect,
                 continuityProbabilityBottom,
                 maxTreeDepth - 1,
                 generateCorridor - 1,
+                CORRIDOR_WIDTH - WALL_ALIGN_FACTOR,
                 DIVISION_DIRECTION_VERTICAL);
         result->insert(result->end(), resultBottom->begin(), resultBottom->end());
         delete resultBottom;
@@ -106,13 +109,13 @@ vector<Room> *bsp(Rectangle rect,
         Rectangle rectLeft(rect.first, Point(divisionLine + rect.first.x, rect.second.y));
         Rectangle rectRight(Point(0, 0), Point(0, 0));
         if (generateCorridor > 0)
-            rectRight = Rectangle(Point(divisionLine + rect.first.x + CORRIDOR_WIDTH, rect.first.y), rect.second);
+            rectRight = Rectangle(Point(divisionLine + rect.first.x + corridorWidth, rect.first.y), rect.second);
         else
             rectRight = Rectangle(Point(divisionLine + rect.first.x, rect.first.y), rect.second);
 
         if (generateCorridor > 0)
             result->push_back(Room(Rectangle(Point(rect.first.x + divisionLine, rect.first.y),
-                                             Point(rect.first.x + divisionLine + CORRIDOR_WIDTH, rect.second.y)),
+                                             Point(rect.first.x + divisionLine + corridorWidth, rect.second.y)),
                                    Room::CORRIDOR));
 
         if (rectLeft.area() < minRoomArea || rectRight.area() < minRoomArea) {
@@ -130,6 +133,7 @@ vector<Room> *bsp(Rectangle rect,
                 continuityProbabilityLeft,
                 maxTreeDepth - 1,
                 generateCorridor - 1,
+                CORRIDOR_WIDTH - WALL_ALIGN_FACTOR,
                 DIVISION_DIRECTION_HORIZONTAL);
         result->insert(result->end(), resultLeft->begin(), resultLeft->end());
         delete resultLeft;
@@ -144,6 +148,7 @@ vector<Room> *bsp(Rectangle rect,
                 continuityProbabilityRight,
                 maxTreeDepth - 1,
                 generateCorridor - 1,
+                CORRIDOR_WIDTH - WALL_ALIGN_FACTOR,
                 DIVISION_DIRECTION_HORIZONTAL);
         result->insert(result->end(), resultRight->begin(), resultRight->end());
         delete resultRight;

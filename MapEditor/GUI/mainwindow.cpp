@@ -12,7 +12,7 @@
 
 Level generateLevel() {
     srand(time(0));
-    int width = LEVEL_MAX_WIDTH;
+    int width = LEVEL_MAX_WIDTH * (2.7 / 3.0);
     int height = (int) (LEVEL_MAX_HEIGHT * (2.5 / 3.0));
     Building building(Rectangle(Point(0, 0), Point(width, height)));
     building.generateDoors();
@@ -104,6 +104,7 @@ vector<AssetDescriptor *> MainWindow::getAssetDescriptors() {
 }
 
 void MainWindow::renderLevel(Level &level) {
+    ui->graphicsView->scene()->clear();
     renderTiles(level.tileMaps.begin()->tiles);
     renderWalls(level.wallMaps.begin()->walls);
     renderObjects(level.objectMaps.begin()->objects);
