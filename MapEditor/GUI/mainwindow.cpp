@@ -7,6 +7,33 @@
 #include <QGraphicsPixmapItem>
 #include <cstdio>
 #include <QtWidgets/QFileDialog>
+#include <ctime>
+#include "../../Generator/Interior/Building.h"
+
+Level generateLevel() {
+    srand(time(0));
+    int width = LEVEL_MAX_WIDTH;
+    int height = (int) (LEVEL_MAX_HEIGHT * (2.5 / 3.0));
+    Building building(Rectangle(Point(0, 0), Point(width, height)));
+    building.generateDoors();
+    building.placeWeapon();
+    building.placeEnemy();
+    for (auto it = building.rooms->begin(); it != building.rooms->end(); ++it) {
+        cout << "Type: " << it->type << endl;
+        cout << "LeftUpper: (" << it->rect.first.x << ", " << it->rect.first.y << "), RightBottom: ("
+             << it->rect.second.x << ", " << it->rect.second.y << ")" << endl;
+    }
+    for (auto it = building.walls.begin(); it != building.walls.end(); ++it) {
+        cout << "Wall from (" << it->first.x << ", " << it->first.y << ") to ("
+             << it->second.x << ", " << it->second.y << ")" << endl;
+    }
+    Level level;
+    level.wallMaps.push_back(building.generateWallMap());
+    level.tileMaps.push_back(building.generateTileMap());
+    level.objectMaps.push_back(building.generateObjectMap());
+    level.playMaps.push_back(building.generatePlayMap());
+    return level;
+}
 
 MainWindow::MainWindow(ObjectManager &om, QWidget *parent)
     :
@@ -21,14 +48,6 @@ MainWindow::MainWindow(ObjectManager &om, QWidget *parent)
 
     ui->propertyEditWidget->setColumnCount(2);
     ui->propertyEditWidget->setRowCount(0);
-
-//    item1->setFlags(item1->flags() & ~Qt::ItemIsEditable);
-//    item3->setFlags(item3->flags() & ~Qt::ItemIsEditable);
-//    ui->propertyEditWidget->setItem(0, 0, item1);
-//    ui->propertyEditWidget->setItem(0, 1, item2);
-//    ui->propertyEditWidget->setItem(1, 0, item3);
-//    ui->propertyEditWidget->setItem(1, 1, item4);
-//    ui->propertyEditWidget->horizontalHeader()->setStretchLastSection(true);
 
     QGraphicsScene *scene = new QGraphicsScene();
     ui->graphicsView->setScene(scene);
@@ -95,12 +114,14 @@ void MainWindow::cellChanged(int row, int column) {
 }
 
 void MainWindow::on_loadButton_clicked(bool checked) {
-    QString dir = QFileDialog::getExistingDirectory(this,
-                                                    "Open level directory",
-                                                    QString(),
-                                                    QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-    Level level(dir.toStdString());
-    fillColor(0, 0, LEVEL_VIEW_WIDTH, LEVEL_VIEW_HEIGHT, 0xFFFFFFFF);
+//    QString dir = QFileDialog::getExistingDirectory(this,
+//                                                    "Open level directory",
+//                                                    QString(),
+//                                                    QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+//    Level level(dir.toStdString());
+//    fillColor(0, 0, LEVEL_VIEW_WIDTH, LEVEL_VIEW_HEIGHT, 0xFFFFFFFF);
+    Level level = generateLevel();
+    level.save(".");
     renderLevel(level);
 }
 

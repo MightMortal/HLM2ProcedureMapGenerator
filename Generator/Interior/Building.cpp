@@ -324,8 +324,8 @@ bool Building::isPlaceEmpty(int x, int y, int w, int h) {
     for (auto object = objects.begin(); object != objects.end(); ++object) {
         int objectXCenter = object->x + object->configuration.width / 2;
         int objectYCenter = object->y + object->configuration.height / 2;
-        int widthSum = w + object->configuration.width;
-        int heightSum = h + object->configuration.height;
+        int widthSum = (w + object->configuration.width) / 2;
+        int heightSum = (h + object->configuration.height) / 2;
         if (abs(objectXCenter - xCenter) <= widthSum && abs(objectYCenter - yCenter) <= heightSum)
             return false;
     }
@@ -357,20 +357,29 @@ void Building::placeWeapon() {
 
 void Building::placeEnemy() {
     for (auto room = rooms->begin(); room != rooms->end(); ++room) {
-        for (int i = rand() % 3; i > 0; i--) {
+        for (int i = rand() % 5; i > 0; i--) {
             int roomWidth = room->rect.second.x - room->rect.first.x;
             int roomHeight = room->rect.second.y - room->rect.first.y;
             int x = rand() % roomWidth;
             int y = rand() % roomHeight;
-            x = clamp(x, TILE_ALIGN_FACTOR, roomWidth - TILE_ALIGN_FACTOR);
-            y = clamp(y, TILE_ALIGN_FACTOR, roomHeight - TILE_ALIGN_FACTOR);
+            x = clamp(x,
+                      EnemyObject::enemyObjectConfigurations[0].width,
+                      roomWidth - EnemyObject::enemyObjectConfigurations[0].width);
+            y = clamp(y,
+                      EnemyObject::enemyObjectConfigurations[0].height,
+                      roomHeight - EnemyObject::enemyObjectConfigurations[0].height);
             EnemyObject enemyObject;
             enemyObject.x = x + room->rect.first.x;
             enemyObject.y = y + room->rect.first.y;
+
             enemyObject.angle = 0;
             enemyObject.configuration =
                 EnemyObject::enemyObjectConfigurations[rand() % EnemyObject::enemyObjectConfigurations.size()];
-//            enemyObject.configuration = EnemyObject::enemyObjectConfigurations[EnemyObject::objColombianHiding];
+            if (!isPlaceEmpty(enemyObject.x,
+                              enemyObject.y,
+                              enemyObject.configuration.width,
+                              enemyObject.configuration.height)
+                continue;
             objects.push_back(enemyObject);
         }
     }

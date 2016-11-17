@@ -15,3 +15,10 @@ Level::Level(string levelPath)
         objectMaps.push_back(ObjectMap(levelPath + fileName + ".obj"));
     }
 }
+
+void Level::save(string levelPath) {
+    wallMaps[0].save(levelPath + "/level0.wll");
+    tileMaps[0].save(levelPath + "/level0.tls");
+    objectMaps[0].save(levelPath + "/level0.obj");
+    playMaps[0].save(levelPath + "/level0.play");
+}

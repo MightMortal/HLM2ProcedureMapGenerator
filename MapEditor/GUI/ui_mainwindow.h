@@ -108,7 +108,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow) {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "HLM2ProcedureMapGenerator", 0));
-        loadButton->setText(QApplication::translate("MainWindow", "Load", 0));
+            loadButton->setText(QApplication::translate("MainWindow", "Generate", 0));
         saveButton->setText(QApplication::translate("MainWindow", "Save", 0));
     } // retranslateUi
 
