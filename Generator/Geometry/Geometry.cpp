@@ -65,3 +65,24 @@ int alignValue(int value, int step) {
         value += step - valueAlignOffset;
     return value;
 }
+
+Rectangle getBoundingBox(Rectangle rect, double angle) {
+    double angleRadian = angle * M_PI / 180.0;
+    int midX = rect.first.x + (rect.second.x - rect.first.x) / 2;
+    int midY = rect.first.y + (rect.second.y - rect.first.y) / 2;
+    Point p0 = Point(rect.first.x - midX, rect.first.y - midY);
+    Point p1 = Point(rect.second.x - midX, rect.first.y - midY);
+    Point p2 = Point(rect.second.x - midX, rect.second.y - midY);
+    Point p3 = Point(rect.first.x - midX, rect.second.y - midY);
+    p0 = Point((int) (p0.x * cos(angleRadian) + p0.y * sin(angleRadian)),
+               (int) (-p0.x * sin(angleRadian) + p0.y * cos(angleRadian)));
+    p1 = Point((int) (p1.x * cos(angleRadian) + p1.y * sin(angleRadian)),
+               (int) (-p1.x * sin(angleRadian) + p1.y * cos(angleRadian)));
+    p2 = Point((int) (p2.x * cos(angleRadian) + p2.y * sin(angleRadian)),
+               (int) (-p2.x * sin(angleRadian) + p2.y * cos(angleRadian)));
+    p3 = Point((int) (p3.x * cos(angleRadian) + p3.y * sin(angleRadian)),
+               (int) (-p3.x * sin(angleRadian) + p3.y * cos(angleRadian)));
+    Rectangle result(Point(min(min(p0.x, p1.x), min(p2.x, p3.x)) + midX, min(min(p0.y, p1.y), min(p2.y, p3.y)) + midY),
+                     Point(max(max(p0.x, p1.x), max(p2.x, p3.x)) + midX, max(max(p0.y, p1.y), max(p2.y, p3.y)) + midY));
+    return result;
+}

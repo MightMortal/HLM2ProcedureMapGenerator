@@ -54,4 +54,6 @@ Line combineLines(Line a, Line b);
 
 int alignValue(int value, int step);
 
+Rectangle getBoundingBox(Rectangle rect, double angle);
+
 #endif //HLM2PROCEDUREMAPGENERATOR_POINT_H

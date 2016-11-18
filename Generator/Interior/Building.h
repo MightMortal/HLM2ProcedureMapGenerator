@@ -38,7 +38,7 @@ public:
     bool checkConnectivity();
     void reduceNumberOfDoors();
     void generateDoorObjects();
-    bool isPlaceEmpty(int x, int y, int w, int h);
+    bool isPlaceEmpty(int x, int y, int w, int h, double angle = 0.0);
     void placeWeapon();
     void placeEnemy();
     void generateWindows();
@@ -47,6 +47,7 @@ public:
                              int x,
                              int y,
                              WallAssetConfiguration configuration);
+    void generateFurniture();
 };
 
 #endif //HLM2PROCEDUREMAPGENERATOR_BUILDING_H

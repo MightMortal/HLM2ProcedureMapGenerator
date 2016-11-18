@@ -173,7 +173,7 @@ public:
 
 };
 
-class FurnitureBundleConfiguration {
+class FurnitureObjectConfiguration {
 public:
     enum FurniturePosition {
         BY_WALL,
@@ -181,6 +181,19 @@ public:
         FLOATING,
         ANY
     };
+
+    FurniturePosition position;
+    double angle;
+    ObjectAssetConfiguration configuration;
+
+    FurnitureObjectConfiguration(FurniturePosition position,
+                                 double angle,
+                                 const ObjectAssetConfiguration &configuration)
+        : position(position), angle(angle), configuration(configuration) {}
+};
+
+class FurnitureBundleConfiguration {
+public:
 
     enum BundleSize {
         SMALL,
@@ -202,13 +215,13 @@ public:
 
     FurnitureBundleConfiguration(BundleSize size,
                                  BundleType type,
-                                 vector<pair<FurniturePosition,
-                                                   ObjectAssetConfiguration>> objectAssetConfigurations)
+                                 vector<FurnitureObjectConfiguration> objectAssetConfigurations)
         : objectAssetConfigurations(objectAssetConfigurations), size(size), type(type) {}
 
-    vector<pair<FurniturePosition, ObjectAssetConfiguration>> objectAssetConfigurations;
+    vector<FurnitureObjectConfiguration> objectAssetConfigurations;
     BundleSize size;
     BundleType type;
+    static const vector<int> bundleSizeAreas;
 };
 
 class FurnitureBundleObject : public GameObject {

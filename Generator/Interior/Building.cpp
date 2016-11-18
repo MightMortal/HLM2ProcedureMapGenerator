@@ -13,6 +13,8 @@ const int maxTreeDepth = 9;
 const double minRoomAreaMultiplyFactor = 2 / 3;
 const double doorsThresholdFactor = 35; // In percents
 const int enemyPlacingFactor = 96;
+const int wallWidth = 8;
+const double stopPlacingFurnitureProbability = 0.2;
 
 Building::Building(Rectangle rect) {
     rect.first.x = alignValue(rect.first.x, WALL_ALIGN_FACTOR);
@@ -57,6 +59,7 @@ Building::Building(Rectangle rect) {
     }
 
     generateWindows();
+    generateFurniture();
 }
 
 Building::~Building() {
@@ -354,17 +357,28 @@ void Building::generateDoorObjects() {
     }
 }
 
-bool Building::isPlaceEmpty(int x, int y, int w, int h) {
+bool Building::isPlaceEmpty(int x, int y, int w, int h, double angle) {
     // AABB Collision checking
     // Read more: http://gdlinks.hut.ru/cdfaq/aabb.shtml
-    int xCenter = x + w / 2;
-    int yCenter = y + y / 2;
+    Rectangle rectangle(Point(x - w/2, y - h/2), Point(x + w/2, y + h/2));
+    Rectangle boundingBox = getBoundingBox(rectangle, angle);
+    int width = boundingBox.second.x - boundingBox.first.x;
+    int height = boundingBox.second.y - boundingBox.first.y;
+    int midX = boundingBox.first.x + width / 2;
+    int midY = boundingBox.first.y + height / 2;
+
     for (auto object = objects.begin(); object != objects.end(); ++object) {
-        int objectXCenter = object->x + object->configuration.width / 2;
-        int objectYCenter = object->y + object->configuration.height / 2;
-        int widthSum = (w + object->configuration.width) / 2;
-        int heightSum = (h + object->configuration.height) / 2;
-        if (abs(objectXCenter - xCenter) <= widthSum && abs(objectYCenter - yCenter) <= heightSum)
+        Rectangle objectRectangle(Point(object->x - object->configuration.width/2, object->y - object->configuration.height/2),
+                                  Point(object->x + object->configuration.width/2, object->y + object->configuration.height/2));
+        Rectangle objectBoundingBox = getBoundingBox(objectRectangle, object->angle);
+        int objectWidth = objectBoundingBox.second.x - objectBoundingBox.first.x;
+        int objectHeight = objectBoundingBox.second.y - objectBoundingBox.first.y;
+        int objectMidX = objectBoundingBox.first.x + objectWidth / 2;
+        int objectMidY = objectBoundingBox.first.y + objectHeight / 2;
+
+        int widthSum = (width + objectWidth) / 2;
+        int heightSum = (height + objectHeight) / 2;
+        if (abs(objectMidX - midX) <= widthSum && abs(objectMidY - midY) <= heightSum)
             return false;
     }
     return true;
@@ -493,4 +507,102 @@ bool Building::isWallFree(Line line) {
         }
     }
     return true;
+}
+
+void Building::generateFurniture() {
+    for (auto room = rooms->begin(); room != rooms->end(); ++room) {
+        if (room->type == Room::CORRIDOR)
+            continue;
+        int area = room->rect.area();
+        // Place furniture until there are free space in room
+        while (area > FurnitureBundleConfiguration::bundleSizeAreas[0]) {
+            if ((rand() * 1.0 / RAND_MAX) < stopPlacingFurnitureProbability)
+                break;
+            int bundleIndex = rand() % FurnitureBundleObject::bundleObjectConfigurations.size();
+            FurnitureBundleConfiguration
+                bundleConfiguration = FurnitureBundleObject::bundleObjectConfigurations[bundleIndex];
+            // Check is selected bundle fits the free area of the room
+            if (area < FurnitureBundleConfiguration::bundleSizeAreas[bundleConfiguration.size])
+                continue;
+            int mainBundleObjectX = 0;
+            int mainBundleObjectY = 0;
+            int mainBundleObjectW = 0;
+            int mainBundleObjectH = 0;
+            bool mainBundleObjectPlaced = false;
+
+            for (auto bundleItem = bundleConfiguration.objectAssetConfigurations.begin();
+                 bundleItem != bundleConfiguration.objectAssetConfigurations.end(); ++bundleItem) {
+                if (!mainBundleObjectPlaced && bundleItem->position == FurnitureObjectConfiguration::PINNED) {
+                    // Skip pinned object if main bundle object not placed
+                    continue;
+                }
+                int x = 0;
+                int y = 0;
+                double angle = 0;
+                if (bundleItem->position == FurnitureObjectConfiguration::BY_WALL) {
+                    switch (rand() % 4) {
+                        case 0: // Top wall
+                            x = rand() % (room->rect.second.x - room->rect.first.x - bundleItem->configuration.height);
+                            x += room->rect.first.x + bundleItem->configuration.height / 2;
+                            y = room->rect.first.y + wallWidth + bundleItem->configuration.width / 2;
+                            angle = 270;
+                            break;
+                        case 1: // Bottom wall
+                            x = rand() % (room->rect.second.x - room->rect.first.x - bundleItem->configuration.height);
+                            x += room->rect.first.x + bundleItem->configuration.height / 2;
+                            y = room->rect.second.y - wallWidth - bundleItem->configuration.width / 2;
+                            angle = 90;
+                            break;
+                        case 2: // Left wall
+                            y = rand() % (room->rect.second.y - room->rect.first.y - bundleItem->configuration.height);
+                            y += room->rect.first.y + bundleItem->configuration.height / 2;
+                            x = room->rect.first.x + wallWidth + bundleItem->configuration.width / 2;
+                            break;
+                        case 3: // Right wall
+                            y = rand() % (room->rect.second.y - room->rect.first.y - bundleItem->configuration.height);
+                            y += room->rect.first.y + bundleItem->configuration.height / 2;
+                            x = room->rect.second.x - wallWidth - bundleItem->configuration.width / 2;
+                            angle = 180;
+                            break;
+                    }
+                } else if (bundleItem->position == FurnitureObjectConfiguration::PINNED) { // Element is pinned to the first element in the vector
+                    x = mainBundleObjectX + mainBundleObjectW;
+                    y = mainBundleObjectY + mainBundleObjectH;
+                    x = clamp(x, room->rect.first.x + bundleItem->configuration.width / 2, room->rect.second.x - bundleItem->configuration.width / 2);
+                    y = clamp(y, room->rect.first.y + bundleItem->configuration.height / 2, room->rect.second.y - bundleItem->configuration.height / 2);
+                } else if (bundleItem->position == FurnitureObjectConfiguration::FLOATING) {
+                    x = rand() % (room->rect.second.x - room->rect.first.x) + room->rect.first.x;
+                    y = rand() % (room->rect.second.y - room->rect.first.y) + room->rect.first.y;
+                    x = clamp(x, room->rect.first.x + bundleItem->configuration.width / 2, room->rect.second.x - bundleItem->configuration.width / 2);
+                    y = clamp(y, room->rect.first.y + bundleItem->configuration.height / 2, room->rect.second.y - bundleItem->configuration.height / 2);
+                } else if (bundleItem->position == FurnitureObjectConfiguration::ANY) {
+                    x = rand() % (room->rect.second.x - room->rect.first.x) +room->rect.first.x;
+                    y = rand() % (room->rect.second.y - room->rect.first.y) +room->rect.first.y;
+                    x = clamp(x, room->rect.first.x + bundleItem->configuration.width / 2, room->rect.second.x - bundleItem->configuration.width / 2);
+                    y = clamp(y, room->rect.first.y + bundleItem->configuration.height / 2, room->rect.second.y - bundleItem->configuration.height / 2);
+                }
+
+                if (x + bundleItem->configuration.width >= room->rect.second.x ||
+                    y + bundleItem->configuration.height >= room->rect.second.y)
+                    continue;
+                if (isPlaceEmpty(x, y, bundleItem->configuration.width, bundleItem->configuration.height)) {
+                    FurnitureBundleObject object;
+                    object.configuration = bundleItem->configuration;
+                    object.x = x;
+                    object.y = y;
+                    object.angle = angle;
+                    objects.push_back(object);
+                    if (bundleItem == bundleConfiguration.objectAssetConfigurations.begin()) {
+                        // Store position of the main bundle object
+                        mainBundleObjectX = x;
+                        mainBundleObjectY = y;
+                        mainBundleObjectW = bundleItem->configuration.width;
+                        mainBundleObjectH = bundleItem->configuration.height;
+                        mainBundleObjectPlaced = true;
+                    }
+                }
+            }
+            area -= FurnitureBundleConfiguration::bundleSizeAreas[bundleConfiguration.size];
+        }
+    }
 }
