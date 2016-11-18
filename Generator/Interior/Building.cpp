@@ -522,10 +522,8 @@ void Building::generateFurniture() {
             // Check is selected bundle fits the free area of the room
             if (area < FurnitureBundleConfiguration::bundleSizeAreas[bundleConfiguration.size])
                 continue;
-            int mainBundleObjectX = 0;
-            int mainBundleObjectY = 0;
-            int mainBundleObjectW = 0;
-            int mainBundleObjectH = 0;
+            pair<Point, double> mainObjectPosition;
+            Point mainObjectSize;
             bool mainBundleObjectPlaced = false;
 
             for (auto bundleItem = bundleConfiguration.objectAssetConfigurations.begin();
@@ -540,25 +538,15 @@ void Building::generateFurniture() {
                         continue; // Skip this bundleItem
                 } else if (bundleItem->position
                     == FurnitureObjectConfiguration::PINNED) { // Element is pinned to the first element in the vector
-//                    x = mainBundleObjectX + mainBundleObjectW;
-//                    y = mainBundleObjectY + mainBundleObjectH;
-//                    x = clamp(x, room->rect.first.x + bundleItem->configuration.width / 2, room->rect.second.x - bundleItem->configuration.width / 2);
-//                    y = clamp(y, room->rect.first.y + bundleItem->configuration.height / 2, room->rect.second.y - bundleItem->configuration.height / 2);
+                    if (!getPinnedPosition(*room, *bundleItem, itemPosition, mainObjectPosition, mainObjectSize))
+                        continue; // Skip this bundleItem
                 } else if (bundleItem->position == FurnitureObjectConfiguration::FLOATING) {
-//                    x = rand() % (room->rect.second.x - room->rect.first.x) + room->rect.first.x;
-//                    y = rand() % (room->rect.second.y - room->rect.first.y) + room->rect.first.y;
-//                    x = clamp(x, room->rect.first.x + bundleItem->configuration.width / 2, room->rect.second.x - bundleItem->configuration.width / 2);
-//                    y = clamp(y, room->rect.first.y + bundleItem->configuration.height / 2, room->rect.second.y - bundleItem->configuration.height / 2);
+                    if (!getFloatingPosition(*room, *bundleItem, itemPosition))
+                        continue; // Skip this instruction
                 } else if (bundleItem->position == FurnitureObjectConfiguration::ANY) {
-//                    x = rand() % (room->rect.second.x - room->rect.first.x) +room->rect.first.x;
-//                    y = rand() % (room->rect.second.y - room->rect.first.y) +room->rect.first.y;
-//                    x = clamp(x, room->rect.first.x + bundleItem->configuration.width / 2, room->rect.second.x - bundleItem->configuration.width / 2);
-//                    y = clamp(y, room->rect.first.y + bundleItem->configuration.height / 2, room->rect.second.y - bundleItem->configuration.height / 2);
+                    if (!getPositionAny(*room, *bundleItem, itemPosition))
+                        continue; // Skip this instruction
                 }
-
-//                if (x + bundleItem->configuration.width >= room->rect.second.x ||
-//                    y + bundleItem->configuration.height >= room->rect.second.y)
-//                    continue;
                 if (isPlaceEmpty(itemPosition.first.x,
                                  itemPosition.first.y,
                                  bundleItem->configuration.width,
@@ -571,10 +559,8 @@ void Building::generateFurniture() {
                     objects.push_back(object);
                     if (bundleItem == bundleConfiguration.objectAssetConfigurations.begin()) {
                         // Store position of the main bundle object
-                        mainBundleObjectX = object.x;
-                        mainBundleObjectY = object.y;
-                        mainBundleObjectW = bundleItem->configuration.width;
-                        mainBundleObjectH = bundleItem->configuration.height;
+                        mainObjectPosition = itemPosition;
+                        mainObjectSize = Point(bundleItem->configuration.width, bundleItem->configuration.height);
                         mainBundleObjectPlaced = true;
                     }
                 }
@@ -665,3 +651,46 @@ bool Building::getPositionNearWall(Room &room, FurnitureObjectConfiguration &bun
     result.second = angle;
     return true;
 };
+
+bool Building::getPinnedPosition(Room &room,
+                       FurnitureObjectConfiguration &bundleItem,
+                       pair<Point, double> &result,
+                       pair<Point, double> mainObjectPosition,
+                       Point mainObjectSize) {
+    return false;
+}
+
+bool Building::getFloatingPosition(Room &room, FurnitureObjectConfiguration &bundleItem, pair<Point, double> &result) {
+    int roomWidth = room.rect.second.x - room.rect.first.x;
+    int roomHeight = room.rect.second.y - room.rect.first.y;
+    if (roomWidth <= WALL_ALIGN_FACTOR * 2 || roomHeight <= WALL_ALIGN_FACTOR * 2)
+        return false;
+    int x = rand() % (roomWidth - WALL_ALIGN_FACTOR * 2) + WALL_ALIGN_FACTOR * 1;
+    int y = rand() % (roomHeight - WALL_ALIGN_FACTOR * 2) + WALL_ALIGN_FACTOR * 1;
+    double angle = 90 * (rand() % 4);
+    x += room.rect.first.x;
+    y += room.rect.first.y;
+
+    Rectangle itemRect(Point(0, 0), Point(bundleItem.configuration.width, bundleItem.configuration.height));
+    Rectangle boundingBox = getBoundingBox(itemRect, angle);
+    int boundingBoxWidth = boundingBox.second.x - boundingBox.first.x;
+    int boundingBoxHeight = boundingBox.second.y - boundingBox.first.y;
+
+    if (x <= room.rect.first.x || x + boundingBoxWidth >= room.rect.second.x || y <= room.rect.first.y
+        || y + boundingBoxHeight >= room.rect.second.y)
+        return false;
+
+    x += boundingBoxWidth / 2;
+    y += boundingBoxHeight / 2;
+
+    result.first = Point(x, y);
+    result.second = angle;
+    return true;
+}
+
+bool Building::getPositionAny(Room &room, FurnitureObjectConfiguration &bundleItem, pair<Point, double> &result) {
+    if (rand() % 2)
+        return getPositionNearWall(room, bundleItem, result);
+    else
+        return getFloatingPosition(room, bundleItem, result);
+}

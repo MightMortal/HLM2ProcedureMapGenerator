@@ -49,6 +49,13 @@ public:
                              WallAssetConfiguration configuration);
     void generateFurniture();
     bool getPositionNearWall(Room& room, FurnitureObjectConfiguration& bundleItem, pair<Point, double>& result);
+    bool getPinnedPosition(Room &room,
+                           FurnitureObjectConfiguration &bundleItem,
+                           pair<Point, double> &result,
+                           pair<Point, double> mainObjectPosition,
+                           Point mainObjectSize);
+    bool getFloatingPosition(Room &room, FurnitureObjectConfiguration &bundleItem, pair<Point, double> &result);
+    bool getPositionAny(Room &room, FurnitureObjectConfiguration &bundleItem, pair<Point, double> &result);
 };
 
 #endif //HLM2PROCEDUREMAPGENERATOR_BUILDING_H
