@@ -57,9 +57,6 @@ Building::Building(Rectangle rect) {
             walls.insert(walls.end(), newWalls.begin(), newWalls.end());
         }
     }
-
-    generateWindows();
-    generateFurniture();
 }
 
 Building::~Building() {
@@ -360,7 +357,7 @@ void Building::generateDoorObjects() {
 bool Building::isPlaceEmpty(int x, int y, int w, int h, double angle) {
     // AABB Collision checking
     // Read more: http://gdlinks.hut.ru/cdfaq/aabb.shtml
-    Rectangle rectangle(Point(x - w/2, y - h/2), Point(x + w/2, y + h/2));
+    Rectangle rectangle(Point(x - w / 2, y - h / 2), Point(x + w / 2, y + h / 2));
     Rectangle boundingBox = getBoundingBox(rectangle, angle);
     int width = boundingBox.second.x - boundingBox.first.x;
     int height = boundingBox.second.y - boundingBox.first.y;
@@ -368,8 +365,9 @@ bool Building::isPlaceEmpty(int x, int y, int w, int h, double angle) {
     int midY = boundingBox.first.y + height / 2;
 
     for (auto object = objects.begin(); object != objects.end(); ++object) {
-        Rectangle objectRectangle(Point(object->x - object->configuration.width/2, object->y - object->configuration.height/2),
-                                  Point(object->x + object->configuration.width/2, object->y + object->configuration.height/2));
+        Rectangle objectRectangle
+            (Point(object->x - object->configuration.width / 2, object->y - object->configuration.height / 2),
+             Point(object->x + object->configuration.width / 2, object->y + object->configuration.height / 2));
         Rectangle objectBoundingBox = getBoundingBox(objectRectangle, object->angle);
         int objectWidth = objectBoundingBox.second.x - objectBoundingBox.first.x;
         int objectHeight = objectBoundingBox.second.y - objectBoundingBox.first.y;
@@ -536,66 +534,45 @@ void Building::generateFurniture() {
                     // Skip pinned object if main bundle object not placed
                     continue;
                 }
-                int x = 0;
-                int y = 0;
-                double angle = 0;
+                pair<Point, double> itemPosition;
                 if (bundleItem->position == FurnitureObjectConfiguration::BY_WALL) {
-                    switch (rand() % 4) {
-                        case 0: // Top wall
-                            x = rand() % (room->rect.second.x - room->rect.first.x - bundleItem->configuration.height);
-                            x += room->rect.first.x + bundleItem->configuration.height / 2;
-                            y = room->rect.first.y + wallWidth + bundleItem->configuration.width / 2;
-                            angle = 270;
-                            break;
-                        case 1: // Bottom wall
-                            x = rand() % (room->rect.second.x - room->rect.first.x - bundleItem->configuration.height);
-                            x += room->rect.first.x + bundleItem->configuration.height / 2;
-                            y = room->rect.second.y - wallWidth - bundleItem->configuration.width / 2;
-                            angle = 90;
-                            break;
-                        case 2: // Left wall
-                            y = rand() % (room->rect.second.y - room->rect.first.y - bundleItem->configuration.height);
-                            y += room->rect.first.y + bundleItem->configuration.height / 2;
-                            x = room->rect.first.x + wallWidth + bundleItem->configuration.width / 2;
-                            break;
-                        case 3: // Right wall
-                            y = rand() % (room->rect.second.y - room->rect.first.y - bundleItem->configuration.height);
-                            y += room->rect.first.y + bundleItem->configuration.height / 2;
-                            x = room->rect.second.x - wallWidth - bundleItem->configuration.width / 2;
-                            angle = 180;
-                            break;
-                    }
-                } else if (bundleItem->position == FurnitureObjectConfiguration::PINNED) { // Element is pinned to the first element in the vector
-                    x = mainBundleObjectX + mainBundleObjectW;
-                    y = mainBundleObjectY + mainBundleObjectH;
-                    x = clamp(x, room->rect.first.x + bundleItem->configuration.width / 2, room->rect.second.x - bundleItem->configuration.width / 2);
-                    y = clamp(y, room->rect.first.y + bundleItem->configuration.height / 2, room->rect.second.y - bundleItem->configuration.height / 2);
+                    if (!getPositionNearWall(*room, *bundleItem, itemPosition))
+                        continue; // Skip this bundleItem
+                } else if (bundleItem->position
+                    == FurnitureObjectConfiguration::PINNED) { // Element is pinned to the first element in the vector
+//                    x = mainBundleObjectX + mainBundleObjectW;
+//                    y = mainBundleObjectY + mainBundleObjectH;
+//                    x = clamp(x, room->rect.first.x + bundleItem->configuration.width / 2, room->rect.second.x - bundleItem->configuration.width / 2);
+//                    y = clamp(y, room->rect.first.y + bundleItem->configuration.height / 2, room->rect.second.y - bundleItem->configuration.height / 2);
                 } else if (bundleItem->position == FurnitureObjectConfiguration::FLOATING) {
-                    x = rand() % (room->rect.second.x - room->rect.first.x) + room->rect.first.x;
-                    y = rand() % (room->rect.second.y - room->rect.first.y) + room->rect.first.y;
-                    x = clamp(x, room->rect.first.x + bundleItem->configuration.width / 2, room->rect.second.x - bundleItem->configuration.width / 2);
-                    y = clamp(y, room->rect.first.y + bundleItem->configuration.height / 2, room->rect.second.y - bundleItem->configuration.height / 2);
+//                    x = rand() % (room->rect.second.x - room->rect.first.x) + room->rect.first.x;
+//                    y = rand() % (room->rect.second.y - room->rect.first.y) + room->rect.first.y;
+//                    x = clamp(x, room->rect.first.x + bundleItem->configuration.width / 2, room->rect.second.x - bundleItem->configuration.width / 2);
+//                    y = clamp(y, room->rect.first.y + bundleItem->configuration.height / 2, room->rect.second.y - bundleItem->configuration.height / 2);
                 } else if (bundleItem->position == FurnitureObjectConfiguration::ANY) {
-                    x = rand() % (room->rect.second.x - room->rect.first.x) +room->rect.first.x;
-                    y = rand() % (room->rect.second.y - room->rect.first.y) +room->rect.first.y;
-                    x = clamp(x, room->rect.first.x + bundleItem->configuration.width / 2, room->rect.second.x - bundleItem->configuration.width / 2);
-                    y = clamp(y, room->rect.first.y + bundleItem->configuration.height / 2, room->rect.second.y - bundleItem->configuration.height / 2);
+//                    x = rand() % (room->rect.second.x - room->rect.first.x) +room->rect.first.x;
+//                    y = rand() % (room->rect.second.y - room->rect.first.y) +room->rect.first.y;
+//                    x = clamp(x, room->rect.first.x + bundleItem->configuration.width / 2, room->rect.second.x - bundleItem->configuration.width / 2);
+//                    y = clamp(y, room->rect.first.y + bundleItem->configuration.height / 2, room->rect.second.y - bundleItem->configuration.height / 2);
                 }
 
-                if (x + bundleItem->configuration.width >= room->rect.second.x ||
-                    y + bundleItem->configuration.height >= room->rect.second.y)
-                    continue;
-                if (isPlaceEmpty(x, y, bundleItem->configuration.width, bundleItem->configuration.height)) {
+//                if (x + bundleItem->configuration.width >= room->rect.second.x ||
+//                    y + bundleItem->configuration.height >= room->rect.second.y)
+//                    continue;
+                if (isPlaceEmpty(itemPosition.first.x,
+                                 itemPosition.first.y,
+                                 bundleItem->configuration.width,
+                                 bundleItem->configuration.height)) {
                     FurnitureBundleObject object;
                     object.configuration = bundleItem->configuration;
-                    object.x = x;
-                    object.y = y;
-                    object.angle = angle;
+                    object.x = itemPosition.first.x;
+                    object.y = itemPosition.first.y;
+                    object.angle = itemPosition.second;
                     objects.push_back(object);
                     if (bundleItem == bundleConfiguration.objectAssetConfigurations.begin()) {
                         // Store position of the main bundle object
-                        mainBundleObjectX = x;
-                        mainBundleObjectY = y;
+                        mainBundleObjectX = object.x;
+                        mainBundleObjectY = object.y;
                         mainBundleObjectW = bundleItem->configuration.width;
                         mainBundleObjectH = bundleItem->configuration.height;
                         mainBundleObjectPlaced = true;
@@ -606,3 +583,85 @@ void Building::generateFurniture() {
         }
     }
 }
+
+bool Building::getPositionNearWall(Room &room, FurnitureObjectConfiguration &bundleItem, pair<Point, double> &result) {
+    int x = 0;
+    int y = 0;
+    double angle;
+    Rectangle itemRect(Point(0, 0), Point(bundleItem.configuration.width, bundleItem.configuration.height));
+    Rectangle boundingBox;
+    int boundingBoxWidth;
+    int boundingBoxHeight;
+    int wallIndex = rand() % 4;
+    switch (wallIndex) {
+        case 0: // Top wall
+            angle = 270 + bundleItem.angle;
+            break;
+        case 1: // Bottom wall
+            angle = 90 + bundleItem.angle;
+            break;
+        case 2: // Left wall
+            angle = bundleItem.angle;
+            break;
+        case 3: // Right wall
+            angle = 180 + bundleItem.angle;
+            break;
+        default:throw runtime_error("rand() % 4 returns not value in range [0, 3]");
+    }
+    boundingBox = getBoundingBox(itemRect, angle);
+    boundingBoxWidth = boundingBox.second.x - boundingBox.first.x;
+    boundingBoxHeight = boundingBox.second.y - boundingBox.first.y;
+    Line line;
+    switch (wallIndex) {
+        case 0: // Top wall
+            x = rand() % (room.rect.second.x - room.rect.first.x - boundingBoxWidth);
+            x += room.rect.first.x + boundingBoxWidth / 2;
+            y = room.rect.first.y + wallWidth + boundingBoxHeight / 2;
+            line.first = Point(x - boundingBoxWidth, room.rect.first.y);
+            line.second = Point(x + boundingBoxWidth, room.rect.first.y);
+
+            line.first.x = line.first.x - (line.first.x % WALL_ALIGN_FACTOR);
+            line.second.x = line.second.x + WALL_ALIGN_FACTOR - (line.second.x % WALL_ALIGN_FACTOR);
+            break;
+        case 1: // Bottom wall
+            x = rand() % (room.rect.second.x - room.rect.first.x - boundingBoxWidth);
+            x += room.rect.first.x + boundingBoxWidth / 2;
+            y = room.rect.second.y - boundingBoxHeight / 2;
+            line.first = Point(x - boundingBoxWidth, room.rect.second.y);
+            line.second = Point(x + boundingBoxWidth, room.rect.second.y);
+
+            line.first.x = line.first.x - (line.first.x % WALL_ALIGN_FACTOR);
+            line.second.x = line.second.x + WALL_ALIGN_FACTOR - (line.second.x % WALL_ALIGN_FACTOR);
+            break;
+        case 2: // Left wall
+            y = rand() % (room.rect.second.y - room.rect.first.y - boundingBoxHeight);
+            y += room.rect.first.y + boundingBoxHeight / 2;
+            x = room.rect.first.x + wallWidth + boundingBoxWidth / 2;
+            line.first = Point(room.rect.first.x, y - boundingBoxHeight);
+            line.second = Point(room.rect.first.x, y + boundingBoxHeight);
+
+            line.first.y = line.first.y - (line.first.y % WALL_ALIGN_FACTOR);
+            line.second.y = line.second.y + WALL_ALIGN_FACTOR - (line.second.y % WALL_ALIGN_FACTOR);
+            break;
+        case 3: // Right wall
+            y = rand() % (room.rect.second.y - room.rect.first.y - boundingBoxHeight);
+            y += room.rect.first.y + boundingBoxHeight / 2;
+            x = room.rect.second.x - boundingBoxWidth / 2;
+            line.first = Point(room.rect.second.x, y - boundingBoxHeight);
+            line.second = Point(room.rect.second.x, y + boundingBoxHeight);
+
+            line.first.y = line.first.y - (line.first.y % WALL_ALIGN_FACTOR);
+            line.second.y = line.second.y + WALL_ALIGN_FACTOR - (line.second.y % WALL_ALIGN_FACTOR);
+            break;
+        default:throw runtime_error("rand() % 4 returns not value in range [0, 3]");
+    }
+    if (!isWallFree(line))
+        return false;
+    if (x <= room.rect.first.x || x + boundingBoxWidth >= room.rect.second.x || y <= room.rect.first.y
+        || y + boundingBoxHeight >= room.rect.second.y)
+        return false;
+    angle = (angle > 360.0) ? (angle - 360) : angle;
+    result.first = Point(x, y);
+    result.second = angle;
+    return true;
+};

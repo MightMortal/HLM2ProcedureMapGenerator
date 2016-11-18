@@ -48,6 +48,7 @@ public:
                              int y,
                              WallAssetConfiguration configuration);
     void generateFurniture();
+    bool getPositionNearWall(Room& room, FurnitureObjectConfiguration& bundleItem, pair<Point, double>& result);
 };
 
 #endif //HLM2PROCEDUREMAPGENERATOR_BUILDING_H

@@ -16,6 +16,8 @@ Level generateLevel() {
     int height = (int) (LEVEL_MAX_HEIGHT * (2.5 / 3.0));
     Building building(Rectangle(Point(0, 0), Point(width, height)));
     building.generateDoors();
+    building.generateWindows();
+    building.generateFurniture();
     building.placeWeapon();
     building.placeEnemy();
 //    for (auto it = building.rooms->begin(); it != building.rooms->end(); ++it) {

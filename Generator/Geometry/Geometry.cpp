@@ -26,19 +26,11 @@ bool isLineFullyOverlapped(Line &a, Line &b) {
 }
 
 bool isLinePartiallyOverlapped(Line &a, Line &b) {
-    bool aHorizontal = (a.first.x - a.second.x) != 0;
-    bool bHorizontal = (b.first.x - b.second.x) != 0;
-    if (aHorizontal != bHorizontal)
-        return false;
-    if (aHorizontal) {
-        return
-            (a.first.x >= b.first.x && a.first.x <= b.second.x || a.second.x <= b.second.x && a.first.x >= b.second.x)
-                && a.first.y == b.first.y && a.second.y == b.second.y;
-    } else {
-        return
-            (a.first.y >= b.first.y && a.first.y <= b.second.y || a.second.y <= b.second.y && a.first.y >= b.second.y)
-                && a.second.x == b.second.x;
-    }
+    bool testA = ((a.first.x >= b.first.x && a.first.x <= b.second.x) || (a.second.x >= b.first.x && a.second.x <= b.second.x))
+        && a.first.y == b.first.y && a.second.y == b.second.y;
+    bool testB = ((a.first.y >= b.first.y && a.first.y <= b.second.y) || (a.second.y >= b.first.y && a.second.y <= b.second.y))
+        && a.first.x == b.first.x && a.second.x == b.second.x;
+    return testA || testB;
 }
 
 Line combineLines(Line a, Line b) {

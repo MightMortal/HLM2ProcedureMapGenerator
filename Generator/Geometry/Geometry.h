@@ -11,7 +11,8 @@ const double DOUBLE_ERROR = 0.0000001;
 
 class Point {
 public:
-    Point(int x, int y) : x(x), y(y) {};
+    Point(int x, int y) : x(x), y(y) {}
+    Point() {}
 
     int x;
     int y;
