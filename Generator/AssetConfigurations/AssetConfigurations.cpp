@@ -190,7 +190,8 @@ const vector<FurnitureBundleConfiguration> FurnitureBundleObject::bundleObjectCo
     // TABLE_STOOLS
     FurnitureBundleConfiguration(FurnitureBundleConfiguration::SMALL, FurnitureBundleConfiguration::TABLE_STOOLS,
                                  vector<FurnitureObjectConfiguration>({
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(1667, 11, 86, 82, 2842, 1667, 0)),  // sprELisFancyOfficeMeetingTable1
+        // FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(1667, 11, 86, 82, 2842, 1667, 0)),  // sprELisFancyOfficeMeetingTable1
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::ANY, 0.0, ObjectAssetConfiguration(258, 11, 70, 70, 415, 258, 0)),    // sprElisFansTable
     })),
 
     // COUCH
