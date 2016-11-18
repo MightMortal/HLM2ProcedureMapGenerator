@@ -150,4 +150,10 @@ const vector<pair<double, vector<ObjectAssetConfiguration>>> EnemyObject::enemyO
     }))
 };
 
-
+const vector<FurnitureBundleConfiguration> bundleObjectConfigurations = {
+    FurnitureBundleConfiguration(FurnitureBundleConfiguration::SMALL, FurnitureBundleConfiguration::LIVING_ROOM,
+                                 vector<pair<FurnitureBundleConfiguration::FurniturePosition,
+                                             ObjectAssetConfiguration>>({
+          make_pair(FurnitureBundleConfiguration::BY_WALL, ObjectAssetConfiguration(0, 0, -1, -1, 0, 0, 0))
+    }))
+};

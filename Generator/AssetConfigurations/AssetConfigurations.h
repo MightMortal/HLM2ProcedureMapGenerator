@@ -173,5 +173,39 @@ public:
 
 };
 
+class FurnitureBundleConfiguration {
+public:
+    enum FurniturePosition {
+        BY_WALL,
+        PINNED, // Element is pinned to the first element in the vector
+        FLOATING,
+        ANY
+    };
+
+    enum BundleSize {
+        SMALL,
+        MEDIUM,
+        BIG
+    };
+
+    enum BundleType {
+        LIVING_ROOM
+    };
+
+    FurnitureBundleConfiguration(BundleSize size,
+                                 BundleType type,
+                                 vector<pair<FurniturePosition,
+                                                   ObjectAssetConfiguration>> objectAssetConfigurations)
+        : objectAssetConfigurations(objectAssetConfigurations), size(size), type(type) {}
+
+    vector<pair<FurniturePosition, ObjectAssetConfiguration>> objectAssetConfigurations;
+    BundleSize size;
+    BundleType type;
+};
+
+class FurnitureBundleObject : public GameObject {
+public:
+    static const vector<FurnitureBundleConfiguration> bundleObjectConfigurations;
+};
 
 #endif //HLM2PROCEDUREMAPGENERATOR_ASSETCONFIGURATIONS_H
