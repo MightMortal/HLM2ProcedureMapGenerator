@@ -206,7 +206,7 @@ public:
         BAR,
         BEDROOM,
         STUFF,
-        TABLE_STOOLS,
+//        TABLE_STOOLS,
         COUCH,
         KITCHEN,
         STUDY,
