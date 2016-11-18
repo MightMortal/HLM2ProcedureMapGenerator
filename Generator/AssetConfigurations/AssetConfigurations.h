@@ -210,7 +210,8 @@ public:
         COUCH,
         KITCHEN,
         STUDY,
-        LAUNDRY
+        LAUNDRY,
+        RESTROOM
     };
 
     FurnitureBundleConfiguration(BundleSize size,

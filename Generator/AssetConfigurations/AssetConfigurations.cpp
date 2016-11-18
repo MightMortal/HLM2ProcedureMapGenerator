@@ -154,25 +154,25 @@ const vector<FurnitureBundleConfiguration> FurnitureBundleObject::bundleObjectCo
     // TV_SET
     FurnitureBundleConfiguration(FurnitureBundleConfiguration::SMALL, FurnitureBundleConfiguration::TV_SET,
                                  vector<FurnitureObjectConfiguration>({
-        // A place for the main element
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::ANY, 0.0, ObjectAssetConfiguration(104, 11, 24, 30, 178, 104, 0)),           // sprELisArmChair
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::ANY, 0.0, ObjectAssetConfiguration(104, 11, 24, 30, 178, 104, 0)),           // sprELisArmChair
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::FLOATING, 0.0, ObjectAssetConfiguration(215, 11, 24, 30, 374, 215, 0)),           // sprElisTVBig, main
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::PINNED, 180.0, ObjectAssetConfiguration(104, 11, 24, 30, 178, 104, 0)),           // sprELisArmChair
     })),
 
     // BAR
     FurnitureBundleConfiguration(FurnitureBundleConfiguration::BIG, FurnitureBundleConfiguration::BAR,
                                 vector<FurnitureObjectConfiguration>({
-        // A place for the main element
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::FLOATING, 0.0, ObjectAssetConfiguration(261, 11, 95, 160, 418, 261, 0)),     // sprElisBarFans
         FurnitureObjectConfiguration(FurnitureObjectConfiguration::PINNED, 0.0, ObjectAssetConfiguration(1139, 11, 18, 15, 1918, 1139, 0)),     // sprELisBarStool
-
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::PINNED, 0.0, ObjectAssetConfiguration(1139, 11, 18, 15, 1918, 1139, 0)),     // sprELisBarStool
     })),
 
     // BEDROOM
-    FurnitureBundleConfiguration(FurnitureBundleConfiguration::MEDIUM, FurnitureBundleConfiguration::BEDROOM,
+    FurnitureBundleConfiguration(FurnitureBundleConfiguration::BIG, FurnitureBundleConfiguration::BEDROOM,
                                  vector<FurnitureObjectConfiguration>({
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(1942, 11, 51, 34, 3360, 1942, 0)),    // sprELisBedNormal, main
+        // No main
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 180.0, ObjectAssetConfiguration(1942, 11, 51, 34, 3360, 1942, 0)),    // sprELisBedNormal
         FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(123, 11, 11, 49, 237, 123, 0)),    // sprElisCloset
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::PINNED, 0.0, ObjectAssetConfiguration(1902, 11, 24, 24, 3304, 1902, 0)),    // sprELisDresser
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(1902, 11, 24, 24, 3304, 1902, 0)),    // sprELisDresser
 
     })),
 
@@ -180,56 +180,62 @@ const vector<FurnitureBundleConfiguration> FurnitureBundleObject::bundleObjectCo
     FurnitureBundleConfiguration(FurnitureBundleConfiguration::MEDIUM, FurnitureBundleConfiguration::STUFF,
                                  vector<FurnitureObjectConfiguration>({
         // No main
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::ANY, 0.0, ObjectAssetConfiguration(96, 11, 22, 17, 170, 96, 0)),     // sprElisBoxes
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::ANY, 0.0, ObjectAssetConfiguration(122, 11, 35, 20, 223, 122, 0)),    // sprElisCabinBooze
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(119, 11, 49, 17, 227, 119, 0)),    // sprElisDeskPictures
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::ANY, 0.0, ObjectAssetConfiguration(96, 11, 22, 17, 170, 96, 0)),     // sprElisBoxes
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::ANY, 90.0, ObjectAssetConfiguration(96, 11, 22, 17, 170, 96, 0)),     // sprElisBoxes
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::ANY, 90.0, ObjectAssetConfiguration(122, 11, 35, 20, 223, 122, 0)),    // sprElisCabinBooze
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 90.0, ObjectAssetConfiguration(119, 11, 49, 17, 227, 119, 0)),    // sprElisDeskPictures
         FurnitureObjectConfiguration(FurnitureObjectConfiguration::ANY, 0.0, ObjectAssetConfiguration(289, 11, 60, 60, 447, 289, 0)),     // sprElisHugePlant
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::ANY, 90.0, ObjectAssetConfiguration(96, 11, 22, 17, 170, 96, 0)),     // sprElisBoxes
     })),
 
     // TABLE_STOOLS
-    FurnitureBundleConfiguration(FurnitureBundleConfiguration::MEDIUM, FurnitureBundleConfiguration::TABLE_STOOLS,
+    FurnitureBundleConfiguration(FurnitureBundleConfiguration::SMALL, FurnitureBundleConfiguration::TABLE_STOOLS,
                                  vector<FurnitureObjectConfiguration>({
-        // Find table
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::PINNED, 0.0, ObjectAssetConfiguration(103, 11, 20, 28, 179, 103, 0)),  // sprElisChairWood
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::PINNED, 0.0, ObjectAssetConfiguration(103, 11, 20, 28, 179, 103, 0)),  // sprElisChairWood
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::PINNED, 0.0, ObjectAssetConfiguration(103, 11, 20, 28, 179, 103, 0)),  // sprElisChairWood
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(1667, 11, 86, 82, 2842, 1667, 0)),  // sprELisFancyOfficeMeetingTable1
     })),
 
     // COUCH
     FurnitureBundleConfiguration(FurnitureBundleConfiguration::MEDIUM, FurnitureBundleConfiguration::COUCH,
                                  vector<FurnitureObjectConfiguration>({
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(207, 11, 64, 28, 361, 207, 0)),  // sprElisCouchBeige
-        // TODO: find coffee table
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::PINNED, 0.0, ObjectAssetConfiguration(122, 11, 35, 20, 223, 122, 0)),    // sprElisCabinBooze
-
+        // FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 90.0, ObjectAssetConfiguration(207, 11, 64, 28, 361, 207, 0)),  // sprElisCouchBeige
+        // FurnitureObjectConfiguration(FurnitureObjectConfiguration::PINNED, 270.0, ObjectAssetConfiguration(122, 11, 35, 20, 223, 122, 0)),    // sprElisCabinBooze
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 90.0, ObjectAssetConfiguration(1104, 11, 120, 26, 1875, 1104, 0)),    // sprELisFansCouch2
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::PINNED, 0.0, ObjectAssetConfiguration(258, 11, 70, 70, 415, 258, 0)),    // sprElisFansTable
     })),
 
     // KITCHEN
     FurnitureBundleConfiguration(FurnitureBundleConfiguration::MEDIUM, FurnitureBundleConfiguration::KITCHEN,
                                  vector<FurnitureObjectConfiguration>({
         // No main
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(71, 11, 30, 30, 125, 71, 0)),  // sprELisCounterKitchen
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(72, 11, 30, 30, 147, 72, 0)),   // sprELisCupboardKitchen
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(74, 11, 24, 30, 149, 74, 0)),   // sprELisFridge
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(214, 11, 30, 25, 373, 214, 0)),  // sprElisKitchenSink
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(853, 11, 22, 23, 1376, 853, 0)),  // sprElisStove
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 90.0, ObjectAssetConfiguration(71, 11, 30, 30, 125, 71, 0)),  // sprELisCounterKitchen
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 90.0, ObjectAssetConfiguration(72, 11, 30, 30, 147, 72, 0)),   // sprELisCupboardKitchen
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 90.0, ObjectAssetConfiguration(74, 11, 24, 30, 149, 74, 0)),   // sprELisFridge
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 90.0, ObjectAssetConfiguration(214, 11, 30, 25, 373, 214, 0)),  // sprElisKitchenSink
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 90.0, ObjectAssetConfiguration(853, 11, 22, 23, 1376, 853, 0)),  // sprElisStove
     })),
 
     // STUDY
-    FurnitureBundleConfiguration(FurnitureBundleConfiguration::BIG, FurnitureBundleConfiguration::STUDY,
+    FurnitureBundleConfiguration(FurnitureBundleConfiguration::MEDIUM, FurnitureBundleConfiguration::STUDY,
                                  vector<FurnitureObjectConfiguration>({
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::FLOATING, 0.0, ObjectAssetConfiguration(113, 11, 60, 50, 220, 113, 0)),  // sprElisDeskKidParty, main
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::PINNED, 0.0, ObjectAssetConfiguration(104, 11, 24, 30, 178, 104, 0)),           // sprELisArmChair
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::FLOATING, 90.0, ObjectAssetConfiguration(113, 11, 60, 50, 220, 113, 0)),      // sprElisDeskKidParty, main
+        // FurnitureObjectConfiguration(FurnitureObjectConfiguration::PINNED, 180.0, ObjectAssetConfiguration(104, 11, 24, 30, 178, 104, 0)),           // sprELisArmChair
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::PINNED, 270.0, ObjectAssetConfiguration(103, 11, 20, 28, 179, 103, 0)),    // sprElisChairWood
         FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(1901, 11, 16, 52, 3303, 1901,0)),          // sprElisBookshelfBig2
         FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(95, 11, 20, 17, 168, 95, 0)),          // sprElisGlobe
     })),
 
     // LAUNDRY
+    FurnitureBundleConfiguration(FurnitureBundleConfiguration::MEDIUM, FurnitureBundleConfiguration::KITCHEN,
+                                 vector<FurnitureObjectConfiguration>({
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 90.0, ObjectAssetConfiguration(227, 11, 22, 35, 387, 227, 0)),  // sprElisLaundryMachine
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(140, 11, 30, 26, 253, 140, 0)),  // sprElisLaundryBasket
+    })),
+
+    // RESTROOM
     FurnitureBundleConfiguration(FurnitureBundleConfiguration::SMALL, FurnitureBundleConfiguration::LAUNDRY,
                                  vector<FurnitureObjectConfiguration>({
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::PINNED, 0.0, ObjectAssetConfiguration(227, 11, 22, 35, 387, 227, 0)),  // sprElisLaundryMachine
-        FurnitureObjectConfiguration(FurnitureObjectConfiguration::PINNED, 0.0, ObjectAssetConfiguration(140, 11, 30, 26, 253, 140, 0)),  // sprElisLaundryBasket
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(73, 11, 24, 24, 148, 73, 0)),  // sprELisSink
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(134, 11, 24, 24, 247, 134, 0)),  // sprElisToilet
+        FurnitureObjectConfiguration(FurnitureObjectConfiguration::BY_WALL, 0.0, ObjectAssetConfiguration(86, 11, 50, 40, 161, 86, 0)),  // sprELisTrashbagOpen
     })),
 
 };
