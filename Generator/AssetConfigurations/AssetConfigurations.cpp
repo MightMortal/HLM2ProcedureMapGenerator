@@ -151,9 +151,34 @@ const vector<pair<double, vector<ObjectAssetConfiguration>>> EnemyObject::enemyO
 };
 
 const vector<FurnitureBundleConfiguration> bundleObjectConfigurations = {
-    FurnitureBundleConfiguration(FurnitureBundleConfiguration::SMALL, FurnitureBundleConfiguration::LIVING_ROOM,
+    FurnitureBundleConfiguration(FurnitureBundleConfiguration::SMALL, FurnitureBundleConfiguration::TV_SET,
                                  vector<pair<FurnitureBundleConfiguration::FurniturePosition,
                                              ObjectAssetConfiguration>>({
-          make_pair(FurnitureBundleConfiguration::BY_WALL, ObjectAssetConfiguration(0, 0, -1, -1, 0, 0, 0))
-    }))
+        // A place for the main element
+        make_pair(FurnitureBundleConfiguration::ANY, ObjectAssetConfiguration(104, 11, 24, 30, 178, 104, 0)),           // sprELisArmChair
+        make_pair(FurnitureBundleConfiguration::ANY, ObjectAssetConfiguration(104, 11, 24, 30, 178, 104, 0)),           // sprELisArmChair
+    })),
+
+    FurnitureBundleConfiguration(FurnitureBundleConfiguration::SMALL, FurnitureBundleConfiguration::BOOKSHELF,
+                                 vector<pair<FurnitureBundleConfiguration::FurniturePosition,
+                                             ObjectAssetConfiguration>>({
+        make_pair(FurnitureBundleConfiguration::BY_WALL, ObjectAssetConfiguration(1901, 11, 16, 52, 3303, 1901,0)),          // sprElisBookshelfBig2, main
+    })),
+
+    FurnitureBundleConfiguration(FurnitureBundleConfiguration::BIG, FurnitureBundleConfiguration::BAR,
+                                vector<pair<FurnitureBundleConfiguration::FurniturePosition,
+                                            ObjectAssetConfiguration>>({
+        // A place for the main element
+        make_pair(FurnitureBundleConfiguration::PINNED, ObjectAssetConfiguration(1139, 11, 18, 15, 1918, 1139, 0)),     // sprELisBarStool
+
+    })),
+
+    FurnitureBundleConfiguration(FurnitureBundleConfiguration::BIG, FurnitureBundleConfiguration::BEDROOM,
+                                 vector<pair<FurnitureBundleConfiguration::FurniturePosition,
+                                             ObjectAssetConfiguration>>({
+        make_pair(FurnitureBundleConfiguration::BY_WALL, ObjectAssetConfiguration(1942, 11, 51, 34, 3360, 1942, 0)),    // sprELisBedNormal, main
+
+
+    })),
+
 };

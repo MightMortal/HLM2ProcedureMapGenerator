@@ -189,7 +189,10 @@ public:
     };
 
     enum BundleType {
-        LIVING_ROOM
+        TV_SET,
+        BOOKSHELF,
+        BAR,
+        BEDROOM,
     };
 
     FurnitureBundleConfiguration(BundleSize size,
