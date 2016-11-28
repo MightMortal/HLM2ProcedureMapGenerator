@@ -103,6 +103,7 @@ void MainWindow::setAssetDescriptors(vector<AssetDescriptor *> descriptors) {
 
 vector<AssetDescriptor *> MainWindow::getAssetDescriptors() {
     // TODO: Implement
+	return vector<AssetDescriptor*>();
 }
 
 void MainWindow::renderLevel(Level &level) {
@@ -152,6 +153,8 @@ void MainWindow::renderObjects(vector<T> &objects) {
         if (sprite != nullptr) {
             string spriteName = sprite->SpritePath().substr(sprite->SpritePath().find_last_of('/') + 1);
             string atlasPath = SpritesIndex::getSpritePath(spriteName);
+			if (atlasPath == "")
+				continue;
             string spritePath = atlasPath.substr(0, atlasPath.size() - 5);
             Atlas atlas(atlasPath);
             AtlasSprite *as = atlas.sprites[spriteName];
@@ -170,6 +173,8 @@ void MainWindow::renderWalls(vector<EditorWall> &walls) {
         Wall *wall = om.getWall(editorWall.id);
         string spriteName = wall->getName().substr(wall->getName().find_last_of('/') + 1);
         string atlasPath = SpritesIndex::getSpritePath(spriteName);
+		if (atlasPath == "")
+			continue;
         string spritePath = atlasPath.substr(0, atlasPath.size() - 5);
         Atlas atlas(atlasPath);
         tx = atlas.sprites[spriteName]->frames.at(0)->getOffsetX();
@@ -185,6 +190,8 @@ void MainWindow::renderTiles(vector<EditorTile> &tiles) {
     for (auto editorTile : tiles) {
         Tile *tile = om.getTile(editorTile.id);
         string atlasPath = SpritesIndex::getSpritePath(tile->getName());
+		if (atlasPath == "")
+			continue;
         string spritePath = atlasPath.substr(0, atlasPath.size() - 5);
         Atlas atlas(atlasPath);
         tx = atlas.sprites[tile->getName()]->frames.at(0)->getOffsetX() + editorTile.textureX;

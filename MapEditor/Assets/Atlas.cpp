@@ -43,7 +43,8 @@ AtlasSprite::AtlasSprite(Atlas &atlas, ifstream &ifs)
     if (ifs.eof())
         return;
 
-    char nameBuffer[nameLength + 1];
+    char *nameBuffer = (char*)malloc(nameLength + 1);
+	memset(nameBuffer, 0, nameLength + 1);
     ifs.read(nameBuffer, nameLength);
     nameBuffer[nameLength] = '\0';
     name = string(nameBuffer);
@@ -86,8 +87,9 @@ Atlas::Atlas(string filename)
     int8_t idLen; // one byte integer
     ifs.read((char *) &idLen, sizeof(idLen));
 
-    char magic[idLen];
-    ifs.read(magic, sizeof(magic));
+    char *magic = (char*)malloc(idLen + 1);
+	memset(magic, 0, idLen + 1);
+    ifs.read(magic, sizeof(char) * idLen);
     if (idLen != 0xF || strcmp(magic, "AGTEXTUREPACKER") != 0) {
         cerr << "Invalid atlas file " << filename << endl;
         ifs.close();

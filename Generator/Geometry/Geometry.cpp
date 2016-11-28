@@ -4,6 +4,9 @@
 
 #include "Geometry.h"
 
+#define min(x,y) ((x) < (y) ? (x) : (y))
+#define max(x,y) ((x) > (y) ? (x) : (y))
+
 vector<Line> Rectangle::getWalls() {
     vector<Line> result;
     result.push_back(Line(Point(first.x, first.y), Point(second.x, first.y)));
@@ -59,7 +62,7 @@ int alignValue(int value, int step) {
 }
 
 Rectangle getBoundingBox(Rectangle rect, double angle) {
-    double angleRadian = angle * M_PI / 180.0;
+    double angleRadian = angle * 3.14 / 180.0;
     int midX = rect.first.x + (rect.second.x - rect.first.x) / 2;
     int midY = rect.first.y + (rect.second.y - rect.first.y) / 2;
     Point p0 = Point(rect.first.x - midX, rect.first.y - midY);
